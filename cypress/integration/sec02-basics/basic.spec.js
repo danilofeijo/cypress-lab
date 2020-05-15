@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe('Cypress basics', () => {
-  it('Deve visitar a página e verificar o titulo', () => {
+  it('Should visit a page and verify its title', () => {
     cy.visit('https://wcaquino.me/cypress/componentes.html');
     // cy.pause();
 
