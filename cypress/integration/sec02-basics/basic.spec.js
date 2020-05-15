@@ -36,7 +36,7 @@ describe('Cypress basics', () => {
     })
   });
 
-  it('Deve encontrar e interagir com um elemento', () => {
+  it('Should find and interact with an element', () => {
     cy.visit('https://wcaquino.me/cypress/componentes.html');
 
     cy.get('#buttonSimple')
