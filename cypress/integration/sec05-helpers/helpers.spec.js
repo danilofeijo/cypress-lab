@@ -59,7 +59,7 @@ describe('Helpers...', () => {
     cy.title().its('length').should('be.equal', 20)
   });
 
-  it.only('Invoke', () => {
+  it('Invoke', () => {
     const getValue = () => 1;
     const sumNumber = (a, b) => a + b;
 

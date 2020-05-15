@@ -91,7 +91,7 @@ describe('Elementos basicos', () => {
       .and('have.value', '2graucomp')
   });
 
-  it.only('COmbo multiplo', () => {
+  it('Combo multiplo', () => {
     cy.get('[data-testid=dataEsportes]')
       .select(['natacao', 'Corrida', 'nada'])
     
