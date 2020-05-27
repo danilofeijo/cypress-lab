@@ -10,10 +10,12 @@ describe('Working with alerts...', () => {
   });
 
   it('Alert', () => {
-    cy.get('#alert').click()
-    cy.on('window:alert', msg => {
-      expect(msg).to.be.equal('Alert Simples');
-    })
+    // cy.get('#alert').click()
+    // cy.on('window:alert', msg => {
+    //   expect(msg).to.be.equal('Alert Simples');
+    // })
+
+    cy.clickAlert('#alert', 'Alert Simples')
   });
 
   it('Alert with stubs', () => {
