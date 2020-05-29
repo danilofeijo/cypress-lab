@@ -21,7 +21,7 @@ describe('Elementos basicos', () => {
     cy.get(`#tabelaUsuarios tr:contains('Doutorado'):eq(0) td:eq(6) input`)
   });
 
-  it.only('Using xpath', () => {
+  it('Using xpath', () => {
     cy.xpath(`//input[contains(@onclick,'Francisco')]`)
     cy.xpath(`//table[@id='tabelaUsuarios']//td[contains(., 'Francisco')]/..//input[@type='text']`)
     cy.xpath(`//td[contains(.,'Usuario A')]/following-sibling::td[contains(.,'Mestrado')]/..//input[@type='text']`)
