@@ -10,7 +10,7 @@ describe('Account tests', () => {
       cy.loginApp(this.login.email, this.login.passwd)
     })
 
-    // Access Account page
+    // Access page Contas
     cy.visitPageContas()
   });
 

@@ -33,7 +33,7 @@ Cypress.Commands.add('clickAlert', (locator, message) => {
 })
 
 Cypress.Commands.add('loginApp', (user, pass) => {
-  cy.visit('http://barrigareact.wcaquino.me/')
+  cy.visit(Cypress.config().baseUrl)
   cy.get(locator.login.field_user).type(user)
   cy.get(locator.login.field_pass).type(pass)
   cy.get(locator.login.btn_login).click()
