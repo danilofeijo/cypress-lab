@@ -9,8 +9,8 @@ describe('Bank transition tests', () => {
       cy.loginApp(this.login.email, this.login.passwd)
     })
 
-    // // Reset application data
-    // cy.resetApp()
+    // Reset application data
+    cy.resetApp()
 
     // Access page Movimentacao
     cy.visitPageMovimentacao()
