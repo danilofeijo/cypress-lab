@@ -5,10 +5,14 @@ const locators = {
     btn_login: 'button[type=submit]'
   },
   menu: {
+    option_home: '[data-test=menu-home]',
     option_movimentacao: '[data-test=menu-movimentacao]',
     option_settings: '[data-test=menu-settings]',
     option_contas: 'a[href="/contas"]',
     option_resetar: 'a[href="/reset"]'
+  },
+  home: {
+    fn_xp_saldo_conta: nomeConta => `//td[contains(.,'${nomeConta}')]/../td[2]`,
   },
   movimentacao: {
     btn_tipo_receita: '[data-test=tipo-receita]',
