@@ -13,6 +13,18 @@ const locators = {
   movimentacao: {
     btn_tipo_receita: '[data-test=tipo-receita]',
     btn_tipo_despesa: '[data-test=tipo-despesa]',
+    date_transacao: '[data-test=data-transacao]',
+    date_pagamento: '[data-test=data-pagamento]',
+    field_descricao: '[data-test=descricao]',
+    field_valor: '[data-test=valor]',
+    field_interessado: '[data-test=envolvido]',
+    select_conta: '[data-test=conta]',
+    btn_status: '[data-test=status]',
+    btn_salvar: '.btn-primary'
+  },
+  extrato: {
+    item: '.list-group li',
+    xp_busca_movimentacao: "//span[contains(.,'Salário mensal')]/following-sibling::small[contains(.,'2.500,99')]"
   },
   contas: {
     header: 'h2',
