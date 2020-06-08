@@ -28,7 +28,8 @@ const locators = {
   },
   extrato: {
     item: '.list-group li',
-    xp_busca_movimentacao: "//span[contains(.,'Salário mensal')]/following-sibling::small[contains(.,'2.500,99')]"
+    fn_xp_movimentacao_item: (description, value) => `//span[contains(.,'${description}')]/following-sibling::small[contains(.,'${value}')]`,
+    fn_xp_movimentacao_delete: (description) => `//span[contains(.,'${description}')]/../../..//i[contains(@class, 'fa-trash-alt')]`
   },
   contas: {
     header: 'h2',

@@ -23,15 +23,15 @@ describe('Bank transition tests', () => {
       receiver: 'Eu mesmo',
       account: 'Conta para movimentacoes'
     }
-    const expectedIncome = `//span[contains(.,'${incomeData.description}')]/following-sibling::small[contains(.,'${incomeData.value}')]`
 
+    // Insert new income
     cy.insertMovementIncome(incomeData)
 
     cy.get(locator.toast.success)
       .should('contain', 'Movimentação inserida com sucesso')
     cy.get(locator.extrato.item)
       .should('have.length', 7)
-    cy.xpath(expectedIncome)
+    cy.xpath(locator.extrato.fn_xp_movimentacao_item(incomeData.description, incomeData.value))
       .should('exist')
   });
 
@@ -44,13 +44,31 @@ describe('Bank transition tests', () => {
     }
     const expectedExpense = `//span[contains(.,'${expenseData.description}')]/following-sibling::small[contains(.,'${expenseData.value}')]`
 
+    // Insert new expense
     cy.insertMovementExpense(expenseData)
 
     cy.get(locator.toast.success)
-      .should('contain', 'Movimentação inserida com sucesso')
+      .should('contain', 'Movimentação inserida com sucesso!')
     cy.get(locator.extrato.item)
       .should('have.length', 7)
     cy.xpath(expectedExpense)
       .should('exist')
+  });
+
+  it('Should remove a existing movement', () => {
+    // Add movement to be deleted
+    const incomeData = {
+      description: 'Deletar movimentacao',
+      value: '777',
+      receiver: 'Ninguem',
+      account: 'Conta para movimentacoes'
+    }
+    cy.insertMovementIncome(incomeData)
+
+    // Delete movement previously created
+    cy.xpath(locator.extrato.fn_xp_movimentacao_delete(incomeData.description)).click()
+
+    cy.get(locator.toast.success)
+      .should('contain', 'Movimentação removida com sucesso!')
   });
 });
