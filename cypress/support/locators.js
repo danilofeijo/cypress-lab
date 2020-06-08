@@ -7,6 +7,7 @@ const locators = {
   menu: {
     option_home: '[data-test=menu-home]',
     option_movimentacao: '[data-test=menu-movimentacao]',
+    option_extrato: '[data-test=menu-extrato]',
     option_settings: '[data-test=menu-settings]',
     option_contas: 'a[href="/contas"]',
     option_resetar: 'a[href="/reset"]'
@@ -29,7 +30,8 @@ const locators = {
   extrato: {
     item: '.list-group li',
     fn_xp_movimentacao_item: (description, value) => `//span[contains(.,'${description}')]/following-sibling::small[contains(.,'${value}')]`,
-    fn_xp_movimentacao_delete: (description) => `//span[contains(.,'${description}')]/../../..//i[contains(@class, 'fa-trash-alt')]`
+    fn_xp_movimentacao_edit: description => `//span[contains(.,'${description}')]/../../..//a[contains(@href, '/movimentacao/')]`,
+    fn_xp_movimentacao_delete: description => `//span[contains(.,'${description}')]/../../..//i[contains(@class, 'fa-trash-alt')]`
   },
   contas: {
     header: 'h2',

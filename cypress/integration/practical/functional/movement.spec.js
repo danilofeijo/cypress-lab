@@ -27,6 +27,7 @@ describe('Bank transition tests', () => {
     // Insert new income
     cy.insertMovementIncome(incomeData)
 
+    // Validation
     cy.get(locator.toast.success)
       .should('contain', 'Movimentação inserida com sucesso')
     cy.get(locator.extrato.item)
@@ -47,6 +48,7 @@ describe('Bank transition tests', () => {
     // Insert new expense
     cy.insertMovementExpense(expenseData)
 
+    // Validation
     cy.get(locator.toast.success)
       .should('contain', 'Movimentação inserida com sucesso!')
     cy.get(locator.extrato.item)
@@ -55,7 +57,39 @@ describe('Bank transition tests', () => {
       .should('exist')
   });
 
-  it('Should remove a existing movement', () => {
+  it('Should update an existing movement', () => {
+    // Add movement to be deleted
+    const incomeData = {
+      description: 'Movimentacao Aguardando edicao',
+      value: '111',
+      receiver: 'Alguem',
+      account: 'Conta para movimentacoes'
+    }
+    cy.insertMovementIncome(incomeData)
+
+    // Edit movement previously created
+    cy.visitPageExtrato()
+    cy.xpath(locator.extrato.fn_xp_movimentacao_edit(incomeData.description)).click()
+    cy.get(locator.movimentacao.field_descricao).should($el => {
+      expect($el.val()).to.be.equal(incomeData.description)
+    })
+    cy.get(locator.movimentacao.field_descricao)
+      .clear()
+      .type('Movimentacao Descricao Editada')
+    cy.get(locator.movimentacao.field_valor)
+      .clear()
+      .type('222')
+    cy.get(locator.movimentacao.field_interessado)
+      .clear()
+      .type('Interessado Editado')
+    cy.get(locator.movimentacao.btn_salvar).click()
+
+    // Validation
+    cy.get(locator.toast.success)
+      .should('contain', 'Movimentação alterada com sucesso!')
+  });
+
+  it('Should remove an existing movement', () => {
     // Add movement to be deleted
     const incomeData = {
       description: 'Deletar movimentacao',
@@ -66,8 +100,10 @@ describe('Bank transition tests', () => {
     cy.insertMovementIncome(incomeData)
 
     // Delete movement previously created
+    cy.visitPageExtrato()
     cy.xpath(locator.extrato.fn_xp_movimentacao_delete(incomeData.description)).click()
 
+    // Validation
     cy.get(locator.toast.success)
       .should('contain', 'Movimentação removida com sucesso!')
   });

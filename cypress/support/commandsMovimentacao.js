@@ -6,6 +6,12 @@ Cypress.Commands.add('visitPageMovimentacao', () => {
     .should('eq', Cypress.config().baseUrl + '/movimentacao')
 })
 
+Cypress.Commands.add('visitPageExtrato', () => {
+  cy.get(locator.menu.option_extrato).click()
+  cy.url()
+    .should('eq', Cypress.config().baseUrl + '/extrato')
+})
+
 Cypress.Commands.add('insertMovement', (movementData) => {
   cy.get(locator.movimentacao.field_descricao).type(movementData.description)
   cy.get(locator.movimentacao.field_valor).type(movementData.value)
