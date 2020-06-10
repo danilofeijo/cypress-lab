@@ -12,22 +12,26 @@ Cypress.Commands.add('visitPageExtrato', () => {
     .should('eq', Cypress.config().baseUrl + '/extrato')
 })
 
-Cypress.Commands.add('insertMovement', (movementData) => {
-  cy.get(locator.movimentacao.field_descricao).type(movementData.description)
-  cy.get(locator.movimentacao.field_valor).type(movementData.value)
-  cy.get(locator.movimentacao.field_interessado).type(movementData.receiver)
-  cy.get(locator.movimentacao.select_conta).select(movementData.account)
+Cypress.Commands.add('insertTransaction', (transactionData) => {
+  cy.get(locator.movimentacao.field_descricao).type(transactionData.description)
+  cy.get(locator.movimentacao.field_valor).type(transactionData.value)
+  cy.get(locator.movimentacao.field_interessado).type(transactionData.receiver)
+  cy.get(locator.movimentacao.select_conta).select(transactionData.account)
   cy.get(locator.movimentacao.btn_status).click()
   cy.get(locator.movimentacao.btn_salvar).click()
 })
 
-Cypress.Commands.add('insertMovementIncome', (incomeData) => {
+Cypress.Commands.add('insertTransactionIncome', (incomeData) => {
   cy.get(locator.movimentacao.btn_tipo_receita).click()
-  cy.insertMovement(incomeData)
+  cy.insertTransaction(incomeData)
 })
 
-Cypress.Commands.add('insertMovementExpense', (expenseData) => {
+Cypress.Commands.add('insertTransactionExpense', (expenseData) => {
   cy.get(locator.movimentacao.btn_tipo_despesa).click()
-  cy.insertMovement(expenseData)
+  cy.insertTransaction(expenseData)
 })
 
+Cypress.Commands.add('deleteTransaction', (transactionDescription) => {
+  cy.xpath(locator.extrato.fn_xp_movimentacao_delete(transactionDescription))
+    .click()
+})

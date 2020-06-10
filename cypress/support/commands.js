@@ -45,4 +45,5 @@ Cypress.Commands.add('loginApp', (user, pass) => {
 Cypress.Commands.add('resetApp', () => {
   cy.get(locator.menu.option_settings).click()
   cy.get(locator.menu.option_resetar).click()
+  cy.visit(Cypress.config().baseUrl)
 })

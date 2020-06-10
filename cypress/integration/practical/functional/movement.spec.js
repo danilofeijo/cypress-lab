@@ -25,7 +25,7 @@ describe('Bank transition tests', () => {
     }
 
     // Insert new income
-    cy.insertMovementIncome(incomeData)
+    cy.insertTransactionIncome(incomeData)
 
     // Validation
     cy.get(locator.toast.success)
@@ -46,7 +46,7 @@ describe('Bank transition tests', () => {
     const expectedExpense = `//span[contains(.,'${expenseData.description}')]/following-sibling::small[contains(.,'${expenseData.value}')]`
 
     // Insert new expense
-    cy.insertMovementExpense(expenseData)
+    cy.insertTransactionExpense(expenseData)
 
     // Validation
     cy.get(locator.toast.success)
@@ -57,17 +57,17 @@ describe('Bank transition tests', () => {
       .should('exist')
   });
 
-  it('Should update an existing movement', () => {
-    // Add movement to be deleted
+  it('Should update an existing transaction', () => {
+    // Add transaction to be deleted
     const incomeData = {
       description: 'Movimentacao Aguardando edicao',
       value: '111',
       receiver: 'Alguem',
       account: 'Conta para movimentacoes'
     }
-    cy.insertMovementIncome(incomeData)
+    cy.insertTransactionIncome(incomeData)
 
-    // Edit movement previously created
+    // Edit transaction previously created
     cy.visitPageExtrato()
     cy.xpath(locator.extrato.fn_xp_movimentacao_edit(incomeData.description)).click()
     cy.get(locator.movimentacao.field_descricao).should($el => {
@@ -89,19 +89,19 @@ describe('Bank transition tests', () => {
       .should('contain', 'Movimentação alterada com sucesso!')
   });
 
-  it('Should remove an existing movement', () => {
-    // Add movement to be deleted
+  it('Should remove an existing transaction', () => {
+    // Add transaction to be deleted
     const incomeData = {
       description: 'Deletar movimentacao',
       value: '777',
       receiver: 'Ninguem',
       account: 'Conta para movimentacoes'
     }
-    cy.insertMovementIncome(incomeData)
+    cy.insertTransactionIncome(incomeData)
 
-    // Delete movement previously created
+    // Delete transaction previously created
     cy.visitPageExtrato()
-    cy.xpath(locator.extrato.fn_xp_movimentacao_delete(incomeData.description)).click()
+    cy.deleteTransaction(incomeData.description)
 
     // Validation
     cy.get(locator.toast.success)
