@@ -5,7 +5,11 @@
   "repository": "https://github.com/danilofeijo/cypress-lab-2.git",
   "license": "MIT",
   "scripts": {
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "cy": "cypress run",
+    "cy:api": "cypress run --spec 'cypress/integration/*/api/**/*'",
+    "cy:func": "cypress run --spec 'cypress/integration/*/functional/**/*'",
+    "cy:chrome": "cypress run -b chrome --spec 'cypress/integration/*/functional/**/*'"
   },
   "devDependencies": {
     "cypress": "3.6.0",
