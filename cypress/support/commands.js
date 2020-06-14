@@ -33,7 +33,7 @@ Cypress.Commands.add('clickAlert', (locator, message) => {
 })
 
 Cypress.Commands.add('loginApp', (user, pass) => {
-  cy.visit(Cypress.config().baseUrl)
+  cy.visit('http://barrigareact.wcaquino.me')
   cy.get(locator.login.field_user).type(user)
   cy.get(locator.login.field_pass).type(pass)
   cy.get(locator.login.btn_login).click()
@@ -46,4 +46,25 @@ Cypress.Commands.add('resetApp', () => {
   cy.get(locator.menu.option_settings).click()
   cy.get(locator.menu.option_resetar).click()
   cy.visit(Cypress.config().baseUrl)
+})
+
+// API Commands
+Cypress.Commands.add('getToken', (user, passwd) => {
+  cy.request({
+    method: 'POST',
+    url: '/signin',
+    body: {
+      email: user,
+      senha: passwd,
+      redirecionar: false
+    }
+  }).its('body.token').should('not.be.empty')
+})
+
+Cypress.Commands.add('resetData', (token) => {
+  cy.request({
+    method: 'GET',
+    headers: { Authorization: `JWT ${token}` },
+    url: 'reset',
+  }).its('status').should('be.equal', 200)
 })

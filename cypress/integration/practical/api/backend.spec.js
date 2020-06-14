@@ -2,46 +2,60 @@
 const { commerce } = require('faker')
 
 describe('Tests at API level', () => {
+  const user = 'danilo.silvafs@gmail.com'
+  const passwd = 'Test;123'
+  let token
+
   before(() => {
-    // Nothing for now
+    cy.getToken(user, passwd)
+      .then(tkn => {
+        token = tkn
+      })
   })
 
   beforeEach(() => {
-    // Nothing for now
+    cy.resetData(token)
   })
-
-  const baseUrl = 'https://barrigarest.wcaquino.me'
 
   it('Should create an account', () => {
     const accountName = commerce.color()
 
     cy.request({
       method: 'POST',
-      url: `${baseUrl}/signin`,
+      headers: { Authorization: `JWT ${token}`},
+      url: '/contas',
       body: {
-        email: "danilo.silvafs@gmail.com",
-        senha: "Test;123",
-        redirecionar: false
+        nome: accountName
       }
-    }).its('body.token').should('not.be.empty')
-      .then(token => {
-        cy.request({
-          method: 'POST',
-          headers: { Authorization: `JWT ${token}`},
-          url: `${baseUrl}/contas`,
-          body: {
-            nome: accountName
-          }
-        }).as('response')
-      })
+    }).as('response')
 
     cy.get('@response').then(res => {
+      console.log('res account: ', res);
       expect(res.status).to.be.equal(201)
       expect(res.body).to.have.property('id')
       expect(res.body).to.have.property('nome', accountName)
       expect(res.body).to.have.property('visivel', true)
       expect(res.body).to.have.property('usuario_id', 10089)
     })
+  });
+
+  it('Should reset data', () => {
+    cy.request({
+      method: 'GET',
+      headers: { Authorization: `JWT ${token}` },
+      url: '/reset',
+    }).as('response')
+
+    cy.get('@response').then(res => {
+      expect(res.status, 'verifica status code').to.be.equal(200)
+    })
+
+    // Short option
+    // cy.resetData(token)
+    //   .then(res => {
+    //     console.log('res reset: ', res);
+    //     expect(res, 'verifica status code com then').to.be.equal(200)
+    //   })
   });
 
   // TODO - Tests to be developed
