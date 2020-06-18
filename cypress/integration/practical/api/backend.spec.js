@@ -79,11 +79,15 @@ describe('Tests at API level', () => {
       }).as('response')
     })
 
-    // cy.get('@response').its('status').should('be.equal', 200)
     cy.get('@response').then(res => {
       expect(res.status).to.be.equal(200)
       expect(res.body.nome).to.be.equal(updatedName)
     })
+    cy.get('@response').should(res => {
+      expect(res.status).to.be.equal(200)
+      expect(res.body.nome).to.be.equal(updatedName)
+    })
+    cy.get('@response').its('status').should('be.equal', 200)
   });
 
   // TODO - Tests to be developed
