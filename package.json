@@ -14,5 +14,9 @@
     "cypress": "3.6.0",
     "cypress-xpath": "^1.4.0",
     "faker": "^4.1.0"
+  },
+  "resolutions": {
+    "cypress/minimist": "^1.2.3",
+    "cypress/extract-zip/mkdirp/minimist": "^1.2.3"
   }
 }
