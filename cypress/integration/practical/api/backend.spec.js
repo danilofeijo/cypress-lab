@@ -30,7 +30,6 @@ describe('Tests at API level', () => {
     }).as('response')
 
     cy.get('@response').then(res => {
-      console.log('res account: ', res);
       expect(res.status).to.be.equal(201)
       expect(res.body).to.have.property('id')
       expect(res.body).to.have.property('nome', accountName)
@@ -51,14 +50,14 @@ describe('Tests at API level', () => {
     })
 
     // Short option
-    // cy.resetData(token)
-    //   .then(res => {
-    //     console.log('res reset: ', res);
-    //     expect(res).to.be.equal(200)
-    //   })
+    cy.resetData(token)
+      .then(res => {
+        console.log('res reset: ', res);
+        expect(res).to.be.equal(200)
+      })
   });
 
-  it.only('Should update an account', () => {
+  it('Should update an account', () => {
     const updatedName = 'Updated account name'
 
     cy.request({
@@ -90,8 +89,39 @@ describe('Tests at API level', () => {
     cy.get('@response').its('status').should('be.equal', 200)
   });
 
+  it('Should not create a duplicated account', () => {
+    const accountName = commerce.color()
+
+    // Data mass criation
+    cy.request({
+      method: 'POST',
+      headers: { Authorization: `JWT ${token}`},
+      url: '/contas',
+      body: {
+        nome: accountName
+      },
+      failOnStatusCode: false
+    })
+
+    cy.request({
+      method: 'POST',
+      headers: { Authorization: `JWT ${token}`},
+      url: '/contas',
+      body: {
+        nome: accountName
+        // nome: 'Conta mesmo nome'
+      },
+      failOnStatusCode: false
+    }).as('response')
+
+    cy.get('@response').then(res => {
+      // console.log('res account: ', res);
+      expect(res.status).to.be.equal(400)
+      expect(res.body.error).to.be.equal('Já existe uma conta com esse nome!')
+    })
+  });
+
   // TODO - Tests to be developed
-  // it('Should not create a duplicated account', () => {});
   // it('Should insert new transaction', () => { });
   // it('Should get balance', () => {});
   // it('Should remove a transaction', () => { });
