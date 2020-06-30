@@ -1,6 +1,9 @@
 /// <reference types="cypress" />
 const { commerce } = require('faker');
 
+const lorem = 'lorem';
+console.log(lorem);
+
 describe('Tests at API level', () => {
   const user = 'danilo.silvafs@gmail.com';
   const passwd = 'Test;123';
