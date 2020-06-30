@@ -7,7 +7,7 @@
     "plugin:chai-friendly/recommended"
   ],
   "rules": {
-    "max-len": ["error", {"code": 80}],
+    "max-len": ["error", {"code": 120}],
     "indent": ["error", 2],
     "prettier/prettier": "error",
     "cypress/no-assigning-return-values": "error",

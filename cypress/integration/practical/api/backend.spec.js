@@ -119,8 +119,27 @@ describe('Tests at API level', () => {
     });
   });
 
+  it.only('Should insert new transaction', () => {
+    console.log('Hello World!');
+
+    cy.request({
+      method: 'POST',
+      url: '/transacoes',
+      headers: { Authorization: `JWT ${token}` },
+      body: {
+        conta_id: '200109',
+        data_pagamento: '30/06/2020',
+        data_transacao: '30/06/2020',
+        descricao: 'Descr test',
+        envolvido: 'Interessado Test',
+        status: true,
+        tipo: 'REC',
+        valor: '100',
+      },
+    });
+  });
+
   // TODO - Tests to be developed
-  // it('Should insert new transaction', () => { });
   // it('Should get balance', () => {});
   // it('Should remove a transaction', () => { });
 });
