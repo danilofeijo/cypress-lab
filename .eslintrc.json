@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "prettier",
+    "plugin:cypress/recommended",
+    "plugin:chai-friendly/recommended"
+  ],
+  "rules": {
+    "max-len": ["error", {"code": 80}],
+    "indent": ["error", 2],
+    "prettier/prettier": "error",
+    "cypress/no-assigning-return-values": "error",
+    "cypress/no-unnecessary-waiting": "error",
+    "cypress/assertion-before-screenshot": "warn",
+    "cypress/no-force": "warn",
+    "cypress/no-async-tests": "error"
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  }
+}

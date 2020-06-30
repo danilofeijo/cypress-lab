@@ -1,17 +1,19 @@
 /// <reference types="cypress" />
-import locator from '../../../support/locators'
-import '../../../support/commandsBalance'
-import '../../../support/commandsMovimentacao'
+import locator from '../../../support/locators';
+import '../../../support/commandsBalance';
+import '../../../support/commandsMovimentacao';
 
 describe('Bank balance tests', () => {
   beforeEach(function () {
     // Log in application
-    cy.fixture('loginData').as('login').then(() => {
-      cy.loginApp(this.login.email, this.login.passwd)
-    })
+    cy.fixture('loginData')
+      .as('login')
+      .then(() => {
+        cy.loginApp(this.login.email, this.login.passwd);
+      });
 
     // Reset application data
-    cy.resetApp()
+    cy.resetApp();
   });
 
   it('Should validate account balance', () => {
@@ -19,14 +21,14 @@ describe('Bank balance tests', () => {
       description: 'Salário mensal',
       value: '900',
       receiver: 'Eu mesmo',
-      account: 'Conta para movimentacoes'
-    }
-    cy.visitPageMovimentacao()
-    cy.insertMovementIncome(incomeData)
+      account: 'Conta para movimentacoes',
+    };
+    cy.visitPageMovimentacao();
+    cy.insertMovementIncome(incomeData);
 
-    cy.visitPageHome().reload()
+    cy.visitPageHome().reload();
     cy.xpath(locator.home.fn_xp_saldo_conta(incomeData.account))
       .should('contain', '-R$')
-      .and('contain', '600')
+      .and('contain', '600');
   });
 });
