@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-const { commerce } = require('faker');
+const { commerce, company, lorem } = require('faker');
 
 describe('Tests at API level', () => {
   const user = 'danilo.silvafs@gmail.com';
@@ -50,31 +50,26 @@ describe('Tests at API level', () => {
 
     // Short option
     cy.resetData(token).then(res => {
-      console.log('res reset: ', res);
       expect(res).to.be.equal(200);
     });
   });
 
   it('Should update an account', () => {
+    const accountName = 'Conta para alterar';
     const updatedName = 'Updated account name';
 
-    cy.request({
-      method: 'GET',
-      headers: { Authorization: `JWT ${token}` },
-      url: '/contas',
-      qs: {
-        nome: 'Conta para alterar',
-      },
-    }).then(res => {
-      cy.request({
-        method: 'PUT',
-        headers: { Authorization: `JWT ${token}` },
-        url: `/contas/${res.body[0].id}`,
-        body: {
-          nome: updatedName,
-        },
-      }).as('response');
-    });
+    cy.getContaByName(token, accountName)
+      .then(contaId => {
+        cy.request({
+          method: 'PUT',
+          headers: { Authorization: `JWT ${token}` },
+          url: `/contas/${contaId}`,
+          body: {
+            nome: updatedName,
+          },
+        });
+      })
+      .as('response');
 
     cy.get('@response').then(res => {
       expect(res.status).to.be.equal(200);
@@ -113,29 +108,39 @@ describe('Tests at API level', () => {
     }).as('response');
 
     cy.get('@response').then(res => {
-      // console.log('res account: ', res);
       expect(res.status).to.be.equal(400);
       expect(res.body.error).to.be.equal('Já existe uma conta com esse nome!');
     });
   });
 
-  it.only('Should insert new transaction', () => {
-    console.log('Hello World!');
+  it('Should insert new transaction', () => {
+    const accountName = 'Conta para movimentacoes';
 
-    cy.request({
-      method: 'POST',
-      url: '/transacoes',
-      headers: { Authorization: `JWT ${token}` },
-      body: {
-        conta_id: '200109',
-        data_pagamento: '30/06/2020',
-        data_transacao: '30/06/2020',
-        descricao: 'Descr test',
-        envolvido: 'Interessado Test',
-        status: true,
-        tipo: 'REC',
-        valor: '100',
-      },
+    cy.getContaByName(token, accountName).then(contaId => {
+      cy.request({
+        method: 'POST',
+        url: '/transacoes',
+        headers: { Authorization: `JWT ${token}` },
+        body: {
+          conta_id: contaId,
+          data_pagamento: Cypress.moment()
+            .add({ days: 1 })
+            .format('DD/MM/YYYY'),
+          data_transacao: Cypress.moment().format('DD/MM/YYYY'),
+          descricao: lorem.sentence(4),
+          envolvido: company.companyName(),
+          status: true,
+          tipo: 'REC',
+          valor: '100',
+        },
+      }).as('response');
+
+      cy.get('@response').then(res => {
+        expect(res.status).to.be.equal(201);
+        expect(res.body.id).exist;
+      });
+      // cy.get('@response').its('status').should('be.equal', 201);
+      // cy.get('@response').its('status').should('exist');
     });
   });
 
