@@ -144,7 +144,70 @@ describe('Tests at API level', () => {
     });
   });
 
+  it.only('Should get balance', () => {
+    const accountName = 'Conta para saldo';
+
+    cy.request({
+      method: 'GET',
+      url: '/saldo',
+      headers: { Authorization: `JWT ${token}` },
+    }).as('firstResponse');
+
+    cy.get('@firstResponse').then(res => {
+      expect(res.status).to.equal(200);
+      res.body.forEach(item => {
+        if (item.conta === accountName) {
+          expect(item.saldo).to.equal('534.00');
+        }
+      });
+    });
+
+    cy.request({
+      method: 'GET',
+      url: '/transacoes',
+      headers: { Authorization: `JWT ${token}` },
+      qs: { descricao: 'Movimentacao 1, calculo saldo' },
+    }).then(res => {
+      console.log(res);
+
+      cy.request({
+        method: 'PUT',
+        url: `/transacoes/${res.body[0].id}`,
+        headers: { Authorization: `JWT ${token}` },
+        body: {
+          status: true,
+          conta_id: res.body[0].conta_id,
+          data_pagamento: Cypress.moment(res.body[0].data_pagamento)
+            .add({ days: 1 })
+            .format('DD/MM/YYYY'),
+          data_transacao: Cypress.moment(res.body[0].data_transacao).format(
+            'DD/MM/YYYY',
+          ),
+          descricao: res.body[0].descricao,
+          envolvido: res.body[0].envolvido,
+          valor: res.body[0].valor,
+        },
+      })
+        .its('status')
+        .should('be.equal', 200);
+    });
+
+    cy.request({
+      method: 'GET',
+      url: '/saldo',
+      headers: { Authorization: `JWT ${token}` },
+    }).as('secondResponse');
+
+    cy.get('@secondResponse').then(res => {
+      expect(res.status).to.equal(200);
+      res.body.forEach(item => {
+        if (item.conta === accountName) {
+          expect(item.saldo).to.equal('4034.00');
+        }
+      });
+    });
+  });
+
   // TODO - Tests to be developed
-  // it('Should get balance', () => {});
   // it('Should remove a transaction', () => { });
 });
