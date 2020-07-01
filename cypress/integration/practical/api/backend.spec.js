@@ -144,7 +144,7 @@ describe('Tests at API level', () => {
     });
   });
 
-  it.only('Should get balance', () => {
+  it('Should get balance', () => {
     const accountName = 'Conta para saldo';
 
     cy.request({
@@ -168,8 +168,6 @@ describe('Tests at API level', () => {
       headers: { Authorization: `JWT ${token}` },
       qs: { descricao: 'Movimentacao 1, calculo saldo' },
     }).then(res => {
-      console.log(res);
-
       cy.request({
         method: 'PUT',
         url: `/transacoes/${res.body[0].id}`,
@@ -208,6 +206,20 @@ describe('Tests at API level', () => {
     });
   });
 
-  // TODO - Tests to be developed
-  // it('Should remove a transaction', () => { });
+  it('Should remove a transaction', () => {
+    cy.request({
+      method: 'GET',
+      url: '/transacoes',
+      headers: { Authorization: `JWT ${token}` },
+      qs: { descricao: 'Movimentacao para exclusao' },
+    }).then(res => {
+      cy.request({
+        method: 'DELETE',
+        url: `/transacoes/${res.body[0].id}`,
+        headers: { Authorization: `JWT ${token}` },
+      })
+        .its('status')
+        .should('be.equal', 204);
+    });
+  });
 });
