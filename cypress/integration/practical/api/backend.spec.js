@@ -4,16 +4,15 @@ const { commerce, company, lorem } = require('faker');
 describe('Tests at API level', () => {
   const user = 'danilo.silvafs@gmail.com';
   const passwd = 'Test;123';
-  let token;
+  // let token;
 
   before(() => {
-    cy.getToken(user, passwd).then(tkn => {
-      token = tkn;
-    });
+    cy.getToken(user, passwd);
+    // .then(tkn => { token = tkn; });
   });
 
   beforeEach(() => {
-    cy.resetData(token);
+    cy.resetData();
   });
 
   it('Should create an account', () => {
@@ -21,7 +20,7 @@ describe('Tests at API level', () => {
 
     cy.request({
       method: 'POST',
-      headers: { Authorization: `JWT ${token}` },
+      // headers: { Authorization: `JWT ${token}` },
       url: '/contas',
       body: {
         nome: accountName,
@@ -40,7 +39,7 @@ describe('Tests at API level', () => {
   it('Should reset data', () => {
     cy.request({
       method: 'GET',
-      headers: { Authorization: `JWT ${token}` },
+      // headers: { Authorization: `JWT ${token}` },
       url: '/reset',
     }).as('response');
 
@@ -49,7 +48,7 @@ describe('Tests at API level', () => {
     });
 
     // Short option
-    cy.resetData(token).then(res => {
+    cy.resetData().then(res => {
       expect(res).to.be.equal(200);
     });
   });
@@ -58,11 +57,11 @@ describe('Tests at API level', () => {
     const accountName = 'Conta para alterar';
     const updatedName = 'Updated account name';
 
-    cy.getContaByName(token, accountName)
+    cy.getContaByName(accountName)
       .then(contaId => {
         cy.request({
           method: 'PUT',
-          headers: { Authorization: `JWT ${token}` },
+          // headers: { Authorization: `JWT ${token}` },
           url: `/contas/${contaId}`,
           body: {
             nome: updatedName,
@@ -88,7 +87,7 @@ describe('Tests at API level', () => {
     // Data mass criation
     cy.request({
       method: 'POST',
-      headers: { Authorization: `JWT ${token}` },
+      // headers: { Authorization: `JWT ${token}` },
       url: '/contas',
       body: {
         nome: accountName,
@@ -98,7 +97,7 @@ describe('Tests at API level', () => {
 
     cy.request({
       method: 'POST',
-      headers: { Authorization: `JWT ${token}` },
+      // headers: { Authorization: `JWT ${token}` },
       url: '/contas',
       body: {
         nome: accountName,
@@ -116,11 +115,11 @@ describe('Tests at API level', () => {
   it('Should insert new transaction', () => {
     const accountName = 'Conta para movimentacoes';
 
-    cy.getContaByName(token, accountName).then(contaId => {
+    cy.getContaByName(accountName).then(contaId => {
       cy.request({
         method: 'POST',
         url: '/transacoes',
-        headers: { Authorization: `JWT ${token}` },
+        // headers: { Authorization: `JWT ${token}` },
         body: {
           conta_id: contaId,
           data_pagamento: Cypress.moment()
@@ -150,7 +149,7 @@ describe('Tests at API level', () => {
     cy.request({
       method: 'GET',
       url: '/saldo',
-      headers: { Authorization: `JWT ${token}` },
+      // headers: { Authorization: `JWT ${token}` },
     }).as('firstResponse');
 
     cy.get('@firstResponse').then(res => {
@@ -165,13 +164,13 @@ describe('Tests at API level', () => {
     cy.request({
       method: 'GET',
       url: '/transacoes',
-      headers: { Authorization: `JWT ${token}` },
+      // headers: { Authorization: `JWT ${token}` },
       qs: { descricao: 'Movimentacao 1, calculo saldo' },
     }).then(res => {
       cy.request({
         method: 'PUT',
         url: `/transacoes/${res.body[0].id}`,
-        headers: { Authorization: `JWT ${token}` },
+        // headers: { Authorization: `JWT ${token}` },
         body: {
           status: true,
           conta_id: res.body[0].conta_id,
@@ -193,7 +192,7 @@ describe('Tests at API level', () => {
     cy.request({
       method: 'GET',
       url: '/saldo',
-      headers: { Authorization: `JWT ${token}` },
+      // headers: { Authorization: `JWT ${token}` },
     }).as('secondResponse');
 
     cy.get('@secondResponse').then(res => {
@@ -210,13 +209,13 @@ describe('Tests at API level', () => {
     cy.request({
       method: 'GET',
       url: '/transacoes',
-      headers: { Authorization: `JWT ${token}` },
+      // headers: { Authorization: `JWT ${token}` },
       qs: { descricao: 'Movimentacao para exclusao' },
     }).then(res => {
       cy.request({
         method: 'DELETE',
         url: `/transacoes/${res.body[0].id}`,
-        headers: { Authorization: `JWT ${token}` },
+        // headers: { Authorization: `JWT ${token}` },
       })
         .its('status')
         .should('be.equal', 204);
