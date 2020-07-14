@@ -4,10 +4,12 @@ const { commerce, company, lorem } = require('faker');
 describe('Tests at API level', () => {
   const user = 'danilo.silvafs@gmail.com';
   const passwd = 'Test;123';
+  // Comented due to Cypress.Command.overwrite
   // let token;
 
   before(() => {
     cy.getToken(user, passwd);
+    // Comented due to Cypress.Command.overwrite
     // .then(tkn => { token = tkn; });
   });
 
@@ -20,6 +22,7 @@ describe('Tests at API level', () => {
 
     cy.request({
       method: 'POST',
+      // Comented due to Cypress.Command.overwrite
       // headers: { Authorization: `JWT ${token}` },
       url: '/contas',
       body: {
@@ -39,6 +42,7 @@ describe('Tests at API level', () => {
   it('Should reset data', () => {
     cy.request({
       method: 'GET',
+      // Comented due to Cypress.Command.overwrite
       // headers: { Authorization: `JWT ${token}` },
       url: '/reset',
     }).as('response');
@@ -61,6 +65,7 @@ describe('Tests at API level', () => {
       .then(contaId => {
         cy.request({
           method: 'PUT',
+          // Comented due to Cypress.Command.overwrite
           // headers: { Authorization: `JWT ${token}` },
           url: `/contas/${contaId}`,
           body: {
@@ -87,6 +92,7 @@ describe('Tests at API level', () => {
     // Data mass criation
     cy.request({
       method: 'POST',
+      // Comented due to Cypress.Command.overwrite
       // headers: { Authorization: `JWT ${token}` },
       url: '/contas',
       body: {
@@ -97,6 +103,7 @@ describe('Tests at API level', () => {
 
     cy.request({
       method: 'POST',
+      // Comented due to Cypress.Command.overwrite
       // headers: { Authorization: `JWT ${token}` },
       url: '/contas',
       body: {
@@ -119,6 +126,7 @@ describe('Tests at API level', () => {
       cy.request({
         method: 'POST',
         url: '/transacoes',
+        // Comented due to Cypress.Command.overwrite
         // headers: { Authorization: `JWT ${token}` },
         body: {
           conta_id: contaId,
@@ -149,6 +157,7 @@ describe('Tests at API level', () => {
     cy.request({
       method: 'GET',
       url: '/saldo',
+      // Comented due to Cypress.Command.overwrite
       // headers: { Authorization: `JWT ${token}` },
     }).as('firstResponse');
 
@@ -164,12 +173,14 @@ describe('Tests at API level', () => {
     cy.request({
       method: 'GET',
       url: '/transacoes',
+      // Comented due to Cypress.Command.overwrite
       // headers: { Authorization: `JWT ${token}` },
       qs: { descricao: 'Movimentacao 1, calculo saldo' },
     }).then(res => {
       cy.request({
         method: 'PUT',
         url: `/transacoes/${res.body[0].id}`,
+        // Comented due to Cypress.Command.overwrite
         // headers: { Authorization: `JWT ${token}` },
         body: {
           status: true,
@@ -192,6 +203,7 @@ describe('Tests at API level', () => {
     cy.request({
       method: 'GET',
       url: '/saldo',
+      // Comented due to Cypress.Command.overwrite
       // headers: { Authorization: `JWT ${token}` },
     }).as('secondResponse');
 
@@ -209,12 +221,14 @@ describe('Tests at API level', () => {
     cy.request({
       method: 'GET',
       url: '/transacoes',
+      // Comented due to Cypress.Command.overwrite
       // headers: { Authorization: `JWT ${token}` },
       qs: { descricao: 'Movimentacao para exclusao' },
     }).then(res => {
       cy.request({
         method: 'DELETE',
         url: `/transacoes/${res.body[0].id}`,
+        // Comented due to Cypress.Command.overwrite
         // headers: { Authorization: `JWT ${token}` },
       })
         .its('status')

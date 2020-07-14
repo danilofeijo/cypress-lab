@@ -69,6 +69,7 @@ Cypress.Commands.add('getToken', (user, passwd) => {
 Cypress.Commands.add('resetData', () => {
   cy.request({
     method: 'GET',
+    // Comented due to Cypress.Command.overwrite
     // headers: { Authorization: `JWT ${token}` },
     url: 'reset',
   })
@@ -79,6 +80,7 @@ Cypress.Commands.add('resetData', () => {
 Cypress.Commands.add('getContaByName', accountName => {
   cy.request({
     method: 'GET',
+    // Comented due to Cypress.Command.overwrite
     // headers: { Authorization: `JWT ${token}` },
     url: '/contas',
     qs: {
