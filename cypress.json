@@ -1,6 +1,6 @@
 {
   "defaultCommandTimeout": 4000,
-  "baseUrlApi": "https://barrigarest.wcaquino.me",
+  "baseUrl": "https://barrigarest.wcaquino.me",
   "baseUrlFront": "http://barrigareact.wcaquino.me"
 
 }
