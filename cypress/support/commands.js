@@ -33,7 +33,7 @@ Cypress.Commands.add('clickAlert', (locator, message) => {
 });
 
 Cypress.Commands.add('loginApp', (user, pass) => {
-  cy.visit('http://barrigareact.wcaquino.me');
+  cy.visit(Cypress.config().baseUrlFront);
   cy.get(locator.login.field_user).type(user);
   cy.get(locator.login.field_pass).type(pass);
   cy.get(locator.login.btn_login).click();
@@ -44,7 +44,7 @@ Cypress.Commands.add('loginApp', (user, pass) => {
 Cypress.Commands.add('resetApp', () => {
   cy.get(locator.menu.option_settings).click();
   cy.get(locator.menu.option_resetar).click();
-  cy.visit(Cypress.config().baseUrl);
+  // cy.visit(Cypress.config().baseUrl);
 });
 
 // API Commands

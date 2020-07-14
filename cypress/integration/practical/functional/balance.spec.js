@@ -24,7 +24,7 @@ describe('Bank balance tests', () => {
       account: 'Conta para movimentacoes',
     };
     cy.visitPageMovimentacao();
-    cy.insertMovementIncome(incomeData);
+    cy.insertTransactionIncome(incomeData);
 
     cy.visitPageHome().reload();
     cy.xpath(locator.home.fn_xp_saldo_conta(incomeData.account))
