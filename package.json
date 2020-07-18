@@ -6,9 +6,10 @@
   "license": "MIT",
   "scripts": {
     "cy:open": "cypress open",
-    "cy": "cypress run",
+    "cy:run": "cypress run",
     "cy:api": "cypress run --spec 'cypress/integration/*/api/**/*'",
-    "cy:chrome": "cypress run --spec 'cypress/integration/*/functional/**/*'"
+    "cy:chrome": "cypress run --spec 'cypress/integration/*/functional/**/*'",
+    "cy:ui": "cypress run --spec 'cypress/integration/*/interface/**/*'"
   },
   "devDependencies": {
     "cypress": "3.6.0",
