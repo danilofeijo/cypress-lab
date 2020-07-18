@@ -1,19 +1,93 @@
 /// <reference types="cypress" />
-import locator from '../../../support/locators';
+
+import '../../../support/commandsContas';
+import '../../../support/commandsBalance';
 import '../../../support/commandsMovimentacao';
 
+const { commerce } = require('faker');
+import locator from '../../../support/locators';
+
+beforeEach(function () {
+  // Log in application
+  cy.fixture('loginData')
+    .as('login')
+    .then(() => {
+      cy.loginApp(this.login.email, this.login.passwd);
+    });
+
+  cy.resetApp();
+});
+
+describe('Account tests', () => {
+  beforeEach(() => {
+    // Access page Contas
+    cy.visitPageContas();
+  });
+
+  it('Should insert new account', () => {
+    const accountName = commerce.color();
+
+    // Insert new account
+    cy.insertAccount(accountName);
+    cy.get(locator.toast.success).should(
+      'contain',
+      'Conta inserida com sucesso!',
+    );
+  });
+
+  it('Should edit a created account', () => {
+    // Updating account name
+    cy.xpath(locator.contas.xp_btn_edit_conta_extrato).click();
+    cy.get(locator.contas.field_account_name)
+      .clear()
+      .type('Account name updated');
+    cy.get(locator.contas.btn_save).click();
+    cy.get(locator.toast.success).should(
+      'contain',
+      'Conta atualizada com sucesso!',
+    );
+  });
+
+  it('Should not Insert duplicated account', () => {
+    const accountName = commerce.color();
+
+    // Insert first account
+    cy.insertAccount(accountName);
+    cy.get(locator.toast.success).should(
+      'contain',
+      'Conta inserida com sucesso!',
+    );
+    cy.closeToast();
+
+    // Try to insert the same account again
+    cy.insertAccount(accountName);
+    cy.get(locator.toast.error).should(
+      'contain',
+      'Request failed with status code 400',
+    );
+  });
+});
+
+describe('Bank balance tests', () => {
+  it('Should validate account balance', () => {
+    const incomeData = {
+      description: 'Salário mensal',
+      value: '900',
+      receiver: 'Eu mesmo',
+      account: 'Conta para movimentacoes',
+    };
+    cy.visitPageMovimentacao();
+    cy.insertTransactionIncome(incomeData);
+
+    cy.visitPageHome().reload();
+    cy.xpath(locator.home.fn_xp_saldo_conta(incomeData.account))
+      .should('contain', '-R$')
+      .and('contain', '600');
+  });
+});
+
 describe('Bank transition tests', () => {
-  beforeEach(function () {
-    // Log in application
-    cy.fixture('loginData')
-      .as('login')
-      .then(() => {
-        cy.loginApp(this.login.email, this.login.passwd);
-      });
-
-    // Reset application data
-    cy.resetApp();
-
+  beforeEach(() => {
     // Access page Movimentacao
     cy.visitPageMovimentacao();
   });
@@ -74,6 +148,7 @@ describe('Bank transition tests', () => {
       account: 'Conta para movimentacoes',
     };
     cy.insertTransactionIncome(incomeData);
+    cy.closeToast();
 
     // Edit transaction previously created
     cy.visitPageExtrato();
@@ -110,6 +185,7 @@ describe('Bank transition tests', () => {
       account: 'Conta para movimentacoes',
     };
     cy.insertTransactionIncome(incomeData);
+    cy.closeToast();
 
     // Delete transaction previously created
     cy.visitPageExtrato();
@@ -120,5 +196,9 @@ describe('Bank transition tests', () => {
       'contain',
       'Movimentação removida com sucesso!',
     );
+  });
+
+  afterEach(() => {
+    cy.closeToast();
   });
 });
