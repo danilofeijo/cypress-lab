@@ -8,17 +8,19 @@ const { commerce } = require('faker');
 import locator from '../../../support/locators';
 
 beforeEach(function () {
-  // Log in application
-  cy.fixture('loginData')
-    .as('login')
-    .then(() => {
-      cy.loginApp(this.login.email, this.login.passwd);
-    });
-
   cy.resetApp();
 });
 
 describe('Account tests', () => {
+  before(function () {
+    // Log in application
+    cy.fixture('loginData')
+      .as('login')
+      .then(() => {
+        cy.loginApp(this.login.email, this.login.passwd);
+      });
+  });
+
   beforeEach(() => {
     // Access page Contas
     cy.visitPageContas();
@@ -66,9 +68,22 @@ describe('Account tests', () => {
       'Request failed with status code 400',
     );
   });
+
+  afterEach(() => {
+    cy.closeToast();
+  });
 });
 
 describe('Bank balance tests', () => {
+  before(function () {
+    // Log in application
+    cy.fixture('loginData')
+      .as('login')
+      .then(() => {
+        cy.loginApp(this.login.email, this.login.passwd);
+      });
+  });
+
   it('Should validate account balance', () => {
     const incomeData = {
       description: 'Salário mensal',
@@ -87,6 +102,15 @@ describe('Bank balance tests', () => {
 });
 
 describe('Bank transition tests', () => {
+  before(function () {
+    // Log in application
+    cy.fixture('loginData')
+      .as('login')
+      .then(() => {
+        cy.loginApp(this.login.email, this.login.passwd);
+      });
+  });
+
   beforeEach(() => {
     // Access page Movimentacao
     cy.visitPageMovimentacao();
