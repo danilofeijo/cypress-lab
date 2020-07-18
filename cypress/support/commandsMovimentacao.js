@@ -17,19 +17,10 @@ Cypress.Commands.add('insertTransaction', transactionData => {
   cy.get(locator.movimentacao.field_valor).type(transactionData.value, {
     delay: 100,
   });
-  cy.get(locator.movimentacao.field_interessado).type(
-    transactionData.receiver,
-    { delay: 100 },
-  );
-  cy.get(locator.movimentacao.select_conta).select(transactionData.account, {
-    delay: 100,
-  });
+  cy.get(locator.movimentacao.field_interessado).type(transactionData.receiver);
+  cy.get(locator.movimentacao.select_conta).select(transactionData.account);
   cy.get(locator.movimentacao.btn_status).click();
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(1000);
   cy.get(locator.movimentacao.btn_salvar).click();
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(1000);
 });
 
 Cypress.Commands.add('insertTransactionIncome', incomeData => {

@@ -39,12 +39,20 @@ Cypress.Commands.add('loginApp', (user, pass) => {
   cy.get(locator.login.btn_login).click();
 
   cy.get(locator.toast.info).should('contain', 'Bem vindo');
+  cy.closeToast();
 });
 
 Cypress.Commands.add('resetApp', () => {
   cy.get(locator.menu.option_settings).click();
   cy.get(locator.menu.option_resetar).click();
-  // cy.visit(Cypress.config().baseUrl);
+  cy.closeToast();
+});
+
+Cypress.Commands.add('closeToast', () => {
+  cy.get(locator.toast.closeButton).click();
+  cy.get(locator.toast.success).should('not.exist');
+  cy.get(locator.toast.info).should('not.exist');
+  cy.get(locator.toast.error).should('not.exist');
 });
 
 // API Commands

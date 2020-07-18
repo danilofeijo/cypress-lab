@@ -2,7 +2,7 @@ const locators = {
   login: {
     field_user: '[data-test=email]',
     field_pass: '[data-test=passwd]',
-    btn_login: 'button[type=submit]'
+    btn_login: 'button[type=submit]',
   },
   menu: {
     option_home: '[data-test=menu-home]',
@@ -10,7 +10,7 @@ const locators = {
     option_extrato: '[data-test=menu-extrato]',
     option_settings: '[data-test=menu-settings]',
     option_contas: 'a[href="/contas"]',
-    option_resetar: 'a[href="/reset"]'
+    option_resetar: 'a[href="/reset"]',
   },
   home: {
     fn_xp_saldo_conta: nomeConta => `//td[contains(.,'${nomeConta}')]/../td[2]`,
@@ -25,25 +25,29 @@ const locators = {
     field_interessado: '[data-test=envolvido]',
     select_conta: '[data-test=conta]',
     btn_status: '[data-test=status]',
-    btn_salvar: '.btn-primary'
+    btn_salvar: '.btn-primary',
   },
   extrato: {
     item: '.list-group li',
-    fn_xp_movimentacao_item: (description, value) => `//span[contains(.,'${description}')]/following-sibling::small[contains(.,'${value}')]`,
-    fn_xp_movimentacao_edit: description => `//span[contains(.,'${description}')]/../../..//a[contains(@href, '/movimentacao/')]`,
-    fn_xp_movimentacao_delete: description => `//span[contains(.,'${description}')]/../../..//i[contains(@class, 'fa-trash-alt')]`
+    fn_xp_movimentacao_item: (description, value) =>
+      `//span[contains(.,'${description}')]/following-sibling::small[contains(.,'${value}')]`,
+    fn_xp_movimentacao_edit: description =>
+      `//span[contains(.,'${description}')]/../../..//a[contains(@href, '/movimentacao/')]`,
+    fn_xp_movimentacao_delete: description =>
+      `//span[contains(.,'${description}')]/../../..//i[contains(@class, 'fa-trash-alt')]`,
   },
   contas: {
     header: 'h2',
     field_account_name: '[data-test=nome]',
     btn_save: '.btn',
-    xp_btn_edit_conta_extrato: `//table//td[contains(.,'Conta para extrato')]/..//i[@class='far fa-edit']`
+    xp_btn_edit_conta_extrato: `//table//td[contains(.,'Conta para extrato')]/..//i[@class='far fa-edit']`,
   },
   toast: {
     info: '.toast-info',
     success: '.toast-success',
-    error: '.toast-error'
-  }
-}
+    error: '.toast-error',
+    closeButton: '#toast-container button.toast-close-button',
+  },
+};
 
 export default locators;
