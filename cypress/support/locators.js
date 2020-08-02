@@ -41,6 +41,7 @@ const locators = {
     field_account_name: '[data-test=nome]',
     btn_save: '.btn',
     xp_btn_edit_conta_extrato: `//table//td[contains(.,'Conta para extrato')]/..//i[@class='far fa-edit']`,
+    xp_btn_edit_conta_fake_digital_wallet: `//table//td[contains(.,'fake Digital Wallet')]/..//i[@class='far fa-edit']`,
   },
   toast: {
     info: '.toast-info',

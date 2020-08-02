@@ -50,6 +50,8 @@ describe('Account tests', () => {
   });
 
   beforeEach(() => {
+    cy.server();
+
     // Set fake account data
     cy.route({
       method: 'GET',
@@ -126,18 +128,32 @@ describe('Account tests', () => {
     );
   });
 
-  // it('Should edit a created account', () => {
-  //   // Updating account name
-  //   cy.xpath(locator.contas.xp_btn_edit_conta_extrato).click();
-  //   cy.get(locator.contas.field_account_name)
-  //     .clear()
-  //     .type('Account name updated');
-  //   cy.get(locator.contas.btn_save).click();
-  //   cy.get(locator.toast.success).should(
-  //     'contain',
-  //     'Conta atualizada com sucesso!',
-  //   );
-  // });
+  it('Should edit a created account', () => {
+    const updatedAccountName = 'Fake Account name updated';
+
+    // Set fake account data updated
+    cy.route({
+      method: 'PUT',
+      url: '/contas/**',
+      response: [
+        {
+          id: 1001,
+          nome: updatedAccountName,
+          visivel: true,
+          usuario_id: 100,
+        },
+      ],
+    }).as('POST-contas');
+
+    // Updating account name
+    cy.xpath(locator.contas.xp_btn_edit_conta_fake_digital_wallet).click();
+    cy.get(locator.contas.field_account_name).clear().type(updatedAccountName);
+    cy.get(locator.contas.btn_save).click();
+    cy.get(locator.toast.success).should(
+      'contain',
+      'Conta atualizada com sucesso!',
+    );
+  });
 
   // it('Should not Insert duplicated account', () => {
   //   const accountName = commerce.color();
