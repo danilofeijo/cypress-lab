@@ -4,73 +4,16 @@ import '../../../support/commandsContas';
 import '../../../support/commandsBalance';
 import '../../../support/commandsMovimentacao';
 import locator from '../../../support/locators';
+import buildEnv from '../../../support/buildEnv';
 
 const { commerce } = require('faker');
 
-const userCredentials = {
-  email: 'danilo.silvafs@gmail.com',
-  passwd: 'Test;123',
-};
-
 describe('Account tests', () => {
-  before(function () {
-    // Set fake login data
-    cy.server();
-    cy.route({
-      method: 'POST',
-      url: '/signin',
-      response: {
-        id: 100,
-        nome: 'Fake Feijó',
-        token: 'fake-token-added-by-route',
-      },
-    }).as('POST-signin');
+  beforeEach(() => {
+    buildEnv();
 
     // Log in application
-    cy.loginApp(userCredentials.email, userCredentials.passwd);
-
-    // Set fake balance data
-    cy.route({
-      method: 'GET',
-      url: '/saldo',
-      status: 200,
-      response: [
-        {
-          conta_id: 1001,
-          conta: 'fake Digital Wallet',
-          saldo: '100.00',
-        },
-        {
-          conta_id: 1002,
-          conta: 'fake Default Account',
-          saldo: '2000.00',
-        },
-      ],
-    }).as('GET-saldo');
-  });
-
-  beforeEach(() => {
-    cy.server();
-
-    // Set fake account data
-    cy.route({
-      method: 'GET',
-      url: '/contas',
-      response: [
-        {
-          id: 1001,
-          nome: 'fake Digital Wallet',
-          visivel: true,
-          usuario_id: 100,
-        },
-        {
-          id: 1002,
-          nome: 'fake Default Account',
-          visivel: true,
-          usuario_id: 100,
-        },
-      ],
-    }).as('GET-contas');
+    cy.loginApp();
 
     // Access accounts page
     cy.visitPageContas();
@@ -93,7 +36,7 @@ describe('Account tests', () => {
       ],
     }).as('POST-contas');
 
-    // Set fake account data after POST call
+    // Optional - Set fake account data after POST call
     cy.route({
       method: 'GET',
       url: '/contas',

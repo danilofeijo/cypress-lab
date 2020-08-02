@@ -32,15 +32,18 @@ Cypress.Commands.add('clickAlert', (locator, message) => {
   });
 });
 
-Cypress.Commands.add('loginApp', (user, pass) => {
-  cy.visit(Cypress.config().baseUrlFront);
-  cy.get(locator.login.field_user).type(user);
-  cy.get(locator.login.field_pass).type(pass);
-  cy.get(locator.login.btn_login).click();
+Cypress.Commands.add(
+  'loginApp',
+  (user = 'fake@email.com', pass = 'fakePass') => {
+    cy.visit(Cypress.config().baseUrlFront);
+    cy.get(locator.login.field_user).type(user);
+    cy.get(locator.login.field_pass).type(pass);
+    cy.get(locator.login.btn_login).click();
 
-  cy.get(locator.toast.info).should('contain', 'Bem vindo');
-  cy.closeToast();
-});
+    cy.get(locator.toast.info).should('contain', 'Bem vindo');
+    cy.closeToast();
+  },
+);
 
 Cypress.Commands.add('resetApp', () => {
   cy.get(locator.menu.option_settings).click();
