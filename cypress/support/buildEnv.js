@@ -1,3 +1,6 @@
+const accountName01 = 'fake Digital Wallet';
+const accountName02 = 'fake Default Account';
+
 const buildEnv = () => {
   cy.server();
 
@@ -10,7 +13,7 @@ const buildEnv = () => {
       nome: 'Fake Feijó',
       token: 'fake-token-added-by-route',
     },
-  }).as('POST-signin');
+  }).as('POST-signin-200');
 
   // Set fake balance data
   cy.route({
@@ -20,16 +23,16 @@ const buildEnv = () => {
     response: [
       {
         conta_id: 1001,
-        conta: 'fake Digital Wallet',
+        conta: accountName01,
         saldo: '100.00',
       },
       {
         conta_id: 1002,
-        conta: 'fake Default Account',
+        conta: accountName02,
         saldo: '2000.00',
       },
     ],
-  }).as('GET-saldo');
+  }).as('GET-saldo-200');
 
   // Set fake account data
   cy.route({
@@ -38,18 +41,18 @@ const buildEnv = () => {
     response: [
       {
         id: 1001,
-        nome: 'fake Digital Wallet',
+        nome: accountName01,
         visivel: true,
         usuario_id: 100,
       },
       {
         id: 1002,
-        nome: 'fake Default Account',
+        nome: accountName02,
         visivel: true,
         usuario_id: 100,
       },
     ],
-  }).as('GET-contas');
+  }).as('GET-contas-200');
 };
 
 export default buildEnv;

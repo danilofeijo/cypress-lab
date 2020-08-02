@@ -72,7 +72,7 @@ describe('Account tests', () => {
   });
 
   it('Should edit a created account', () => {
-    const updatedAccountName = 'Fake Account name updated';
+    const updatedAccountName = 'Fake Account ' + commerce.color() + ' updated';
 
     // Set fake account data updated
     cy.route({
@@ -98,24 +98,22 @@ describe('Account tests', () => {
     );
   });
 
-  // it('Should not Insert duplicated account', () => {
-  //   const accountName = commerce.color();
+  it('Should not Insert duplicated account', () => {
+    // Set fake account data
+    cy.route({
+      method: 'POST',
+      url: '/contas',
+      status: 400,
+      response: [{ error: 'Já existe uma conta com esse nome!' }],
+    }).as('POST-contas-400');
 
-  //   // Insert first account
-  //   cy.insertAccount(accountName);
-  //   cy.get(locator.toast.success).should(
-  //     'contain',
-  //     'Conta inserida com sucesso!',
-  //   );
-  //   cy.closeToast();
-
-  //   // Try to insert the same account again
-  //   cy.insertAccount(accountName);
-  //   cy.get(locator.toast.error).should(
-  //     'contain',
-  //     'Request failed with status code 400',
-  //   );
-  // });
+    // Try to insert account with the same name
+    cy.insertAccount('fake Digital Wallet');
+    cy.get(locator.toast.error).should(
+      'contain',
+      'Request failed with status code 400',
+    );
+  });
 
   afterEach(() => {
     // cy.closeToast();
