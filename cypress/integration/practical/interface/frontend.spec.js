@@ -127,8 +127,6 @@ describe('Account tests', () => {
   });
 });
 
-// TODO Tests
-
 describe.only('Bank transition tests', () => {
   beforeEach(() => {
     // Access page Movimentacao
@@ -136,12 +134,155 @@ describe.only('Bank transition tests', () => {
   });
 
   it('Should insert new income', () => {
+    const today = new Date();
+
     const incomeData = {
       description: 'Salário mensal',
       value: '950',
       receiver: 'Eu mesmo',
       account: 'fake Default Account',
     };
+
+    cy.route({
+      method: 'POST',
+      url: '/transacoes',
+      response: {
+        id: 121212,
+        descricao: incomeData.description,
+        envolvido: incomeData.receiver,
+        observacao: null,
+        tipo: 'REC',
+        data_transacao: today,
+        data_pagamento: today,
+        valor: incomeData.value,
+        status: true,
+        conta_id: 1002,
+        usuario_id: 100,
+        transferencia_id: null,
+        parcelamento_id: null,
+      },
+    }).as('POST-transacoes-200');
+
+    // Set fake bank statement
+    cy.route({
+      method: 'GET',
+      url: '/extrato/**',
+      response: [
+        {
+          conta: incomeData.account,
+          id: 121212,
+          descricao: incomeData.description,
+          envolvido: incomeData.receiver,
+          observacao: null,
+          tipo: 'REC',
+          data_transacao: today,
+          data_pagamento: today,
+          valor: incomeData.value,
+          status: true,
+          conta_id: 1002,
+          usuario_id: 100,
+          transferencia_id: null,
+          parcelamento_id: null,
+        },
+        {
+          conta: 'Conta para movimentacoes',
+          id: 206612,
+          descricao: 'Movimentacao para exclusao',
+          envolvido: 'AAA',
+          observacao: null,
+          tipo: 'DESP',
+          data_transacao: '2020-08-06T03:00:00.000Z',
+          data_pagamento: '2020-08-06T03:00:00.000Z',
+          valor: '-1500.00',
+          status: true,
+          conta_id: 231029,
+          usuario_id: 10089,
+          transferencia_id: null,
+          parcelamento_id: null,
+        },
+        {
+          conta: 'Conta com movimentacao',
+          id: 206613,
+          descricao: 'Movimentacao de conta',
+          envolvido: 'BBB',
+          observacao: null,
+          tipo: 'DESP',
+          data_transacao: '2020-08-06T03:00:00.000Z',
+          data_pagamento: '2020-08-06T03:00:00.000Z',
+          valor: '-1500.00',
+          status: true,
+          conta_id: 231030,
+          usuario_id: 10089,
+          transferencia_id: null,
+          parcelamento_id: null,
+        },
+        {
+          conta: 'Conta para saldo',
+          id: 206614,
+          descricao: 'Movimentacao 1, calculo saldo',
+          envolvido: 'CCC',
+          observacao: null,
+          tipo: 'REC',
+          data_transacao: '2020-08-06T03:00:00.000Z',
+          data_pagamento: '2020-08-06T03:00:00.000Z',
+          valor: '3500.00',
+          status: false,
+          conta_id: 231031,
+          usuario_id: 10089,
+          transferencia_id: null,
+          parcelamento_id: null,
+        },
+        {
+          conta: 'Conta para saldo',
+          id: 206615,
+          descricao: 'Movimentacao 2, calculo saldo',
+          envolvido: 'DDD',
+          observacao: null,
+          tipo: 'DESP',
+          data_transacao: '2020-08-06T03:00:00.000Z',
+          data_pagamento: '2020-08-06T03:00:00.000Z',
+          valor: '-1000.00',
+          status: true,
+          conta_id: 231031,
+          usuario_id: 10089,
+          transferencia_id: null,
+          parcelamento_id: null,
+        },
+        {
+          conta: 'Conta para saldo',
+          id: 206616,
+          descricao: 'Movimentacao 3, calculo saldo',
+          envolvido: 'EEE',
+          observacao: null,
+          tipo: 'REC',
+          data_transacao: '2020-08-06T03:00:00.000Z',
+          data_pagamento: '2020-08-06T03:00:00.000Z',
+          valor: '1534.00',
+          status: true,
+          conta_id: 231031,
+          usuario_id: 10089,
+          transferencia_id: null,
+          parcelamento_id: null,
+        },
+        {
+          conta: 'Conta para extrato',
+          id: 206617,
+          descricao: 'Movimentacao para extrato',
+          envolvido: 'FFF',
+          observacao: null,
+          tipo: 'DESP',
+          data_transacao: '2020-08-06T03:00:00.000Z',
+          data_pagamento: '2020-08-06T03:00:00.000Z',
+          valor: '-220.00',
+          status: true,
+          conta_id: 231032,
+          usuario_id: 10089,
+          transferencia_id: null,
+          parcelamento_id: null,
+        },
+      ],
+    }).as('GET-statement-200-it');
+
     // Insert new income
     cy.insertTransactionIncome(incomeData);
 
@@ -150,36 +291,16 @@ describe.only('Bank transition tests', () => {
       'contain',
       'Movimentação inserida com sucesso',
     );
-    // cy.get(locator.extrato.item).should('have.length', 7);
-    // cy.xpath(
-    //   locator.extrato.fn_xp_movimentacao_item(
-    //     incomeData.description,
-    //     incomeData.value,
-    //   ),
-    // ).should('exist');
+    cy.get(locator.extrato.item).should('have.length', 7);
+    cy.xpath(
+      locator.extrato.fn_xp_movimentacao_item(
+        incomeData.description,
+        incomeData.value,
+      ),
+    ).should('exist');
   });
 
-  //   it('Should insert new expense', () => {
-  //     const expenseData = {
-  //       description: 'Compras no shopping',
-  //       value: '150',
-  //       receiver: 'Shopping Iguatemi',
-  //       account: 'Conta para movimentacoes',
-  //     };
-  // eslint-disable-next-line max-len
-  //     const expectedExpense = `//span[contains(.,'${expenseData.description}')]/following-sibling::small[contains(.,'${expenseData.value}')]`;
-
-  //     // Insert new expense
-  //     cy.insertTransactionExpense(expenseData);
-
-  //     // Validation
-  //     cy.get(locator.toast.success).should(
-  //       'contain',
-  //       'Movimentação inserida com sucesso!',
-  //     );
-  //     cy.get(locator.extrato.item).should('have.length', 7);
-  //     cy.xpath(expectedExpense).should('exist');
-  //   });
+  // TODO Tests
 
   //   it('Should update an existing transaction', () => {
   //     // Add transaction to be deleted
