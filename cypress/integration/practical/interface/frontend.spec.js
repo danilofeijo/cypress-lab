@@ -255,29 +255,21 @@ describe('Bank transition tests', () => {
   });
 });
 
-// describe('Bank balance tests', () => {
-//   before(function () {
-//     // Log in application
-//     cy.fixture('loginData')
-//       .as('login')
-//       .then(() => {
-//         cy.loginApp(this.login.email, this.login.passwd);
-//       });
-//   });
+describe('Bank balance tests', () => {
+  it('Should validate account balance', () => {
+    const incomeData = {
+      description: 'Salário mensal',
+      value: '950',
+      receiver: 'Eu mesmo',
+      account: 'fake Default Account',
+    };
 
-//   it('Should validate account balance', () => {
-//     const incomeData = {
-//       description: 'Salário mensal',
-//       value: '900',
-//       receiver: 'Eu mesmo',
-//       account: 'Conta para movimentacoes',
-//     };
-//     cy.visitPageMovimentacao();
-//     cy.insertTransactionIncome(incomeData);
+    cy.visitPageMovimentacao();
+    cy.insertTransactionIncome(incomeData);
 
-//     cy.visitPageHome().reload();
-//     cy.xpath(locator.home.fn_xp_saldo_conta(incomeData.account))
-//       .should('contain', '-R$')
-//       .and('contain', '600');
-//   });
-// });
+    cy.visitPageHome().reload();
+    cy.xpath(locator.home.fn_xp_saldo_conta(incomeData.account))
+      .should('contain', 'R$')
+      .and('contain', '2.000,00');
+  });
+});
