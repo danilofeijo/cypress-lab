@@ -185,66 +185,24 @@ describe('Bank transition tests', () => {
     ).should('exist');
   });
 
-  // TODO Tests
+  it('Should remove an existing transaction', () => {
+    cy.route({
+      method: 'DELETE',
+      url: '/transacoes/**',
+      response: {},
+      status: 204,
+    }).as('DELETE-statement-204');
 
-  //   it('Should update an existing transaction', () => {
-  //     // Add transaction to be deleted
-  //     const incomeData = {
-  //       description: 'Movimentacao Aguardando edicao',
-  //       value: '111',
-  //       receiver: 'Alguem',
-  //       account: 'Conta para movimentacoes',
-  //     };
-  //     cy.insertTransactionIncome(incomeData);
-  //     cy.closeToast();
+    // Delete transaction previously created
+    cy.visitPageExtrato();
+    cy.deleteTransaction('Movimentacao para exclusao');
 
-  //     // Edit transaction previously created
-  //     cy.visitPageExtrato();
-  //     cy.xpath(
-  //       locator.extrato.fn_xp_movimentacao_edit(incomeData.description),
-  //     ).click();
-  //     cy.get(locator.movimentacao.field_descricao).should($el => {
-  //       expect($el.val()).to.be.equal(incomeData.description);
-  //     });
-  //     cy.get(locator.movimentacao.field_descricao)
-  //       .clear()
-  //       .type('Movimentacao Descricao Editada');
-  //     cy.get(locator.movimentacao.field_valor).clear().type('222');
-  //     cy.get(locator.movimentacao.field_interessado)
-  //       .clear()
-  //       .type('Interessado Editado');
-  //     // eslint-disable-next-line cypress/no-unnecessary-waiting
-  //     cy.wait(1000);
-  //     cy.get(locator.movimentacao.btn_salvar).click();
-
-  //     // Validation
-  //     cy.get(locator.toast.success).should(
-  //       'contain',
-  //       'Movimentação alterada com sucesso!',
-  //     );
-  //   });
-
-  //   it('Should remove an existing transaction', () => {
-  //     // Add transaction to be deleted
-  //     const incomeData = {
-  //       description: 'Deletar movimentacao',
-  //       value: '777',
-  //       receiver: 'Ninguem',
-  //       account: 'Conta para movimentacoes',
-  //     };
-  //     cy.insertTransactionIncome(incomeData);
-  //     cy.closeToast();
-
-  //     // Delete transaction previously created
-  //     cy.visitPageExtrato();
-  //     cy.deleteTransaction(incomeData.description);
-
-  //     // Validation
-  //     cy.get(locator.toast.success).should(
-  //       'contain',
-  //       'Movimentação removida com sucesso!',
-  //     );
-  //   });
+    // Validation
+    cy.get(locator.toast.success).should(
+      'contain',
+      'Movimentação removida com sucesso!',
+    );
+  });
 
   afterEach(() => {
     cy.closeToast();
