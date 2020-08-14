@@ -22,6 +22,55 @@ describe('Account tests', () => {
     cy.visitPageContas();
   });
 
+  it('Should validate data to create new account', () => {
+    const accountName = commerce.color();
+
+    // Validate data sent on request - Option 3.1
+    // const reqStub = cy.stub();
+
+    // Set fake account data
+    cy.route({
+      method: 'POST',
+      url: '/contas',
+      response: [
+        {
+          id: 1003,
+          nome: accountName,
+          visivel: true,
+          usuario_id: 100,
+        },
+      ],
+      // Validate data sent on request - Option 2
+      // onRequest: req => {
+      //   console.log(req);
+      //   expect(req.request.body.nome).to.be.not.empty;
+      //   expect(req.request.headers).to.have.property('Authorization');
+      // },
+
+      // Validate data sent on request - Option 3.2
+      // onRequest: reqStub,
+    }).as('POST-contas');
+
+    cy.insertAccount(accountName);
+    // cy.insertAccount('{CONTROL}'); // Send empty data
+
+    // Validate data sent on request - Option 1
+    // cy.wait('@POST-contas').its('request.body.nome').should('not.be.empty');
+
+    // Validate data sent on request - Option 3.3
+    // cy.wait('@POST-contas').then(() => {
+    //   console.log(reqStub.args[0][0]);
+    //   expect(reqStub.args[0][0].request.body.nome).to.be.not.empty;
+    //   expect(reqStub.args[0][0].request.headers).to.have.property('Authorization');
+    // });
+
+    // Validation
+    cy.get(locator.toast.success).should(
+      'contain',
+      'Conta inserida com sucesso!',
+    );
+  });
+
   it('Should create new account', () => {
     const accountName = commerce.color();
 
@@ -118,55 +167,6 @@ describe('Account tests', () => {
     );
   });
 
-  it.only('Should validate data to create new account', () => {
-    const accountName = commerce.color();
-
-    // Validate data sent on request - Option 3.1
-    // const reqStub = cy.stub();
-
-    // Set fake account data
-    cy.route({
-      method: 'POST',
-      url: '/contas',
-      response: [
-        {
-          id: 1003,
-          nome: accountName,
-          visivel: true,
-          usuario_id: 100,
-        },
-      ],
-      // Validate data sent on request - Option 2
-      // onRequest: req => {
-      //   console.log(req);
-      //   expect(req.request.body.nome).to.be.not.empty;
-      //   expect(req.request.headers).to.have.property('Authorization');
-      // },
-
-      // Validate data sent on request - Option 3.2
-      // onRequest: reqStub,
-    }).as('POST-contas');
-
-    cy.insertAccount(accountName);
-    // cy.insertAccount('{CONTROL}'); // Send empty data
-
-    // Validate data sent on request - Option 1
-    // cy.wait('@POST-contas').its('request.body.nome').should('not.be.empty');
-
-    // Validate data sent on request - Option 3.3
-    // cy.wait('@POST-contas').then(() => {
-    //   console.log(reqStub.args[0][0]);
-    //   expect(reqStub.args[0][0].request.body.nome).to.be.not.empty;
-    //   expect(reqStub.args[0][0].request.headers).to.have.property('Authorization');
-    // });
-
-    // Validation
-    cy.get(locator.toast.success).should(
-      'contain',
-      'Conta inserida com sucesso!',
-    );
-  });
-
   afterEach(() => {
     cy.closeToast();
   });
@@ -176,7 +176,7 @@ describe('Account tests', () => {
   });
 });
 
-describe('Bank transition tests', () => {
+describe('Bank transaction tests', () => {
   beforeEach(() => {
     // Access page Movimentacao
     cy.visitPageMovimentacao();
