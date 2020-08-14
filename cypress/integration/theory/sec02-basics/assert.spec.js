@@ -7,7 +7,7 @@ describe('Asserts', () => {
     expect(a).equal(1);
     expect(a, 'Deveria ser 1').equal(1);
     expect(a, 'Deveria ser 1').to.be.equal(1);
-    
+
     expect('a').to.be.equal('a');
     expect('a').not.to.be.equal('b');
   });
@@ -26,8 +26,8 @@ describe('Asserts', () => {
   it('Object equality', () => {
     const obj = {
       a: 1,
-      b: 2
-    }
+      b: 2,
+    };
 
     expect(obj).eq(obj);
     expect(obj).eql(obj);
@@ -36,8 +36,8 @@ describe('Asserts', () => {
     expect(obj).equals(obj);
     expect(obj).to.be.equal(obj);
 
-    expect(obj).to.be.deep.equal({a:1 , b:2});
-    expect(obj).to.be.eql({a:1 , b:2});
+    expect(obj).to.be.deep.equal({ a: 1, b: 2 });
+    expect(obj).to.be.eql({ a: 1, b: 2 });
 
     expect(obj).include({ a: 1 });
     expect(obj).to.have.property('a');
@@ -70,7 +70,7 @@ describe('Asserts', () => {
 
     expect(str).to.be.equal('String Lorem Ipsum');
     expect(str).to.have.length(18);
-    expect(str).to.contains("Lorem");
+    expect(str).to.contains('Lorem');
     expect(str).to.match(/String/);
     expect(str).to.match(/^Str/);
     expect(str).to.match(/sum$/);
@@ -80,13 +80,13 @@ describe('Asserts', () => {
   });
 
   it('Number asserts', () => {
-    const number = 3
-    const floatNum = 4.50
+    const number = 3;
+    const floatNum = 4.5;
 
     expect(number).to.be.equal(3);
     expect(number).to.be.above(2.99);
     expect(number).to.be.below(3.01);
-    expect(floatNum).to.be.equal(4.50);
+    expect(floatNum).to.be.equal(4.5);
     expect(floatNum).to.be.closeTo(4.49, 0.01);
   });
 });

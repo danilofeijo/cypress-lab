@@ -1,4 +1,4 @@
-it('arrow ex', () => { });
+it('arrow ex', () => {});
 
 // const soma = (a, b) => {
 //   return a + b
