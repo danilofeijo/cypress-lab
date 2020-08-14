@@ -249,7 +249,55 @@ describe('Bank transaction tests', () => {
     );
   });
 
-  it.only('Should present transactions with different colors', () => {
+  after(() => {
+    cy.clearLocalStorage();
+  });
+});
+
+describe('Bank balance tests', () => {
+  it('Should validate data to create account balance', () => {
+    const incomeData = {
+      description: 'Salário mensal',
+      value: '950',
+      receiver: 'Eu mesmo',
+      account: 'fake Default Account',
+    };
+
+    cy.visitPageMovimentacao();
+    cy.insertTransactionIncome(incomeData);
+
+    cy.visitPageHome().reload();
+    cy.xpath(locator.home.fn_xp_saldo_conta(incomeData.account))
+      .should('contain', 'R$')
+      .and('contain', '2.000,00');
+  });
+});
+
+describe('Misc Tests', () => {
+  it('Should present mobile menu', () => {
+    // Validate menu behavior - default
+    cy.get('[data-test=menu-home]').should('exist').and('be.visible');
+    cy.get('button.navbar-toggler').should('exist').and('be.not.visible');
+
+    // Validate menu behavior - generic mobile
+    cy.viewport(500, 700);
+    cy.get('[data-test=menu-home]').should('exist').and('be.not.visible');
+    cy.get('button.navbar-toggler').should('exist').and('be.visible');
+
+    // Validate menu behavior - iphone-5
+    cy.viewport('iphone-5');
+    cy.get('[data-test=menu-home]').should('exist').and('be.not.visible');
+    cy.get('button.navbar-toggler').should('exist').and('be.visible');
+
+    // Validate menu behavior - ipad-2
+    cy.viewport('ipad-2');
+    cy.get('[data-test=menu-home]').should('exist').and('be.visible');
+    cy.get('button.navbar-toggler').should('exist').and('be.not.visible');
+
+    // Viewport is reseted before to start next test
+  });
+
+  it('Should present transactions with different colors', () => {
     // Set fake bank statement
     cy.route({
       method: 'GET',
@@ -341,28 +389,5 @@ describe('Bank transaction tests', () => {
       'have.class',
       'receitaPendente',
     );
-  });
-
-  after(() => {
-    cy.clearLocalStorage();
-  });
-});
-
-describe('Bank balance tests', () => {
-  it('Should validate data to create account balance', () => {
-    const incomeData = {
-      description: 'Salário mensal',
-      value: '950',
-      receiver: 'Eu mesmo',
-      account: 'fake Default Account',
-    };
-
-    cy.visitPageMovimentacao();
-    cy.insertTransactionIncome(incomeData);
-
-    cy.visitPageHome().reload();
-    cy.xpath(locator.home.fn_xp_saldo_conta(incomeData.account))
-      .should('contain', 'R$')
-      .and('contain', '2.000,00');
   });
 });
