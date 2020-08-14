@@ -167,10 +167,6 @@ describe('Account tests', () => {
     );
   });
 
-  afterEach(() => {
-    cy.closeToast();
-  });
-
   after(() => {
     cy.clearLocalStorage();
   });
@@ -253,8 +249,98 @@ describe('Bank transaction tests', () => {
     );
   });
 
-  afterEach(() => {
-    cy.closeToast();
+  it.only('Should present transactions with different colors', () => {
+    // Set fake bank statement
+    cy.route({
+      method: 'GET',
+      url: '/extrato/**',
+      response: [
+        {
+          conta: 'Conta para movimentacoes',
+          id: 206612,
+          descricao: 'Despesa Paga',
+          envolvido: 'AAA',
+          observacao: null,
+          tipo: 'DESP',
+          data_transacao: '2020-08-06T03:00:00.000Z',
+          data_pagamento: '2020-08-06T03:00:00.000Z',
+          valor: '-500.00',
+          status: true,
+          conta_id: 231029,
+          usuario_id: 10089,
+          transferencia_id: null,
+          parcelamento_id: null,
+        },
+        {
+          conta: 'Conta com movimentacao',
+          id: 206613,
+          descricao: 'Despesa Pendente',
+          envolvido: 'BBB',
+          observacao: null,
+          tipo: 'DESP',
+          data_transacao: '2020-08-06T03:00:00.000Z',
+          data_pagamento: '2020-08-06T03:00:00.000Z',
+          valor: '-1000.00',
+          status: false,
+          conta_id: 231030,
+          usuario_id: 10089,
+          transferencia_id: null,
+          parcelamento_id: null,
+        },
+        {
+          conta: 'Conta para saldo',
+          id: 206614,
+          descricao: 'Receita Paga',
+          envolvido: 'CCC',
+          observacao: null,
+          tipo: 'REC',
+          data_transacao: '2020-08-06T03:00:00.000Z',
+          data_pagamento: '2020-08-06T03:00:00.000Z',
+          valor: '1500.00',
+          status: true,
+          conta_id: 231031,
+          usuario_id: 10089,
+          transferencia_id: null,
+          parcelamento_id: null,
+        },
+        {
+          conta: 'Conta para saldo',
+          id: 206615,
+          descricao: 'Receita Pendente',
+          envolvido: 'DDD',
+          observacao: null,
+          tipo: 'REC',
+          data_transacao: '2020-08-06T03:00:00.000Z',
+          data_pagamento: '2020-08-06T03:00:00.000Z',
+          valor: '2000.00',
+          status: false,
+          conta_id: 231031,
+          usuario_id: 10089,
+          transferencia_id: null,
+          parcelamento_id: null,
+        },
+      ],
+    }).as('GET-statement-200-colors');
+
+    cy.get(locator.menu.option_extrato).click();
+
+    // Validations
+    cy.xpath(locator.extrato.fn_xp_specific_item('Despesa Paga')).should(
+      'have.class',
+      'despesaPaga',
+    );
+    cy.xpath(locator.extrato.fn_xp_specific_item('Despesa Pendente')).should(
+      'have.class',
+      'despesaPendente',
+    );
+    cy.xpath(locator.extrato.fn_xp_specific_item('Receita Paga')).should(
+      'have.class',
+      'receitaPaga',
+    );
+    cy.xpath(locator.extrato.fn_xp_specific_item('Receita Pendente')).should(
+      'have.class',
+      'receitaPendente',
+    );
   });
 
   after(() => {

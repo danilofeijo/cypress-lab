@@ -35,6 +35,8 @@ const locators = {
       `//span[contains(.,'${description}')]/../../..//a[contains(@href, '/movimentacao/')]`,
     fn_xp_movimentacao_delete: description =>
       `//span[contains(.,'${description}')]/../../..//i[contains(@class, 'fa-trash-alt')]`,
+    fn_xp_specific_item: description =>
+      `//span[contains(.,'${description}')]/../../../..`,
   },
   contas: {
     header: 'h2',
