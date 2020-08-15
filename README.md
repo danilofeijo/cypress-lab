@@ -1,7 +1,15 @@
 # cypressLab2
 
+Code about the course [Testes de aplicações modernas com Cypress][1]. It covers API, E2E and Interface tests.
+
+![Cypress Logo](https://www.pngkit.com/png/full/411-4116389_cypress-io-logo7639-cypress-io-logo.png)
+![Udemy Logo](https://www.udemy.com/staticx/udemy/images/v6/logo-coral.svg)
+
+
 ## Setup
-To do
+Download this repo, access the folder and run:
+
+`$ yarn install`
 
 ## Running Tests
 
@@ -30,3 +38,6 @@ To do
 `$ yarn run cy:run --spec cypress/integration/practical/api/backend.spec.js --browser chrome`
 * Not headless
 * Close the browser after execution
+
+<!-- Links list -->
+[1]: https://www.udemy.com/course/testes-cypress/
