@@ -27,10 +27,13 @@ describe('Account tests', () => {
   });
 
   it('Should insert new account', () => {
+    // Set up data
     const accountName = commerce.color();
 
-    // Insert new account
+    // Actions - Insert new account
     cy.insertAccount(accountName);
+
+    // Validations
     cy.get(locator.toast.success).should(
       'contain',
       'Conta inserida com sucesso!',
@@ -38,12 +41,14 @@ describe('Account tests', () => {
   });
 
   it('Should edit a created account', () => {
-    // Updating account name
+    // Actions - Updating account name
     cy.xpath(locator.contas.xp_btn_edit_conta_extrato).click();
     cy.get(locator.contas.field_account_name)
       .clear()
       .type('Account name updated');
     cy.get(locator.contas.btn_save).click();
+
+    // Validations
     cy.get(locator.toast.success).should(
       'contain',
       'Conta atualizada com sucesso!',
@@ -51,9 +56,10 @@ describe('Account tests', () => {
   });
 
   it('Should not Insert duplicated account', () => {
+    // Set up data
     const accountName = commerce.color();
 
-    // Insert first account
+    // Set up data - Insert first account
     cy.insertAccount(accountName);
     cy.get(locator.toast.success).should(
       'contain',
@@ -61,8 +67,10 @@ describe('Account tests', () => {
     );
     cy.closeToast();
 
-    // Try to insert the same account again
+    // Actions - Try to insert the same account again
     cy.insertAccount(accountName);
+
+    // Validations
     cy.get(locator.toast.error).should(
       'contain',
       'Request failed with status code 400',
@@ -85,16 +93,20 @@ describe('Bank balance tests', () => {
   });
 
   it('Should validate account balance', () => {
+    // Set up data
     const incomeData = {
       description: 'Salário mensal',
       value: '900',
       receiver: 'Eu mesmo',
       account: 'Conta para movimentacoes',
     };
+
+    // Actions
     cy.visitPageMovimentacao();
     cy.insertTransactionIncome(incomeData);
-
     cy.visitPageHome().reload();
+
+    // Validations
     cy.xpath(locator.home.fn_xp_saldo_conta(incomeData.account))
       .should('contain', '-R$')
       .and('contain', '600');
@@ -117,6 +129,7 @@ describe('Bank transition tests', () => {
   });
 
   it('Should insert new income', () => {
+    // Set up data
     const incomeData = {
       description: 'Salário mensal',
       value: '950',
@@ -124,10 +137,10 @@ describe('Bank transition tests', () => {
       account: 'Conta para movimentacoes',
     };
 
-    // Insert new income
+    // Actions - Insert new income
     cy.insertTransactionIncome(incomeData);
 
-    // Validation
+    // Validations
     cy.get(locator.toast.success).should(
       'contain',
       'Movimentação inserida com sucesso',
@@ -142,6 +155,7 @@ describe('Bank transition tests', () => {
   });
 
   it('Should insert new expense', () => {
+    // Set up data
     const expenseData = {
       description: 'Compras no shopping',
       value: '150',
@@ -151,10 +165,10 @@ describe('Bank transition tests', () => {
     // eslint-disable-next-line max-len
     const expectedExpense = `//span[contains(.,'${expenseData.description}')]/following-sibling::small[contains(.,'${expenseData.value}')]`;
 
-    // Insert new expense
+    // Actions - Insert new expense
     cy.insertTransactionExpense(expenseData);
 
-    // Validation
+    // Validations
     cy.get(locator.toast.success).should(
       'contain',
       'Movimentação inserida com sucesso!',
@@ -164,7 +178,7 @@ describe('Bank transition tests', () => {
   });
 
   it('Should update an existing transaction', () => {
-    // Add transaction to be deleted
+    // Set up data - Add transaction to be deleted
     const incomeData = {
       description: 'Movimentacao Aguardando edicao',
       value: '111',
@@ -174,7 +188,7 @@ describe('Bank transition tests', () => {
     cy.insertTransactionIncome(incomeData);
     cy.closeToast();
 
-    // Edit transaction previously created
+    // Actions - Edit transaction previously created
     cy.visitPageExtrato();
     cy.xpath(
       locator.extrato.fn_xp_movimentacao_edit(incomeData.description),
@@ -193,7 +207,7 @@ describe('Bank transition tests', () => {
     cy.wait(1000);
     cy.get(locator.movimentacao.btn_salvar).click();
 
-    // Validation
+    // Validations
     cy.get(locator.toast.success).should(
       'contain',
       'Movimentação alterada com sucesso!',
@@ -201,7 +215,7 @@ describe('Bank transition tests', () => {
   });
 
   it('Should remove an existing transaction', () => {
-    // Add transaction to be deleted
+    // Set up data - Add transaction to be deleted
     const incomeData = {
       description: 'Deletar movimentacao',
       value: '777',
@@ -211,11 +225,11 @@ describe('Bank transition tests', () => {
     cy.insertTransactionIncome(incomeData);
     cy.closeToast();
 
-    // Delete transaction previously created
+    // Actions - Delete transaction previously created
     cy.visitPageExtrato();
     cy.deleteTransaction(incomeData.description);
 
-    // Validation
+    // Validations
     cy.get(locator.toast.success).should(
       'contain',
       'Movimentação removida com sucesso!',

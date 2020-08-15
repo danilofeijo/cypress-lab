@@ -23,12 +23,12 @@ describe('Account tests', () => {
   });
 
   it('Should validate data to create new account', () => {
+    // Set up data
     const accountName = commerce.color();
 
     // Validate data sent on request - Option 3.1
     // const reqStub = cy.stub();
 
-    // Set fake account data
     cy.route({
       method: 'POST',
       url: '/contas',
@@ -51,11 +51,14 @@ describe('Account tests', () => {
       // onRequest: reqStub,
     }).as('POST-contas');
 
+    // Actions
     cy.insertAccount(accountName);
-    // cy.insertAccount('{CONTROL}'); // Send empty data
+    // cy.insertAccount('{CONTROL}'); // To send empty data
+
+    // Validations
 
     // Validate data sent on request - Option 1
-    // cy.wait('@POST-contas').its('request.body.nome').should('not.be.empty');
+    cy.wait('@POST-contas').its('request.body.nome').should('not.be.empty');
 
     // Validate data sent on request - Option 3.3
     // cy.wait('@POST-contas').then(() => {
@@ -63,18 +66,13 @@ describe('Account tests', () => {
     //   expect(reqStub.args[0][0].request.body.nome).to.be.not.empty;
     //   expect(reqStub.args[0][0].request.headers).to.have.property('Authorization');
     // });
-
-    // Validation
-    cy.get(locator.toast.success).should(
-      'contain',
-      'Conta inserida com sucesso!',
-    );
   });
 
   it('Should create new account', () => {
+    // Set up data
     const accountName = commerce.color();
 
-    // Set fake account data
+    // Set up data - Fake account data to be added
     cy.route({
       method: 'POST',
       url: '/contas',
@@ -88,7 +86,7 @@ describe('Account tests', () => {
       ],
     }).as('POST-contas');
 
-    // Optional - Set fake account data after POST call
+    // Set up data - Fake account list after POST call (Optional)
     cy.route({
       method: 'GET',
       url: '/contas',
@@ -114,9 +112,10 @@ describe('Account tests', () => {
       ],
     }).as('GET-contas-salvas');
 
+    // Actions
     cy.insertAccount(accountName);
 
-    // Validation
+    // Validations
     cy.get(locator.toast.success).should(
       'contain',
       'Conta inserida com sucesso!',
@@ -124,9 +123,10 @@ describe('Account tests', () => {
   });
 
   it('Should edit a created account', () => {
+    // Set up data
     const updatedAccountName = 'Fake Account ' + commerce.color() + ' updated';
 
-    // Set fake account data updated
+    // Set up data - Route to update acount
     cy.route({
       method: 'PUT',
       url: '/contas/**',
@@ -140,10 +140,12 @@ describe('Account tests', () => {
       ],
     }).as('POST-contas');
 
-    // Updating account name
+    // Actions - Edit account name
     cy.xpath(locator.contas.xp_btn_edit_conta_fake_digital_wallet).click();
     cy.get(locator.contas.field_account_name).clear().type(updatedAccountName);
     cy.get(locator.contas.btn_save).click();
+
+    // Validations
     cy.get(locator.toast.success).should(
       'contain',
       'Conta atualizada com sucesso!',
@@ -151,7 +153,7 @@ describe('Account tests', () => {
   });
 
   it('Should not Insert duplicated account', () => {
-    // Set fake account data
+    // Set up data
     cy.route({
       method: 'POST',
       url: '/contas',
@@ -159,8 +161,10 @@ describe('Account tests', () => {
       response: [{ error: 'Já existe uma conta com esse nome!' }],
     }).as('POST-contas-400');
 
-    // Try to insert account with the same name
+    // Actions - Try to insert account with the same name
     cy.insertAccount('fake Digital Wallet');
+
+    // Validations
     cy.get(locator.toast.error).should(
       'contain',
       'Request failed with status code 400',
@@ -179,6 +183,7 @@ describe('Bank transaction tests', () => {
   });
 
   it('Should insert new income', () => {
+    // Set up data - income data to be added
     const incomeData = {
       description: 'Salário mensal',
       value: '950',
@@ -186,6 +191,7 @@ describe('Bank transaction tests', () => {
       account: 'fake Default Account',
     };
 
+    // Set up data - Route to insert transaction
     cy.route({
       method: 'POST',
       url: '/transacoes',
@@ -206,17 +212,17 @@ describe('Bank transaction tests', () => {
       },
     }).as('POST-transacoes-200');
 
-    // Set fake bank statement
+    // Set up data - Fake bank statement
     cy.route({
       method: 'GET',
       url: '/extrato/**',
       response: 'fixture:savedTransaction',
     }).as('GET-statement-200-it');
 
-    // Insert new income
+    // Actions - Insert new income
     cy.insertTransactionIncome(incomeData);
 
-    // Validation
+    // Validations
     cy.get(locator.toast.success).should(
       'contain',
       'Movimentação inserida com sucesso',
@@ -231,6 +237,7 @@ describe('Bank transaction tests', () => {
   });
 
   it('Should remove an existing transaction', () => {
+    // Set up data
     cy.route({
       method: 'DELETE',
       url: '/transacoes/**',
@@ -238,11 +245,11 @@ describe('Bank transaction tests', () => {
       status: 204,
     }).as('DELETE-statement-204');
 
-    // Delete transaction previously created
+    // Actions - Delete transaction previously created
     cy.visitPageExtrato();
     cy.deleteTransaction('Movimentacao para exclusao');
 
-    // Validation
+    // Validations
     cy.get(locator.toast.success).should(
       'contain',
       'Movimentação removida com sucesso!',
@@ -256,6 +263,7 @@ describe('Bank transaction tests', () => {
 
 describe('Bank balance tests', () => {
   it('Should validate data to create account balance', () => {
+    // Set up data
     const incomeData = {
       description: 'Salário mensal',
       value: '950',
@@ -263,10 +271,12 @@ describe('Bank balance tests', () => {
       account: 'fake Default Account',
     };
 
+    // Actions
     cy.visitPageMovimentacao();
     cy.insertTransactionIncome(incomeData);
-
     cy.visitPageHome().reload();
+
+    // Validations
     cy.xpath(locator.home.fn_xp_saldo_conta(incomeData.account))
       .should('contain', 'R$')
       .and('contain', '2.000,00');
@@ -298,7 +308,7 @@ describe('Misc Tests', () => {
   });
 
   it('Should present transactions with different colors', () => {
-    // Set fake bank statement
+    // Set up data - Fake bank statement
     cy.route({
       method: 'GET',
       url: '/extrato/**',
@@ -370,6 +380,7 @@ describe('Misc Tests', () => {
       ],
     }).as('GET-statement-200-colors');
 
+    // Actions
     cy.get(locator.menu.option_extrato).click();
 
     // Validations

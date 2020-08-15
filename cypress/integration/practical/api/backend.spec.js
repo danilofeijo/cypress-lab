@@ -18,8 +18,10 @@ describe('Tests at API level', () => {
   });
 
   it('Should create an account', () => {
+    // Set up data
     const accountName = commerce.color();
 
+    // Actions
     cy.request({
       method: 'POST',
       // Comented due to Cypress.Command.overwrite
@@ -30,6 +32,7 @@ describe('Tests at API level', () => {
       },
     }).as('response');
 
+    // Validations
     cy.get('@response').then(res => {
       expect(res.status).to.be.equal(201);
       expect(res.body).to.have.property('id');
@@ -39,7 +42,8 @@ describe('Tests at API level', () => {
     });
   });
 
-  it('Should reset data', () => {
+  it('Should reSet up data', () => {
+    // Actions
     cy.request({
       method: 'GET',
       // Comented due to Cypress.Command.overwrite
@@ -47,20 +51,23 @@ describe('Tests at API level', () => {
       url: '/reset',
     }).as('response');
 
+    // Validations - option 1
     cy.get('@response').then(res => {
       expect(res.status).to.be.equal(200);
     });
 
-    // Short option
+    // Validations - option 2 (Short option)
     cy.resetData().then(res => {
       expect(res).to.be.equal(200);
     });
   });
 
   it('Should update an account', () => {
+    // Set up data
     const accountName = 'Conta para alterar';
     const updatedName = 'Updated account name';
 
+    // Actions
     cy.getContaByName(accountName)
       .then(contaId => {
         cy.request({
@@ -75,6 +82,7 @@ describe('Tests at API level', () => {
       })
       .as('response');
 
+    // Validations
     cy.get('@response').then(res => {
       expect(res.status).to.be.equal(200);
       expect(res.body.nome).to.be.equal(updatedName);
@@ -87,9 +95,9 @@ describe('Tests at API level', () => {
   });
 
   it('Should not create a duplicated account', () => {
+    // Set up data
     const accountName = commerce.color();
 
-    // Data mass criation
     cy.request({
       method: 'POST',
       // Comented due to Cypress.Command.overwrite
@@ -101,6 +109,7 @@ describe('Tests at API level', () => {
       failOnStatusCode: false,
     });
 
+    // Actions
     cy.request({
       method: 'POST',
       // Comented due to Cypress.Command.overwrite
@@ -113,6 +122,7 @@ describe('Tests at API level', () => {
       failOnStatusCode: false,
     }).as('response');
 
+    // Validations
     cy.get('@response').then(res => {
       expect(res.status).to.be.equal(400);
       expect(res.body.error).to.be.equal('Já existe uma conta com esse nome!');
@@ -120,8 +130,10 @@ describe('Tests at API level', () => {
   });
 
   it('Should insert new transaction', () => {
+    // Set up data
     const accountName = 'Conta para movimentacoes';
 
+    // Actions
     cy.getContaByName(accountName).then(contaId => {
       cy.request({
         method: 'POST',
@@ -142,16 +154,20 @@ describe('Tests at API level', () => {
         },
       }).as('response');
 
+      // Validations - option 1 (grouped)
       cy.get('@response').then(res => {
         expect(res.status).to.be.equal(201);
         expect(res.body.id).exist;
       });
-      // cy.get('@response').its('status').should('be.equal', 201);
-      // cy.get('@response').its('status').should('exist');
+
+      // Validations - option 2 (ungrouped)
+      cy.get('@response').its('status').should('be.equal', 201);
+      cy.get('@response').its('status').should('exist');
     });
   });
 
   it('Should get balance', () => {
+    // Set up data
     const accountName = 'Conta para saldo';
 
     cy.request({
@@ -170,12 +186,13 @@ describe('Tests at API level', () => {
       });
     });
 
+    // Actions
     cy.request({
       method: 'GET',
       url: '/transacoes',
       // Comented due to Cypress.Command.overwrite
       // headers: { Authorization: `JWT ${token}` },
-      qs: { descricao: 'Movimentacao 1, calculo saldo' },
+      qs: { descricao: 'Movimentacao 1, calculo saldo' }, // qs = Query String. Appended to the url of the request
     }).then(res => {
       cy.request({
         method: 'PUT',
@@ -207,6 +224,7 @@ describe('Tests at API level', () => {
       // headers: { Authorization: `JWT ${token}` },
     }).as('secondResponse');
 
+    // Validations
     cy.get('@secondResponse').then(res => {
       expect(res.status).to.equal(200);
       res.body.forEach(item => {
@@ -218,6 +236,7 @@ describe('Tests at API level', () => {
   });
 
   it('Should remove a transaction', () => {
+    // Actions
     cy.request({
       method: 'GET',
       url: '/transacoes',
@@ -231,6 +250,7 @@ describe('Tests at API level', () => {
         // Comented due to Cypress.Command.overwrite
         // headers: { Authorization: `JWT ${token}` },
       })
+        // Validations
         .its('status')
         .should('be.equal', 204);
     });
