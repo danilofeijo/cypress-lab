@@ -1,10 +1,8 @@
 # cypressLab2
 
-Code about the course [Testes de aplicações modernas com Cypress][1]. It covers API, E2E and Interface tests.
+Code about the course [Testes de aplicações modernas com Cypress][1] from Udemy. It covers API, E2E and Interface tests.
 
 ![Cypress Logo](https://www.pngkit.com/png/full/411-4116389_cypress-io-logo7639-cypress-io-logo.png)
-![Udemy Logo](https://www.udemy.com/staticx/udemy/images/v6/logo-coral.svg)
-
 
 ## Setup
 Download this repo, access the folder and run:
