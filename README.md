@@ -1,39 +1,39 @@
-# cypressLab2
+# cypress-lab
 
-Code about the course [Testes de aplicações modernas com Cypress][1] from Udemy. It covers API, E2E and Interface tests.
+A nice lab with settings and patterns to follow and apply in a real world. Also, there are older code about [Udemy course][1] which covers API, E2E and Interface test layers.
 
 ![Cypress Logo](https://www.pngkit.com/png/full/411-4116389_cypress-io-logo7639-cypress-io-logo.png)
 
 ## Setup
 Download this repo, access the folder and run:
 
-`$ yarn install`
+`$ npm install`
 
 ## Running Tests
 
 ### Run All tests
-`$ yarn run cy:run`
+`$ npm run cy:run`
 * Headless mode
 * Default browser
 
 ### Run Spec
-`$ yarn run cy:run --spec cypress/integration/practical/api/backend.spec.js`
+`$ npm run cy:run --spec cypress/integration/practical/api/backend.spec.js`
 * Headless mode
 * Default browser
 
 ### Run Folder
-`$ yarn run cy:run --spec cypress/integration/practical/api/**.*`
+`$ npm run cy:run --spec cypress/integration/practical/api/**.*`
 * Headless mode
 * Default browser
 
 ### Run Not headless
-`$ yarn run cy:run --spec cypress/integration/practical/api/backend.spec.js --headed --no-exit`
+`$ npm run cy:run --spec cypress/integration/practical/api/backend.spec.js --headed --no-exit`
 * Better use to run specific spec
 * "--headed" open the browser
 * "--no-exit" keep the browser opened
 
 ### Run Specific browser
-`$ yarn run cy:run --spec cypress/integration/practical/api/backend.spec.js --browser chrome`
+`$ npm run cy:run --spec cypress/integration/practical/api/backend.spec.js --browser chrome`
 * Not headless
 * Close the browser after execution
 

@@ -1,8 +1,8 @@
 {
-  "name": "cypress-lab-2",
+  "name": "cypress-lab",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/danilofeijo/cypress-lab-2.git",
+  "repository": "https://github.com/danilofeijo/cypress-lab.git",
   "license": "MIT",
   "scripts": {
     "cy:open": "cypress open",
