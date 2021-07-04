@@ -1,6 +1,5 @@
 {
-  "defaultCommandTimeout": 4000,
-  "baseUrl": "https://barrigarest.wcaquino.me",
-  "baseUrlFront": "http://barrigareact.wcaquino.me"
-
+  "viewportWidth": 1366,
+  "viewportHeight": 788,
+  "defaultCommandTimeout": 4000
 }

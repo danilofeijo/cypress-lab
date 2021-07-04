@@ -1,11 +1,11 @@
-# cypress-lab
-
 <img 
   src="https://www.pngkit.com/png/full/411-4116389_cypress-io-logo7639-cypress-io-logo.png"
   alt="Cypress Logo"
   width="300"
   class="center"
 />
+
+# cypress-lab
 
 A test automation setup with patterns and settings that can be apply in a real world.
 
@@ -16,6 +16,9 @@ Download this repo, access the folder and run:
 
 <!-- TODO Adjust running commands -->
 ## Running Tests
+
+### By environment
+`npx cypress run --env configFile=<env>`
 
 ### Run All tests
 `$ npm run cy:run`
