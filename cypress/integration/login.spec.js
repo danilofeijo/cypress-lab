@@ -1,11 +1,14 @@
 /// <reference types="cypress" />
 
+import { LoginUI } from '../page/login';
+
 describe('Home page', () => {
   it('Should load home page', () => {
-    cy.visit('/login');
-    cy.get('input[placeholder="Email"]').type('johndoe@cypresslab.com');
-    cy.get('input[placeholder="Password"]').type('Test;123');
-    cy.get('button').contains('Sign in').click();
+    const user = 'johndoe@cypresslab.com';
+    const pass = 'Test;123';
+
+    LoginUI.visitLogin();
+    LoginUI.submitLogin(user, pass);
 
     cy.get('nav.navbar')
       .should('contain', 'a', 'conduit')
