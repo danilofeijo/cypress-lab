@@ -1,4 +1,4 @@
-// Elements to interact with related page
+// Elements to interact with Login page
 
 export const ELEMENTS = {
   inputEmail: 'input[placeholder="Email"]',

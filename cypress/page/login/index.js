@@ -1,4 +1,4 @@
-// Actions to interact with related page
+// Actions to interact with Login page
 
 const pageElements = require('./elements').ELEMENTS;
 
