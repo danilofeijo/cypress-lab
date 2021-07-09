@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import { LoginUI } from '../page/login';
+const globalElements = require('../page/global/elements').ELEMENTS;
 
 describe('Home page', () => {
   it('Should load home page', () => {
@@ -10,7 +11,7 @@ describe('Home page', () => {
     LoginUI.visitLogin();
     LoginUI.submitLogin(user, pass);
 
-    cy.get('nav.navbar')
+    cy.get(globalElements.headerBar)
       .should('contain', 'a', 'conduit')
       .and('contain', 'a', 'Home')
       .and('contain', 'a', 'New Article')

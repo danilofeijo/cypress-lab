@@ -1,6 +1,6 @@
 // Actions to interact with related page
 
-// const pageElements = require('./elements').ELEMENTS;
+const pageElements = require('./elements').ELEMENTS;
 
 class LoginUI {
   visitLogin() {
@@ -8,9 +8,9 @@ class LoginUI {
   }
 
   submitLogin(user, pass) {
-    cy.get('input[placeholder="Email"]').type(user);
-    cy.get('input[placeholder="Password"]').type(pass);
-    cy.get('button').contains('Sign in').click();
+    cy.get(pageElements.inputEmail).type(user);
+    cy.get(pageElements.inputPass).type(pass);
+    cy.get(pageElements.buttonThat).contains('Sign in').click();
   }
 }
 
