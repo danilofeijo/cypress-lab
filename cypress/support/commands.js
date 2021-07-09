@@ -23,93 +23,95 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-import locator from '../support/locators';
 
-Cypress.Commands.add('clickAlert', (locator, message) => {
-  cy.get(locator).click();
-  cy.on('window:alert', msg => {
-    expect(msg).to.be.equal(message);
-  });
-});
+// Deprecated code
+// import locator from '../support/locators';
 
-Cypress.Commands.add(
-  'loginApp',
-  (user = 'fake@email.com', pass = 'fakePass') => {
-    cy.visit(Cypress.config().baseUrlFront);
-    cy.get(locator.login.field_user).type(user);
-    cy.get(locator.login.field_pass).type(pass);
-    cy.get(locator.login.btn_login).click();
+// Cypress.Commands.add('clickAlert', (locator, message) => {
+//   cy.get(locator).click();
+//   cy.on('window:alert', msg => {
+//     expect(msg).to.be.equal(message);
+//   });
+// });
 
-    cy.get(locator.toast.info).should('contain', 'Bem vindo');
-    cy.closeToast();
-  },
-);
+// Cypress.Commands.add(
+//   'loginApp',
+//   (user = 'fake@email.com', pass = 'fakePass') => {
+//     cy.visit(Cypress.config().baseUrlFront);
+//     cy.get(locator.login.field_user).type(user);
+//     cy.get(locator.login.field_pass).type(pass);
+//     cy.get(locator.login.btn_login).click();
 
-Cypress.Commands.add('resetApp', () => {
-  cy.get(locator.menu.option_settings).click();
-  cy.get(locator.menu.option_resetar).click();
-  cy.closeToast();
-});
+//     cy.get(locator.toast.info).should('contain', 'Bem vindo');
+//     cy.closeToast();
+//   },
+// );
 
-Cypress.Commands.add('closeToast', () => {
-  cy.get(locator.toast.closeButton).click();
-  cy.get(locator.toast.success).should('not.exist');
-  cy.get(locator.toast.info).should('not.exist');
-  cy.get(locator.toast.error).should('not.exist');
-});
+// Cypress.Commands.add('resetApp', () => {
+//   cy.get(locator.menu.option_settings).click();
+//   cy.get(locator.menu.option_resetar).click();
+//   cy.closeToast();
+// });
 
-// API Commands
-Cypress.Commands.add('getToken', (user, passwd) => {
-  cy.request({
-    method: 'POST',
-    url: '/signin',
-    body: {
-      email: user,
-      senha: passwd,
-      redirecionar: false,
-    },
-  })
-    .its('body.token')
-    .should('not.be.empty')
-    .then(token => {
-      Cypress.env('token', token);
-      return token;
-    });
-});
+// Cypress.Commands.add('closeToast', () => {
+//   cy.get(locator.toast.closeButton).click();
+//   cy.get(locator.toast.success).should('not.exist');
+//   cy.get(locator.toast.info).should('not.exist');
+//   cy.get(locator.toast.error).should('not.exist');
+// });
 
-Cypress.Commands.add('resetData', () => {
-  cy.request({
-    method: 'GET',
-    // Comented due to Cypress.Command.overwrite
-    // headers: { Authorization: `JWT ${token}` },
-    url: 'reset',
-  })
-    .its('status')
-    .should('be.equal', 200);
-});
+// // API Commands
+// Cypress.Commands.add('getToken', (user, passwd) => {
+//   cy.request({
+//     method: 'POST',
+//     url: '/signin',
+//     body: {
+//       email: user,
+//       senha: passwd,
+//       redirecionar: false,
+//     },
+//   })
+//     .its('body.token')
+//     .should('not.be.empty')
+//     .then(token => {
+//       Cypress.env('token', token);
+//       return token;
+//     });
+// });
 
-Cypress.Commands.add('getContaByName', accountName => {
-  cy.request({
-    method: 'GET',
-    // Comented due to Cypress.Command.overwrite
-    // headers: { Authorization: `JWT ${token}` },
-    url: '/contas',
-    qs: {
-      nome: accountName,
-    },
-  }).then(res => {
-    return res.body[0].id;
-  });
-});
+// Cypress.Commands.add('resetData', () => {
+//   cy.request({
+//     method: 'GET',
+//     // Commented due to Cypress.Command.overwrite
+//     // headers: { Authorization: `JWT ${token}` },
+//     url: 'reset',
+//   })
+//     .its('status')
+//     .should('be.equal', 200);
+// });
 
-Cypress.Commands.overwrite('request', (originalFn, ...options) => {
-  if (options.length === 1) {
-    if (Cypress.env('token')) {
-      options[0].headers = {
-        Authorization: `JWT ${Cypress.env('token')}`,
-      };
-    }
-  }
+// Cypress.Commands.add('getContaByName', accountName => {
+//   cy.request({
+//     method: 'GET',
+//     // Commented due to Cypress.Command.overwrite
+//     // headers: { Authorization: `JWT ${token}` },
+//     url: '/contas',
+//     qs: {
+//       nome: accountName,
+//     },
+//   }).then(res => {
+//     return res.body[0].id;
+//   });
+// });
 
-  return originalFn(...options);
-});
+// Cypress.Commands.overwrite('request', (originalFn, ...options) => {
+//   if (options.length === 1) {
+//     if (Cypress.env('token')) {
+//       options[0].headers = {
+//         Authorization: `JWT ${Cypress.env('token')}`,
+//       };
+//     }
+//   }
+
+//   return originalFn(...options);
+// });
