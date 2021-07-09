@@ -1,16 +1,18 @@
 // Actions to interact with Profile page
 
-// const pageElements = require('./elements').ELEMENTS;
+const globalElements = require('../global/elements').ELEMENTS;
 
 class ProfileUI {
-  visitProfile() {}
+  visitProfile(username) {
+    cy.get(globalElements.fnMenuOptionProfile(username)).click();
+  }
 }
 
 class ProfileAPI {}
 
 const Profile = {
-  LoginUI: new ProfileUI(),
-  LoginAPI: new ProfileAPI(),
+  ProfileUI: new ProfileUI(),
+  ProfileAPI: new ProfileAPI(),
 };
 
 export default Profile;
