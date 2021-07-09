@@ -23,6 +23,15 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+import { LoginUI } from '../page/login';
+const globalElements = require('../page/global/elements').ELEMENTS;
+
+Cypress.Commands.add('login', (email, pass) => {
+  LoginUI.visitLogin();
+  LoginUI.submitLogin(email, pass);
+
+  cy.get(globalElements.headerBar);
+});
 
 // Deprecated code
 // import locator from '../support/locators';
