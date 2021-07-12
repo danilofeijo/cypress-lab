@@ -1,9 +1,4 @@
-<img 
-  src="https://www.pngkit.com/png/full/411-4116389_cypress-io-logo7639-cypress-io-logo.png"
-  alt="Cypress Logo"
-  width="300"
-  class="center"
-/>
+![Icon laboratory][lab-icon]
 
 # cypress-lab
 
@@ -14,36 +9,30 @@ Download this repo, access the folder and run:
 
 `$ npm install`
 
-<!-- TODO Adjust running commands -->
-## Running Tests
+## Tests Execution
 
-### By environment
-`npx cypress run --env configFile=<env>`
+To open the Cypress Test Runner:
+* `npx cypress open --env configFile=<env>`
 
-### Run All tests
-`$ npm run cy:run`
-* Headless mode
-* Default browser
+To run Cypress tests to completion:
+* `npx cypress run --env configFile=<env>`
 
-### Run Spec
-`$ npm run cy:run --spec cypress/integration/udemy-course/practical/api/backend.spec.js`
-* Headless mode
-* Default browser
+To run a specific test file
+* `npx cypress run --env configFile=<env> --spec 'cypress/integration/test-file.spec.js'`
 
-### Run Folder
-`$ npm run cy:run --spec cypress/integration/udemy-course/practical/api/**.*`
-* Headless mode
-* Default browser
+## Relevant parameters
 
-### Run Not headless
-`$ npm run cy:run --spec cypress/integration/udemy-course/practical/api/backend.spec.js --headed --no-exit`
-* Better use to run specific spec
-* "--headed" open the browser
-* "--no-exit" keep the browser opened
+Set browser (Electron is the default)
+* `--browser chrome`
 
-### Run Specific browser
-`$ npm run cy:run --spec cypress/integration/udemy-course/practical/api/backend.spec.js --browser chrome`
-* Not headless
-* Close the browser after execution
+Headless execution (Default for Electron)
+* `--headless`
+
+Non headless execution (Default for Chrome/Firefox)
+* `--headed`
+
+Check other nice paramenters them by visiting the [Command Line Cypress page][1].
 
 <!-- Links list -->
+[lab-icon]: https://image.flaticon.com/icons/png/128/1157/1157001.png
+[1]: https://docs.cypress.io/guides/guides/command-line#Commands
