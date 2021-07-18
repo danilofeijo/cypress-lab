@@ -33,6 +33,25 @@ Cypress.Commands.add('login', (email, pass) => {
   cy.get(globalElements.headerBar);
 });
 
+/**
+ * Log in conduit through API
+ */
+Cypress.Commands.add('loginAPI', (email, password) => {
+  cy.request({
+    method: 'POST',
+    url: 'https://conduit.productionready.io/api/users/login',
+    form: true,
+    body: {
+      user: {
+        email,
+        password,
+      },
+    },
+  })
+    .its('status')
+    .should('equal', 200);
+});
+
 // Deprecated code
 // import locator from '../support/locators';
 
