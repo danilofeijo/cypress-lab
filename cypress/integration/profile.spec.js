@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { ProfileUI } from '../page/profile';
+import { ProfileAPI } from '../page/profile';
 const profileElements = require('../page/profile/elements').ELEMENTS;
 
 let username;
@@ -11,8 +11,8 @@ describe('When visit my profile page', () => {
     const pass = 'Test;123';
     username = 'johndoecypresslab';
 
-    cy.login(email, pass);
-    ProfileUI.visitProfile(username);
+    cy.loginAPI(email, pass);
+    ProfileAPI.visitProfile(username);
   });
 
   it('Should load my profile content', () => {

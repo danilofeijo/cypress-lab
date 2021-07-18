@@ -8,7 +8,11 @@ class ProfileUI {
   }
 }
 
-class ProfileAPI {}
+class ProfileAPI {
+  visitProfile(username) {
+    cy.visit(`/@${username}`);
+  }
+}
 
 const Profile = {
   ProfileUI: new ProfileUI(),
