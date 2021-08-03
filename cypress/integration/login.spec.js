@@ -3,12 +3,12 @@
 import { LoginUI } from '../page/login';
 const globalElements = require('../page/global/elements').ELEMENTS;
 
-describe('When visit login page', () => {
+describe('On login page', () => {
   beforeEach(() => {
     LoginUI.visitLogin();
   });
 
-  it('Should loggin with valid credentials', () => {
+  it('Should login with valid credentials', () => {
     const email = Cypress.env('userName');
     const pass = Cypress.env('userPass');
 

@@ -5,8 +5,7 @@ const profileElements = require('../page/profile/elements').ELEMENTS;
 
 let username;
 
-// TODO apply some pattern for describes AND tests naming
-describe('When visit home page', () => {
+describe('On logged home page', () => {
   beforeEach(() => {
     const email = Cypress.env('userName');
     const pass = Cypress.env('userPass');

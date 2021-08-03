@@ -4,7 +4,7 @@ import { ProfileAPI } from '../page/profile';
 
 let username;
 
-describe('When visit my profile page', () => {
+describe('On my profile page', () => {
   beforeEach(() => {
     const email = Cypress.env('userName');
     const pass = Cypress.env('userPass');
