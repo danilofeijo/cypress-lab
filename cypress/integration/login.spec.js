@@ -9,8 +9,8 @@ describe('When visit login page', () => {
   });
 
   it('Should loggin with valid credentials', () => {
-    const email = 'johndoe@cypresslab.com';
-    const pass = 'Test;123';
+    const email = Cypress.env('userName');
+    const pass = Cypress.env('userPass');
 
     LoginUI.submitLogin(email, pass);
 

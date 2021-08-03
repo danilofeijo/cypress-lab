@@ -6,8 +6,8 @@ let username;
 
 describe('When visit my profile page', () => {
   beforeEach(() => {
-    const email = 'johndoe@cypresslab.com';
-    const pass = 'Test;123';
+    const email = Cypress.env('userName');
+    const pass = Cypress.env('userPass');
     username = 'johndoecypresslab';
 
     cy.loginAPI(email, pass);

@@ -1,3 +1,8 @@
 {
-  "baseUrl": "http://dev.realworld.io.fakeurl/#"
+  "baseUrl": "http://dev.realworld.io.fakeurl/#",
+  "env": {
+    "userName": "user-not-exist",
+    "userPass": "pass-not-exist"
+  }
+
 }

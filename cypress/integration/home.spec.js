@@ -8,8 +8,8 @@ let username;
 // TODO apply some pattern for describes AND tests naming
 describe('When visit home page', () => {
   beforeEach(() => {
-    const email = 'johndoe@cypresslab.com';
-    const pass = 'Test;123';
+    const email = Cypress.env('userName');
+    const pass = Cypress.env('userPass');
     username = 'johndoecypresslab';
 
     cy.loginAPI(email, pass);

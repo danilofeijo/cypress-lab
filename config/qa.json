@@ -1,3 +1,7 @@
 {
-  "baseUrl": "http://demo.realworld.io/#"
+  "baseUrl": "http://demo.realworld.io/#",
+  "env": {
+    "userName": "johndoe@cypresslab.com",
+    "userPass": "Test;123"
+  }
 }
