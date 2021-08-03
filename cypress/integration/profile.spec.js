@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 
 import { ProfileAPI } from '../page/profile';
-const profileElements = require('../page/profile/elements').ELEMENTS;
 
 let username;
 
@@ -15,8 +14,6 @@ describe('When visit my profile page', () => {
     ProfileAPI.visitProfile(username);
   });
 
-  it('Should load my profile content', () => {
-    cy.get(profileElements.imageUser).should('exist');
-    cy.get(profileElements.titleUsername).should('have.text', username);
-  });
+  // TODO - Develop test
+  it('Should update profile', () => {});
 });

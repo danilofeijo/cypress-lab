@@ -2,7 +2,7 @@
 
 # cypress-lab
 
-A test automation setup with patterns and settings that can be apply in a real world.
+A test automation setup with patterns and settings that can be applied in a real world.
 
 ## Setup
 Download this repo, access the folder and run:
