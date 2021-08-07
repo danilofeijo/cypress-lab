@@ -37,6 +37,7 @@ Cypress.Commands.add('login', (email, pass) => {
  * Log in conduit through API
  */
 Cypress.Commands.add('loginAPI', (email, password) => {
+  // TODO - Make it log in, set the JWT token, start a logged session
   cy.request({
     method: 'POST',
     url: 'https://conduit.productionready.io/api/users/login',
