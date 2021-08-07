@@ -2,6 +2,10 @@
 
 import { GlobalUI } from '../page/global';
 import { LoginUI } from '../page/login';
+import { ProfileUI } from '../page/profile';
+
+const faker = require('faker');
+const profileElements = require('../page/profile/elements').ELEMENTS;
 
 let username;
 
@@ -13,11 +17,16 @@ describe('On my profile page', () => {
 
     LoginUI.visitLogin();
     LoginUI.submitLogin(email, pass);
-    cy.get('div.sidebar').should('be.visible');
+    cy.get('div.sidebar', { timeout: 20000 }).should('be.visible');
 
     GlobalUI.accessProfilePage(username);
   });
 
-  // TODO - Develop test
-  it('Should update profile', () => {});
+  it('Should update profile', () => {
+    const profileBioText = faker.lorem.sentence();
+
+    ProfileUI.updateProfile(profileBioText);
+
+    cy.get(profileElements.labelProfileBio).should('have.text', profileBioText);
+  });
 });
