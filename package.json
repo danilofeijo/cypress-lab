@@ -5,6 +5,7 @@
   "repository": "https://github.com/danilofeijo/cypress-lab.git",
   "license": "MIT",
   "scripts": {
+    "eslint:cy": "npx eslint cypress/**/**/*.js"
   },
   "devDependencies": {
     "cypress": "^7.6.0",
