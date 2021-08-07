@@ -7,7 +7,7 @@ const profileElements = require('../page/profile/elements').ELEMENTS;
 
 let username;
 
-describe('On logged home page', () => {
+describe('On logged home pages', () => {
   beforeEach(() => {
     const email = Cypress.env('userName');
     const pass = Cypress.env('userPass');
