@@ -14,9 +14,7 @@ class ProfileAPI {
   }
 }
 
-const Profile = {
+export default {
   ProfileUI: new ProfileUI(),
   ProfileAPI: new ProfileAPI(),
 };
-
-export default Profile;

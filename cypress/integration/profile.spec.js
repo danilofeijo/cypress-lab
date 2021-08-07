@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
-import { ProfileAPI } from '../page/profile';
+import { GlobalUI } from '../page/global';
+import { LoginUI } from '../page/login';
 
 let username;
 
@@ -10,8 +11,11 @@ describe('On my profile page', () => {
     const pass = Cypress.env('userPass');
     username = 'johndoecypresslab';
 
-    cy.loginAPI(email, pass);
-    ProfileAPI.visitProfile(username);
+    LoginUI.visitLogin();
+    LoginUI.submitLogin(email, pass);
+    cy.get('div.sidebar').should('be.visible');
+
+    GlobalUI.accessProfilePage(username);
   });
 
   // TODO - Develop test
