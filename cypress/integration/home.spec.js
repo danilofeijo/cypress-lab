@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
 
-import { ProfileAPI } from '../page/profile';
+import { GlobalUI } from '../page/global';
+import { LoginUI } from '../page/login';
+
 const profileElements = require('../page/profile/elements').ELEMENTS;
 
 let username;
@@ -11,11 +13,12 @@ describe('On logged home page', () => {
     const pass = Cypress.env('userPass');
     username = 'johndoecypresslab';
 
-    cy.loginAPI(email, pass);
+    LoginUI.visitLogin();
+    LoginUI.submitLogin(email, pass);
   });
 
   it('Should visit my profile content', () => {
-    ProfileAPI.visitProfile(username);
+    GlobalUI.accessProfilePage(username);
 
     cy.get(profileElements.imageUser).should('exist');
     cy.get(profileElements.titleUsername).should('have.text', username);
