@@ -5,16 +5,16 @@ name: E2E test suite execution
 
 on:
   schedule:
-    - cron: '30 21 * * *'
-  # push:
-  #   branches: [ main ]
+    - cron: '0 12 * * *'
+  push:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
-  # eslint:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - run: echo 'Running ESlint check...'
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Should run ESlint check...'
   cypress-run:
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.18.3-chrome87-ff82
