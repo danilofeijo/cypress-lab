@@ -4,10 +4,10 @@
 name: E2E test suite execution
 
 on:
-  push:
-    branches: [ main ]
   schedule:
     - cron: '0 10 * * *'
+  # push:
+  #   branches: [ main ]
   workflow_dispatch:
 
 jobs:
