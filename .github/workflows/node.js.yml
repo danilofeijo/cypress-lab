@@ -11,10 +11,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  eslint:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo 'Running ESlint...'
+  # eslint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo 'Running ESlint check...'
   cypress-run:
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.18.3-chrome87-ff82
