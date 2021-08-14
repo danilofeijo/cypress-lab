@@ -1,8 +1,18 @@
-![Icon laboratory][lab-icon]
+[![E2E test suite execution](https://github.com/danilofeijo/cypress-lab/actions/workflows/node.js.yml/badge.svg)](https://github.com/danilofeijo/cypress-lab/actions/workflows/node.js.yml)
 
 # cypress-lab
+![Icon laboratory][lab-icon]
 
 A test automation setup with patterns and settings that can be applied in a real world.
+
+## What do we have here
+* Cypress - to create and run E2E tests
+* Faker - to generate randon data
+* "Page action" pattern - to organize the test structure
+* GitHub Actions - to automattically trigger test execution
+* [TODO] Allure report - to provide feedback about test execution
+* [TODO] ESlint - to find and fix problems in the code
+* [TODO] Husky - to check and improve commits
 
 ## Setup
 Download this repo, access the folder and run:
