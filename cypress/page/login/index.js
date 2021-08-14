@@ -5,6 +5,7 @@ const pageElements = require('./elements').ELEMENTS;
 class LoginUI {
   visitLogin() {
     cy.visit('/login');
+    // TODO - Add validation to ensure that user has arrived on login page
   }
 
   submitLogin(user, pass) {
