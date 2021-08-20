@@ -9,7 +9,7 @@ const profileElements = require('../page/profile/elements').ELEMENTS;
 
 let username;
 
-describe('On my profile page', () => {
+describe.skip('On my profile page', () => {
   beforeEach(() => {
     const email = Cypress.env('userName');
     const pass = Cypress.env('userPass');
