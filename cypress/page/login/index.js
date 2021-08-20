@@ -11,7 +11,7 @@ class LoginUI {
   submitLogin(user, pass) {
     cy.get(pageElements.inputEmail).type(user);
     cy.get(pageElements.inputPass).type(pass);
-    cy.get(pageElements.buttonThat).contains('Sign in').click();
+    cy.get(pageElements.buttonEnter).click();
   }
 }
 

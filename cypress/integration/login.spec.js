@@ -14,11 +14,6 @@ describe('On login page', () => {
 
     LoginUI.submitLogin(email, pass);
 
-    cy.get(globalElements.headerBar)
-      .should('contain', 'a', 'conduit')
-      .and('contain', 'a', 'Home')
-      .and('contain', 'a', 'New Article')
-      .and('contain', 'a', 'Settings')
-      .and('contain', 'a', 'johndoecypresslab');
+    cy.get(globalElements.butonLogout).should('exist');
   });
 });

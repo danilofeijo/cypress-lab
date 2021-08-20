@@ -1,7 +1,7 @@
 // Elements to interact with Login page
 
 export const ELEMENTS = {
-  inputEmail: 'input[placeholder="Email"]',
-  inputPass: 'input[placeholder="Password"]',
-  buttonThat: 'button',
+  inputEmail: '[data-testid="email"]',
+  inputPass: '[data-testid="senha"]',
+  buttonEnter: '[data-testid="entrar"]',
 };
