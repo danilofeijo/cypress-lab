@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://demo.realworld.io/#",
+  "baseUrl": "https://front.serverest.dev",
   "env": {
     "userName": "johndoe@cypresslab.com",
     "userPass": "Test;123"
