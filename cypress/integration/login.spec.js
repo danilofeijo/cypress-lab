@@ -8,7 +8,7 @@ describe('On login page', () => {
     LoginUI.visitLogin();
   });
 
-  it('Should login with valid credentials', () => {
+  it.skip('Should login with valid credentials', () => {
     const email = Cypress.env('userName');
     const pass = Cypress.env('userPass');
 
