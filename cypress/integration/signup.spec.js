@@ -1,25 +1,29 @@
 /// <reference types="cypress" />
 
 import { SignupUI } from '../page/signup';
-
-const faker = require('faker');
 const globalElements = require('../page/global/elements').ELEMENTS;
+
+let randomNum = Date.now().toString().slice(5, 10);
 
 describe('On Sign up page', () => {
   beforeEach(() => {
     cy.visit('/cadastrarusuarios');
+
+    randomNum = Date.now().toString().slice(5, 10);
   });
 
-  it('Should create a new user', () => {
-    const userName = 'John Doe';
-    const userEmail = 'johndoe@test.com';
-    const userPass = 'Test;123';
+  it('Should create a new admin user', () => {
+    // Arrange
+    const USER = {
+      NAME: `John Doe ${randomNum}`,
+      EMAIL: `johndoe${randomNum}@test.com`,
+      PASS: `Test;123`,
+    };
 
-    cy.get('[data-testid="nome"]').type(userName);
-    cy.get('[data-testid="email"]').type(userEmail);
-    cy.get('[data-testid="senha"]').type(userPass);
-    cy.get('[data-testid="cadastrar"]').click();
+    // Act
+    SignupUI.submitAdminUserData(USER);
 
-    cy.get(globalElements.butonLogout).should('exist');
+    // Assert
+    cy.get(globalElements.buttonLogout).should('exist');
   });
 });
