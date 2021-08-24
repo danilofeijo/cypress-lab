@@ -2,21 +2,24 @@
 
 import { SignupUI } from '../page/signup';
 const globalElements = require('../page/global/elements').ELEMENTS;
+const faker = require('faker');
 
-let randomNum = Date.now().toString().slice(5, 10);
+let randonName;
+let randomAlias;
 
 describe('On Sign up page', () => {
   beforeEach(() => {
     cy.visit('/cadastrarusuarios');
 
-    randomNum = Date.now().toString().slice(5, 10);
+    randonName = faker.name.findName();
+    randomAlias = randonName.toLowerCase().replace(/\s+/g, '');
   });
 
   it('Should create a new admin user', () => {
     // Arrange
     const USER = {
-      NAME: `John Doe ${randomNum}`,
-      EMAIL: `johndoe${randomNum}@test.com`,
+      NAME: randonName,
+      EMAIL: `${randomAlias}@test.com`,
       PASS: `Test;123`,
     };
 
