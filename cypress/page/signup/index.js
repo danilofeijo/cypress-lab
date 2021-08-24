@@ -12,7 +12,19 @@ class SignupUI {
   }
 }
 
-class SignupAPI {}
+class SignupAPI {
+  createUser(userData) {
+    cy.request({
+      method: 'POST',
+      url: 'https://serverest.dev/usuarios',
+      body: userData,
+    }).then(res => {
+      expect(res.status).to.be.eql(201);
+      expect(res.body).to.have.property('message');
+      expect(res.body.message).to.be.eql('Cadastro realizado com sucesso');
+    });
+  }
+}
 
 export default {
   SignupUI: new SignupUI(),
