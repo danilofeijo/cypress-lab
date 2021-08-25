@@ -5,7 +5,10 @@ const pageElements = require('./elements').ELEMENTS;
 class LoginUI {
   visitLogin() {
     cy.visit('/login');
-    // TODO - Add validation to ensure that user has arrived on login page
+
+    cy.get(pageElements.inputEmail).should('exist');
+    cy.get(pageElements.inputPass).should('exist');
+    cy.get(pageElements.buttonEnter).should('exist');
   }
 
   submitLogin(user, pass) {
