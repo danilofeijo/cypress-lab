@@ -19,15 +19,7 @@ require('cypress-xpath');
 
 // Priorização de Locators
 Cypress.SelectorPlayground.defaults({
-  selectorPriority: [
-    'data-test',
-    'id',
-    'class',
-    'attributes',
-    'tag',
-    'value',
-    'nth-child',
-  ],
+  selectorPriority: ['data-test', 'id', 'class', 'attributes', 'tag', 'value', 'nth-child'],
 });
 
 // Alternatively you can use CommonJS syntax:
