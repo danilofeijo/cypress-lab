@@ -1,4 +1,8 @@
 {
+  "plugins": [
+    "cypress",
+    "chai-friendly"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:prettier/recommended",
@@ -17,7 +21,10 @@
     "cypress/no-async-tests": "error"
   },
   "env": {
-    "es6": true,
+    "cypress/globals": true,
+    "browser": true,
+    "commonjs": true,
+    "es2021": true,
     "node": true
   }
 }
