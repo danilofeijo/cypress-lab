@@ -11,10 +11,15 @@ on:
   workflow_dispatch:
 
 jobs:
+# TODO - Make eslint successfully run
   eslint:
     runs-on: ubuntu-latest
     steps:
       - run: echo 'Should run ESlint check...'
+      - uses: actions/checkout@v1
+      - uses: stefanoeb/eslint-action@1.0.2
+        with:
+          files: cypress/
   cypress-run:
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.18.3-chrome87-ff82
