@@ -11,9 +11,10 @@ A test automation setup with patterns and settings that can be applied in a real
 * Faker - to generate randon data
 * "Page action" pattern - to organize the test structure
 * GitHub Actions - to automattically trigger test execution
+* ESlint - to find and fix problems in the code
+* Husky - to check and improve commits
 * [TODO] Allure report - to provide feedback about test execution
-* [TODO] ESlint - to find and fix problems in the code
-* [TODO] Husky - to check and improve commits
+* [TODO] commitlint/commitizen - to check and improve commit messages
 
 ## Setup
 Download this repo, access the folder and run:
