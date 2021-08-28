@@ -7,7 +7,8 @@
   "scripts": {
     "test": "cypress run",
     "prettier-format": "prettier --write ./cypress",
-    "eslint": "eslint ./cypress"
+    "eslint": "eslint ./cypress",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "cypress": "^7.6.0",
@@ -25,10 +26,5 @@
   "resolutions": {
     "cypress/minimist": "^1.2.3",
     "cypress/extract-zip/mkdirp/minimist": "^1.2.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run eslint"
-    }
   }
 }

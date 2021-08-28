@@ -1,4 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo "[Husky] pre-push"
+echo "[Husky] pre-push check started"
+echo "[Husky] pre-push check done!"
