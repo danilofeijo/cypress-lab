@@ -55,6 +55,8 @@ Check other nice paramenters by visiting the [Command Line Cypress page][ref-1].
 * [Publish your Cypress Test Report with GitHub Actions][ref-5]
 * [Conventional Commits][ref-7]
 * [ESLint + Prettier, a dupla perfeita para produtividade e padronização de código.][ref-8]
+* [Choose an open source license][ref-9]
+* [Como escolher uma licença para seu projeto][ref-10]
 
 <!-- Links list -->
 [lab-icon]: https://image.flaticon.com/icons/png/128/1157/1157001.png
@@ -67,6 +69,8 @@ Check other nice paramenters by visiting the [Command Line Cypress page][ref-1].
 [ref-6]: https://serverest.dev/
 [ref-7]: https://www.conventionalcommits.org/en/v1.0.0/#summary
 [ref-8]: https://medium.com/cwi-software/eslint-prettier-a-dupla-perfeita-para-produtividade-e-padroniza%C3%A7%C3%A3o-de-c%C3%B3digo-6a7730cfa358
+[ref-9]: https://choosealicense.com/
+[ref-10]: https://www.alura.com.br/artigos/como-escolher-uma-licenca-para-seu-projeto
 
 [tool-cy]: https://www.cypress.io/how-it-works
 [tool-faker]: https://www.npmjs.com/package/faker
