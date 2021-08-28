@@ -9,7 +9,6 @@ class SignupUI {
     cy.get(pageElements.inputPass).type(userData.PASS);
     cy.get(pageElements.checkboxAdmin).click();
     cy.get(pageElements.buttonSubmit).click();
-    cy.wait(1000);
   }
 }
 
