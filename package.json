@@ -11,6 +11,8 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
     "cypress": "^7.6.0",
     "cypress-xpath": "^1.4.0",
     "eslint": "^7.3.0",
