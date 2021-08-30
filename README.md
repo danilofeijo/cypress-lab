@@ -18,7 +18,7 @@ A test automation setup that you can apply in the real world.
 * [Prettier][tool-prettier] - to format the code
 * [ESLint][tool-eslint], to identify wrong patterns in the code
 * [Husky][tool-husky], to check and improve commits
-* *[ToDo]* [commitlint][tool-commitlint], to check and improve commit messages
+* [commitlint][tool-commitlint], to check and improve commit messages
 
 ### CI/CD
 * [GitHub Actions][tool-ghactions], to automatically trigger test execution in CI/CD
