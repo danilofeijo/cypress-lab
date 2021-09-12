@@ -12,18 +12,14 @@ on:
 
 jobs:
   eslint:
-    name: ESLint checkpoint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Run ESLint on Cypress folder
+      - run: echo 'Should run ESlint check...'
+      - uses: actions/checkout@v1
       - uses: stefanoeb/eslint-action@1.0.2
         with:
           files: cypress/
-
-  # v1 - It works!!!
   cypress-run:
-    name: Cypress E2E checkpoint
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
@@ -37,45 +33,7 @@ jobs:
           # Specify Browser since container image is compile with Firefox
           browser: chrome
 
-  # v2 - cy with repport
-  # cypress-run:
-  #   name: Cypress E2E checkpoint
-  #   runs-on: ubuntu-latest
-  #   container: cypress/browsers:node14.17.0-chrome91-ff89
-  #   steps:
-  #     - uses: actions/checkout@v2
-
-  #     - name: Install a project with a clean slate
-  #       run: |
-  #         npm ci
-  #         $(npm bin)/cypress cache path
-  #         $(npm bin)/cypress cache list
-  #         $(npm bin)/cypress verify
-
-  #     - name: Run Cypress tests
-  #       run: npm run test:chrome
-  #       continue-on-error: true
-
-  #     - name: Copy test execution videos
-  #       run: |
-  #         mkdir public
-  #         cp -r cypress/videos public/videos
-
-  #     - name: Merge test results into one
-  #       run: npm run report:merge
-
-  #     - name: Generate HTML report
-  #       run: npm run report:generate
-
-  #     - name: Deploy report page
-  #       uses: peaceiris/actions-gh-pages@v3
-  #       with:
-  #         github_token: ${{ secrets.GITHUB_TOKEN }}
-  #         publish_dir: ./public
-  #         user_name: 'github-actions[bot]'
-  #         user_email: 'github-actions[bot]@users.noreply.github.com'
-
-# >>> Original content <<<
+# Original content
 
 # name: Node.js CI
 
