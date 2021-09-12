@@ -12,6 +12,7 @@ on:
 
 jobs:
   eslint:
+    name: ESLint checkpoint
     runs-on: ubuntu-latest
     steps:
       - run: echo 'Should run ESlint check...'
@@ -19,6 +20,7 @@ jobs:
       - uses: stefanoeb/eslint-action@1.0.2
         with:
           files: cypress/
+
   cypress-run:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome91-ff89
