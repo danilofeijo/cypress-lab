@@ -7,34 +7,75 @@ on:
   schedule:
     - cron: '0 12 * * *'
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
-# TODO - Make eslint successfully run
   eslint:
+    name: ESLint checkpoint
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'Should run ESlint check...'
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - name: Run ESLint on Cypress folder
       - uses: stefanoeb/eslint-action@1.0.2
         with:
           files: cypress/
+
+  # v2 - cy with repport
   cypress-run:
+    name: Cypress E2E checkpoint
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          # Specify Browser since container image is compile with Firefox
-          browser: chrome
+      - uses: actions/checkout@v2
 
-# Original content
+      - name: Install a project with a clean slate
+        run: |
+          npm ci
+          $(npm bin)/cypress cache path
+          $(npm bin)/cypress cache list
+          $(npm bin)/cypress verify
+
+      - name: Run Cypress tests
+        run: npm run test:chrome
+        continue-on-error: true
+
+        # ! PAROU AQUI
+      - name: Copy test execution videos
+        run: |
+          mkdir public
+          cp -r cypress/videos public/videos
+
+      - name: Merge test results into one
+        run: npm run report:merge
+
+      - name: Generate HTML report
+        run: npm run report:generate
+
+      - name: Deploy report page
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+
+  # v1 - It works!!!
+  # cypress-run:
+  #   name: Cypress E2E checkpoint
+  #   runs-on: ubuntu-latest
+  #   container: cypress/browsers:node14.17.0-chrome91-ff89
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     # Install NPM dependencies, cache them correctly
+  #     # and run all Cypress tests
+  #     - name: Cypress run
+  #       uses: cypress-io/github-action@v2
+  #       with:
+  #         # Specify Browser since container image is compile with Firefox
+  #         browser: chrome
+# >>> Original content <<<
 
 # name: Node.js CI
 

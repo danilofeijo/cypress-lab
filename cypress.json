@@ -1,6 +1,10 @@
 {
   "viewportWidth": 1366,
   "viewportHeight": 788,
-  "video": false,
-  "defaultCommandTimeout": 10000
+  "video": true,
+  "defaultCommandTimeout": 10000,
+  "reporter": "cypress-multi-reporters",
+  "reporterOptions": {
+    "configFile": "reporter-config.json"
+  }
 }

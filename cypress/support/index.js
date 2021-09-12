@@ -15,7 +15,17 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands';
+import addContext from 'mochawesome/addContext';
 require('cypress-xpath');
+
+Cypress.on('test:after:run', (test, runnable) => {
+  let videoName = Cypress.spec.name;
+  videoName = videoName.replace('/.js.*', '.js');
+  const videoUrl = 'videos/' + videoName + '.mp4';
+
+  console.info(runnable);
+  addContext({ test }, videoUrl);
+});
 
 // Priorização de Locators
 Cypress.SelectorPlayground.defaults({
