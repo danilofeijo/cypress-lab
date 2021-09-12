@@ -22,7 +22,7 @@ A test automation setup that you can apply in the real world.
 
 ### CI/CD
 * [GitHub Actions][tool-ghactions], to automatically trigger test execution in CI/CD
-* *[ToDo]* [mochawesome][tool-mochawesome] or [cy-mochawesome][tool-cy-mochawesome], to give us feedback about test execution
+* [mochawesome][tool-mochawesome], to provide feedback about test execution
 
 ## Setup
 Just download the repo and run:
@@ -81,4 +81,3 @@ Check other nice paramenters by visiting the [Command Line Cypress page][ref-1].
 [tool-ghactions]: https://docs.github.com/en/actions
 [tool-commitlint]: https://commitlint.js.org/#/
 [tool-mochawesome]: https://www.npmjs.com/package/mochawesome
-[tool-cy-mochawesome]: https://www.npmjs.com/package/cypress-mochawesome-reporter
