@@ -20,9 +20,7 @@ class LoginUI {
 
 class LoginAPI {}
 
-const Login = {
-  LoginUI: new LoginUI(),
-  LoginAPI: new LoginAPI(),
+module.exports = {
+  LoginUI,
+  LoginAPI,
 };
-
-export default Login;
