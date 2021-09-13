@@ -4,8 +4,6 @@ const { SignupUI } = require('../page/signup');
 const globalElements = require('../page/global/elements').ELEMENTS;
 const faker = require('faker');
 
-const signupUI = new SignupUI();
-
 let randonName;
 let randomAlias;
 
@@ -26,7 +24,7 @@ describe('On Sign up page', () => {
     };
 
     // Act
-    signupUI.submitAdminUserData(USER);
+    SignupUI.submitAdminUserData(USER);
 
     // Assert
     cy.get(globalElements.buttonLogout).should('exist');

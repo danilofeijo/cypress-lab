@@ -5,9 +5,6 @@ const { SignupAPI } = require('../page/signup');
 const globalElements = require('../page/global/elements').ELEMENTS;
 const faker = require('faker');
 
-const loginUI = new LoginUI();
-const signupAPI = new SignupAPI();
-
 let USER;
 
 describe('On login page', () => {
@@ -22,8 +19,8 @@ describe('On login page', () => {
       administrador: 'true',
     };
 
-    signupAPI.createUser(USER);
-    loginUI.visitLogin();
+    SignupAPI.createUser(USER);
+    LoginUI.visitLogin();
   });
 
   it('Should login with valid credentials', () => {
@@ -34,7 +31,7 @@ describe('On login page', () => {
     };
 
     // Act
-    loginUI.submitLogin(LOGIN.EMAIL, LOGIN.PASS);
+    LoginUI.submitLogin(LOGIN.EMAIL, LOGIN.PASS);
 
     // Assert
     cy.get(globalElements.buttonLogout).should('exist');
