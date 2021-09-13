@@ -1,6 +1,5 @@
 # Default content
 node_modules/
-package-lock.json
 
 # Cypress folders
 cypress/videos
