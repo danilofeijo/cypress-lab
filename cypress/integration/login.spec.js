@@ -2,19 +2,19 @@
 
 const { LoginUI } = require('../page/login');
 const { SignupAPI } = require('../page/signup');
+const Utils = require('../utils');
 const globalElements = require('../page/global/elements').ELEMENTS;
-const faker = require('faker');
 
 let USER;
 
 describe('On login page', () => {
   beforeEach(() => {
-    const randonName = faker.name.findName();
-    const randomAlias = randonName.toLowerCase().replace(/\s+/g, '');
+    const randomName = Utils.setRandomName();
+    const randomEmail = Utils.setRandomEmail(randomName);
 
     USER = {
-      nome: randonName,
-      email: `${randomAlias}@test.com`,
+      nome: randomName,
+      email: randomEmail,
       password: `Test;123`,
       administrador: 'true',
     };

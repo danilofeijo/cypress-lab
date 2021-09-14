@@ -1,25 +1,25 @@
 /// <reference types="cypress" />
 
 const { SignupUI } = require('../page/signup');
+const Utils = require('../utils');
 const globalElements = require('../page/global/elements').ELEMENTS;
-const faker = require('faker');
 
-let randonName;
-let randomAlias;
+let randomName;
+let randomEmail;
 
 describe('On Sign up page', () => {
   beforeEach(() => {
     cy.visit('/cadastrarusuarios');
 
-    randonName = faker.name.findName();
-    randomAlias = randonName.toLowerCase().replace(/\s+/g, '');
+    randomName = Utils.setRandomName();
+    randomEmail = Utils.setRandomEmail(randomName);
   });
 
   it('Should create a new admin user', () => {
     // Arrange
     const USER = {
-      NAME: randonName,
-      EMAIL: `${randomAlias}@test.com`,
+      NAME: randomName,
+      EMAIL: randomEmail,
       PASS: `Test;123`,
     };
 
