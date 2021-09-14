@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-const { LoginUI } = require('../page/login');
-const { SignupAPI } = require('../page/signup');
+const LoginAction = require('../page/login');
+const SignupAction = require('../page/signup');
 const Utils = require('../utils');
 const globalElements = require('../page/global/elements').ELEMENTS;
 
@@ -19,8 +19,8 @@ describe('On login page', () => {
       administrador: 'true',
     };
 
-    SignupAPI.createUser(USER);
-    LoginUI.visitLogin();
+    SignupAction.API.createUser(USER);
+    LoginAction.UI.visitLogin();
   });
 
   it('Should login with valid credentials', () => {
@@ -31,7 +31,7 @@ describe('On login page', () => {
     };
 
     // Act
-    LoginUI.submitLogin(LOGIN.EMAIL, LOGIN.PASS);
+    LoginAction.UI.submitLogin(LOGIN.EMAIL, LOGIN.PASS);
 
     // Assert
     cy.get(globalElements.buttonLogout).should('exist');

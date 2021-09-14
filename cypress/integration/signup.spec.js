@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const { SignupUI } = require('../page/signup');
+const SignupAction = require('../page/signup');
 const Utils = require('../utils');
 const globalElements = require('../page/global/elements').ELEMENTS;
 
@@ -24,7 +24,7 @@ describe('On Sign up page', () => {
     };
 
     // Act
-    SignupUI.submitAdminUserData(USER);
+    SignupAction.UI.submitAdminUserData(USER);
 
     // Assert
     cy.get(globalElements.buttonLogout).should('exist');

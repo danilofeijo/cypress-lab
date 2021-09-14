@@ -27,6 +27,6 @@ class SignupAPI {
 }
 
 module.exports = {
-  SignupUI: new SignupUI(),
-  SignupAPI: new SignupAPI(),
+  UI: new SignupUI(),
+  API: new SignupAPI(),
 };

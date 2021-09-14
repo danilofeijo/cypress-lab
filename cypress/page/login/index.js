@@ -21,6 +21,6 @@ class LoginUI {
 class LoginAPI {}
 
 module.exports = {
-  LoginUI: new LoginUI(),
-  LoginAPI: new LoginAPI(),
+  UI: new LoginUI(),
+  API: new LoginAPI(),
 };
