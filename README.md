@@ -6,7 +6,7 @@
 # cypress-lab
 ![Icon laboratory][lab-icon]
 
-A test automation setup example that you can apply in the real world.
+A test automation setup model that you can apply in the real world.
 
 ## Features
 ### Test suite
