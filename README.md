@@ -6,10 +6,11 @@
 # cypress-lab
 ![Icon laboratory][lab-icon]
 
-A test automation setup that you can apply in the real world.
+A test automation setup example that you can apply in the real world.
 
-## What do we have here
+## Features
 ### Test suite
+* [ServeRest][tool-serverest], an amazing server that simulates an e-commerce to be tested
 * [Cypress][tool-cy], to create and run E2E tests
 * [Faker][tool-faker], to generate randon data for tests
 * "Page Action" custom pattern, to organize the test structure
@@ -26,16 +27,21 @@ A test automation setup that you can apply in the real world.
 * [mochawesome][tool-mochawesome], to provide feedback about test execution
 
 ## Setup
-Just download the repo and run:
 
-`$ npm install`
+1. Clone and access the cloned repo folder
+
+    `$ git clone https://github.com/danilofeijo/cypress-lab.git && cd cypress-lab`
+
+2. Install the project dependencies
+
+    `$ npm install`
 
 ## CLI commands
 ### Tests Execution
 
-`npx cypress open`, to open the Cypress Test Runner.
+Run `npx cypress open`, to open the Cypress Test Runner.
 
-Check available commands by visiting `scripts` session on `package.json` file.
+Check more available commands by visiting `scripts` session on `package.json` file.
 
 ### Relevant parameters
 
@@ -82,3 +88,4 @@ Check other nice paramenters by visiting the [Command Line Cypress page][ref-1].
 [tool-ghactions]: https://docs.github.com/en/actions
 [tool-commitlint]: https://commitlint.js.org/#/
 [tool-mochawesome]: https://www.npmjs.com/package/mochawesome
+[tool-serverest]: https://serverest.dev/
