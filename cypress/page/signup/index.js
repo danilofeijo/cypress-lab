@@ -16,7 +16,7 @@ class SignupAPI {
   createUser(userData) {
     cy.request({
       method: 'POST',
-      url: 'https://serverest.dev/usuarios',
+      url: `${Cypress.env('baseUrlApi')}/usuarios`,
       body: userData,
     }).then(res => {
       expect(res.status).to.be.eql(201);

@@ -1,6 +1,7 @@
 {
   "baseUrl": "https://front.serverest.dev",
   "env": {
+    "baseUrlApi": "https://serverest.dev",
     "userName": "johndoe@cypresslab.com",
     "userPass": "Test;123"
   }
