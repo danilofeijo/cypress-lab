@@ -34,6 +34,8 @@ class LoginAPI {
     }).then(res => {
       expect(res.status).to.be.eql(200);
       expect(res.body).to.have.property('message', 'Login realizado com sucesso');
+
+      window.localStorage.setItem('serverest/userToken', res.body.authorization);
     });
   }
 }
