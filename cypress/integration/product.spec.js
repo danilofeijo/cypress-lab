@@ -19,10 +19,11 @@ describe('On new product page', () => {
       password: `Test;123`,
       administrador: 'true',
     };
+
+    SignupAction.API.createUser(USER);
   });
 
   beforeEach(() => {
-    SignupAction.API.createUser(USER);
     LoginAction.API.submitLogin(USER.email, USER.password);
   });
 
@@ -39,5 +40,9 @@ describe('On new product page', () => {
     ProductAction.UI.submitNewProduct(PRODUCT);
 
     cy.get('table').contains(PRODUCT.NAME).should('have.text', PRODUCT.NAME);
+  });
+
+  afterEach(() => {
+    // TODO - Delete product created on test execution
   });
 });
