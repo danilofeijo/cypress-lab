@@ -23,6 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+import 'cypress-file-upload';
 import { LoginUI } from '../page/login';
 const globalElements = require('../page/global/elements').ELEMENTS;
 

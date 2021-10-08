@@ -8,6 +8,10 @@ class ProductUI {
     cy.get(pageElements.newProduct.inputPrice).type(productData.PRICE);
     cy.get(pageElements.newProduct.inputDescription).type(productData.DESCRIPTION);
     cy.get(pageElements.newProduct.inputQuantity).type(productData.QUANTITY);
+    // Cypress image upload looks good. However...
+    // Applications image upload doesn't seem to work.
+    // So I kept image upload feature anyway.
+    cy.get(pageElements.newProduct.inputImageUpload).attachFile('miamiGuardHouse.png');
     cy.get(pageElements.newProduct.buttonSave).click();
   }
 }
