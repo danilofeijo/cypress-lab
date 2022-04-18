@@ -52,7 +52,7 @@ Check more available commands by visiting `scripts` session on `package.json` fi
   * `--env configFile=<env>`, to set an environment (default is 'qa')
   * `--spec '<file-path>/test-file.spec.js'`, to run specific test file
 
-Check other nice paramenters by visiting the [Command Line Cypress page][ref-1].
+Check other nice parameters by visiting the [Command Line Cypress page][ref-1].
 
 ## References
 
