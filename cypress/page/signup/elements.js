@@ -3,7 +3,7 @@
 export const ELEMENTS = {
   inputName: '[data-testid="nome"]',
   inputEmail: '[data-testid="email"]',
-  inputPass: '[data-testid="senha"]',
+  inputPass: '[data-testid="password"]',
   checkboxAdmin: '[data-testid="checkbox"]',
   buttonSubmit: '[data-testid="cadastrar"]',
 };
