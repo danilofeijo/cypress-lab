@@ -7,7 +7,7 @@
 ![Icon laboratory][flask-icon]
 <a href="https://www.flaticon.com/free-icons/flask" title="flask icons">Icon provided by Freepik - Flaticon</a>
 
-A test automation setup model that you can apply in the real world.
+A E2E test automation setup that you can apply in the real world.
 
 ## Features
 ### Test suite
