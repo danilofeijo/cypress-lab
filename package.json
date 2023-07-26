@@ -14,7 +14,7 @@
     "report:generate": "marge index.json --reportDir public --assetsDir public/assets --reportPageTitle index.html"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
+    "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^13.1.0",
     "cypress": "^9.5.4",
     "cypress-file-upload": "^5.0.8",
