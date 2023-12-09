@@ -11,21 +11,22 @@ A E2E test automation setup that you can apply in the real world.
 
 ## Features
 ### Test suite
-* [ServeRest][tool-serverest], an amazing server that simulates an e-commerce to be tested
-* [Cypress][tool-cy], to create and run E2E tests
-* [Faker][tool-faker], to generate randon data for tests
-* "Page Action" custom pattern, to organize the test structure
-* Environment config, to run tests in multiple environment
+* ✅ [ServeRest][tool-serverest], an amazing server that simulates an e-commerce to be tested
+* ✅ [Cypress][tool-cy], to create and run E2E tests
+* ✅ [Faker][tool-faker], to generate randon data for tests
+* ✅ "Page Action" custom pattern, to organize the test structure
+* ✅ Environment config, to run tests in multiple environment
 
 ### Code quality
-* [Prettier][tool-prettier] - to format the code
-* [ESLint][tool-eslint], to identify wrong patterns in the code
-* [Husky][tool-husky], to check and improve commits
-* [commitlint][tool-commitlint], to check and improve commit messages
+* ✅ [Prettier][tool-prettier] - to format the code
+* ✅ [ESLint][tool-eslint], to identify wrong patterns in the code
+* ✅ [Husky][tool-husky], to check and improve commits
+* ✅ [commitlint][tool-commitlint], to check and improve commit messages
 
 ### CI/CD
-* [GitHub Actions][tool-ghactions], to automatically trigger test execution in CI/CD
-* [mochawesome][tool-mochawesome], to provide feedback about test execution
+* ✅ [GitHub Actions][tool-ghactions], to automatically trigger test execution in CI/CD
+* ✅ [mochawesome][tool-mochawesome], to provide feedback about test execution
+* ⏭️ [Testing Parallelization][tool-parallelization]
 
 ## Setup
 
@@ -91,3 +92,4 @@ Check other nice parameters by visiting the [Command Line Cypress page][ref-1].
 [tool-commitlint]: https://commitlint.js.org/#/
 [tool-mochawesome]: https://www.npmjs.com/package/mochawesome
 [tool-serverest]: https://serverest.dev/
+[tool-parallelization]: https://docs.cypress.io/guides/cloud/smart-orchestration/parallelization
