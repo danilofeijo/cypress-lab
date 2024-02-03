@@ -19,7 +19,7 @@ A E2E test automation setup that you can apply in the real world.
 ### Code quality
 * ✅ [Prettier][tool-prettier] - to format the code
 * ✅ [ESLint][tool-eslint], to identify wrong patterns in the code
-* ✅ [Husky][tool-husky], to check and improve commits
+* ✅ [Husky][tool-husky], to check and enhance commit message based on [Conventional Commits][tool-convCommits]
 * ✅ [commitlint][tool-commitlint], to check and improve commit messages
 
 ### CI/CD
@@ -86,7 +86,8 @@ Check other nice parameters by visiting the [Command Line Cypress page][ref-1].
 [tool-faker]: https://www.npmjs.com/package/faker
 [tool-prettier]: https://www.npmjs.com/package/prettier
 [tool-eslint]: https://www.npmjs.com/package/eslint
-[tool-husky]: https://www.npmjs.com/package/husky
+[tool-husky]: https://typicode.github.io/husky/
+[tool-convCommits]: https://www.conventionalcommits.org/
 [tool-ghactions]: https://docs.github.com/en/actions
 [tool-commitlint]: https://commitlint.js.org/#/
 [tool-mochawesome]: https://www.npmjs.com/package/mochawesome
