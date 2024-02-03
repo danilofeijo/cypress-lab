@@ -11,7 +11,7 @@ class ProductUI {
     // Cypress image upload looks good. However...
     // Applications image upload doesn't seem to work.
     // So I kept image upload feature anyway.
-    cy.get(pageElements.newProduct.inputImageUpload).attachFile('miamiGuardHouse.png');
+    cy.get(pageElements.newProduct.inputImageUpload).selectFile('cypress/fixtures/miamiGuardHouse.png');
     cy.get(pageElements.newProduct.buttonSave).click();
   }
 }

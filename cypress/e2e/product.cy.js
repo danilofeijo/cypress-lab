@@ -3,6 +3,7 @@
 const SignupAction = require('../page/signup');
 const LoginAction = require('../page/login');
 const ProductAction = require('../page/product');
+
 const Utils = require('../utils');
 const faker = require('faker');
 
@@ -25,9 +26,12 @@ describe('On new product page', () => {
 
   beforeEach(() => {
     LoginAction.API.submitLogin(USER.email, USER.password);
+    cy.log(USER.email);
+    cy.log(USER.password);
   });
 
   it('Should create a new product', () => {
+    // Arrange
     cy.visit('/admin/cadastrarprodutos');
 
     const PRODUCT = {
@@ -37,8 +41,10 @@ describe('On new product page', () => {
       QUANTITY: '1',
     };
 
+    // Act
     ProductAction.UI.submitNewProduct(PRODUCT);
 
+    // Assert
     cy.get('table').contains(PRODUCT.NAME).should('have.text', PRODUCT.NAME);
   });
 
