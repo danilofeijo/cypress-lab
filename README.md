@@ -13,8 +13,8 @@ A E2E test automation setup that you can apply in the real world.
 * ✅ [ServeRest][tool-serverest], an amazing server that simulates an e-commerce to be tested
 * ✅ [Cypress][tool-cy], to create and run E2E tests
 * ✅ [Faker][tool-faker], to generate randon data for tests
-* ✅ "Page Action" custom pattern, to organize the test structure
-* ✅ Environment config, to run tests in multiple environment
+* ✅ "Page Action" custom pattern, to organize test structure
+* ✅ [Environment config][tool-envConfig] to run tests in multiple environment
 
 ### Code quality
 * ✅ [Prettier][tool-prettier] - to format the code
@@ -51,7 +51,7 @@ Check more available commands by visiting `scripts` session on `package.json` fi
   * `--headless`, to headless execution (default for Electron)
   * `--headed`, to non headless execution (default for Chrome/Firefox)
   * `--env configFile=<env>`, to set an environment (default is 'qa')
-  * `--spec '<file-path>/test-file.spec.js'`, to run specific test file
+  * `--spec '<file-path>/test-file.cy.js'`, to run specific test file
 
 Check other nice parameters by visiting the [Command Line Cypress page][ref-1].
 
@@ -91,4 +91,5 @@ Check other nice parameters by visiting the [Command Line Cypress page][ref-1].
 [tool-commitlint]: https://commitlint.js.org/#/
 [tool-mochawesome]: https://www.npmjs.com/package/mochawesome
 [tool-serverest]: https://serverest.dev/
+[tool-envConfig]: https://glebbahmutov.com/blog/load-cypress-env-settings/
 [tool-parallelization]: https://docs.cypress.io/guides/cloud/smart-orchestration/parallelization
