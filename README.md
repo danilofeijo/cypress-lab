@@ -19,13 +19,13 @@ A E2E test automation setup that you can apply in the real world.
 ### Code quality
 * ✅ [Prettier][tool-prettier] - to format the code
 * ✅ [ESLint][tool-eslint], to identify wrong patterns in the code
-* ✅ [Husky][tool-husky], to check and enhance commit message based on [Conventional Commits][tool-convCommits]
-* ✅ [commitlint][tool-commitlint], to check and improve commit messages
+* ✅ [Husky][tool-husky], to check enhance commits
+* ✅ [commitlint][tool-commitlint], to mantain better commit messages based on [Conventional Commits][tool-convCommits]
 
 ### CI/CD
 * ✅ [GitHub Actions][tool-ghactions], to automatically trigger test execution in CI/CD
 * ✅ [mochawesome][tool-mochawesome], to provide feedback about test execution
-* ⏭️ [Testing Parallelization][tool-parallelization]
+* ⏭️ [Testing Parallelization][tool-parallelization], to accelerate test execution
 
 ## Setup
 
