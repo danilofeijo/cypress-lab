@@ -1,11 +1,12 @@
 /// <reference types="cypress" />
 
-const SignupAction = require('../page/signup');
-const LoginAction = require('../page/login');
-const ProductAction = require('../page/product');
-
 const Utils = require('../utils');
 const faker = require('faker');
+
+const ActionSignup = require('../page/signup');
+const ActionLogin = require('../page/login');
+
+const elementsProductCreate = require('../page/product/elements').ELEMENTS;
 
 let USER;
 
@@ -21,13 +22,13 @@ describe('On new product page', () => {
       administrador: 'true',
     };
 
-    SignupAction.API.createUser(USER);
+    ActionSignup.API.createUser(USER);
   });
 
   beforeEach(() => {
-    LoginAction.API.submitLogin(USER.email, USER.password);
-    cy.log(USER.email);
-    cy.log(USER.password);
+    ActionLogin.API.submitLogin(USER.email, USER.password);
+    cy.log('LOG: User email = ' + USER.email);
+    cy.log('LOG: User pass = ' + USER.password);
   });
 
   it('Should create a new product', () => {
@@ -42,13 +43,16 @@ describe('On new product page', () => {
     };
 
     // Act
-    ProductAction.UI.submitNewProduct(PRODUCT);
+    cy.get(elementsProductCreate.newProduct.inputName).type(PRODUCT.NAME);
+    cy.get(elementsProductCreate.newProduct.inputPrice).type(PRODUCT.PRICE);
+    cy.get(elementsProductCreate.newProduct.inputDescription).type(PRODUCT.DESCRIPTION);
+    cy.get(elementsProductCreate.newProduct.inputQuantity).type(PRODUCT.QUANTITY);
+    // The Applications image upload doesn't look good.
+    // But I kept Cypress image upload. So we have an use case at least.
+    cy.get(elementsProductCreate.newProduct.inputImageUpload).selectFile('cypress/fixtures/miamiGuardHouse.png');
+    cy.get(elementsProductCreate.newProduct.buttonSave).click();
 
     // Assert
     cy.get('table').contains(PRODUCT.NAME).should('have.text', PRODUCT.NAME);
-  });
-
-  afterEach(() => {
-    // TODO - Delete product created on test execution
   });
 });
