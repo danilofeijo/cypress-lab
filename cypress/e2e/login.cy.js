@@ -26,7 +26,7 @@ describe('On login page', () => {
     ActionLogin.UI.visitLogin();
   });
 
-  it('Should login with valid credentials', () => {
+  it('Should log in with valid credentials', () => {
     // Arrange
     const LOGIN = {
       EMAIL: USER.email,
@@ -40,5 +40,21 @@ describe('On login page', () => {
 
     // Assert
     cy.get(elementsGlobal.buttonLogout).should('exist');
+  });
+
+  it('Should not log in with invalid credentials', () => {
+    // Arrange
+    const LOGIN = {
+      EMAIL: USER.email,
+      WRONG_PASS: 'wrongPass',
+    };
+
+    // Act
+    cy.get(elementsLogin.inputEmail).type(LOGIN.EMAIL);
+    cy.get(elementsLogin.inputPass).type(LOGIN.WRONG_PASS);
+    cy.get(elementsLogin.buttonEnter).click();
+
+    // Assert
+    cy.get(elementsLogin.toastAlert).should('exist').and('contain.text', 'Email e/ou senha inválidos');
   });
 });
