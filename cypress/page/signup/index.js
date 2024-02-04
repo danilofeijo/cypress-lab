@@ -1,7 +1,7 @@
 // Actions to interact with Signup page
 
 // Will be needed when create the first UI action
-// const pageElements = require('./elements').ELEMENTS;
+// const elementsSignup = require('./elements').ELEMENTS;
 
 class SignupUI {
   // Space to create UI actions when needed

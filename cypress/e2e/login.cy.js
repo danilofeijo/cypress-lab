@@ -1,9 +1,12 @@
 /// <reference types="cypress" />
 
-const LoginAction = require('../page/login');
-const SignupAction = require('../page/signup');
 const Utils = require('../utils');
-const globalElements = require('../page/global/elements').ELEMENTS;
+
+const ActionSignup = require('../page/signup');
+const ActionLogin = require('../page/login');
+
+const elementsGlobal = require('../page/global/elements').ELEMENTS;
+const elementsLogin = require('../page/login/elements').ELEMENTS;
 
 let USER;
 
@@ -19,8 +22,8 @@ describe('On login page', () => {
       administrador: 'true',
     };
 
-    SignupAction.API.createUser(USER);
-    LoginAction.UI.visitLogin();
+    ActionSignup.API.createUser(USER);
+    ActionLogin.UI.visitLogin();
   });
 
   it('Should login with valid credentials', () => {
@@ -31,9 +34,11 @@ describe('On login page', () => {
     };
 
     // Act
-    LoginAction.UI.submitLogin(LOGIN.EMAIL, LOGIN.PASS);
+    cy.get(elementsLogin.inputEmail).type(LOGIN.EMAIL);
+    cy.get(elementsLogin.inputPass).type(LOGIN.PASS);
+    cy.get(elementsLogin.buttonEnter).click();
 
     // Assert
-    cy.get(globalElements.buttonLogout).should('exist');
+    cy.get(elementsGlobal.buttonLogout).should('exist');
   });
 });
