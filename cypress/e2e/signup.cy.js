@@ -1,8 +1,9 @@
 /// <reference types="cypress" />
 
-const SignupAction = require('../page/signup');
 const Utils = require('../utils');
-const globalElements = require('../page/global/elements').ELEMENTS;
+
+const globalPageElements = require('../page/global/elements').ELEMENTS;
+const SignupPageElements = require('../page/signup/elements').ELEMENTS;
 
 let randomName;
 let randomEmail;
@@ -24,9 +25,13 @@ describe('On Sign up page', () => {
     };
 
     // Act
-    SignupAction.UI.submitAdminUserData(USER);
+    cy.get(SignupPageElements.inputName).type(USER.NAME);
+    cy.get(SignupPageElements.inputEmail).type(USER.EMAIL);
+    cy.get(SignupPageElements.inputPass).type(USER.PASS);
+    cy.get(SignupPageElements.checkboxAdmin).click();
+    cy.get(SignupPageElements.buttonSubmit).click();
 
     // Assert
-    cy.get(globalElements.buttonLogout).should('exist');
+    cy.get(globalPageElements.buttonLogout).should('exist');
   });
 });

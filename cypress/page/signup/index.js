@@ -1,15 +1,10 @@
 // Actions to interact with Signup page
 
-const pageElements = require('./elements').ELEMENTS;
+// Will be needed when create the first UI action
+// const pageElements = require('./elements').ELEMENTS;
 
 class SignupUI {
-  submitAdminUserData(userData) {
-    cy.get(pageElements.inputName).type(userData.NAME);
-    cy.get(pageElements.inputEmail).type(userData.EMAIL);
-    cy.get(pageElements.inputPass).type(userData.PASS);
-    cy.get(pageElements.checkboxAdmin).click();
-    cy.get(pageElements.buttonSubmit).click();
-  }
+  // Space to create UI actions when needed
 }
 
 class SignupAPI {
