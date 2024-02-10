@@ -24,9 +24,13 @@ jobs:
 
   # Cy run with repport - v2
   cypress-run:
-    name: Cypress E2E checkpoint
+    name: Cypress E2E split checkpoint
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome91-ff89
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3]
     steps:
       - uses: actions/checkout@v2
 
