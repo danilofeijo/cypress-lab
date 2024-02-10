@@ -41,9 +41,16 @@ jobs:
           $(npm bin)/cypress cache list
           $(npm bin)/cypress verify
 
-      - name: Run Cypress tests
-        run: npm run test:chrome
-        continue-on-error: false
+      # - name: Run Cypress tests
+      #   run: npm run test:chrome
+      #   continue-on-error: false
+
+      - name: Run split Cypress tests 🧪
+        uses: cypress-io/github-action@v6
+        # pass the machine index and the total number
+        env:
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
 
       - name: Copy test execution videos
         run: |
