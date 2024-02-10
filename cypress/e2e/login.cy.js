@@ -26,7 +26,7 @@ describe('On login page', () => {
     ActionLogin.UI.visitLogin();
   });
 
-  it('Should log in with valid credentials', () => {
+  it.only('Should log in with valid credentials', () => {
     // Arrange
     const LOGIN = {
       EMAIL: USER.email,
@@ -39,6 +39,7 @@ describe('On login page', () => {
     cy.get(elementsLogin.buttonEnter).click();
 
     // Assert
+    cy.get('h1').should('contain.text', USER.nome);
     cy.get(elementsGlobal.buttonLogout).should('exist');
   });
 
