@@ -55,4 +55,19 @@ describe('On new product page', () => {
     // Assert
     cy.get('table').contains(PRODUCT.NAME).should('have.text', PRODUCT.NAME);
   });
+
+  it('Should edit a created product', () => {
+    // TODO - Develop test scenario
+    /**
+     *  Steps Reference
+     *
+     *  - Set product data
+     *  - Create product through - API
+     *  - Log in through - API (done at beforeEach)
+     *  - Visit product page - WEB
+     */
+    // Arrange
+    // Act
+    // Assert
+  });
 });
