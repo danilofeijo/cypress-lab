@@ -14,7 +14,8 @@ A E2E test automation setup that you can apply in the real world.
 * ✅ [Cypress][tool-cy], to create and run E2E tests
 * ✅ [Faker][tool-faker], to generate randon data for tests
 * ✅ "Page Action" custom pattern, to organize test structure
-* ✅ [Environment config][tool-envConfig] to run tests in multiple environment
+* ✅ [Environment config][tool-envConfig], to run tests in multiple environment
+* ✅ [Test retry ][tool-retry], to repeat failed tests and avoid flakiness
 
 ### Code quality
 * ✅ [Prettier][tool-prettier] - to format the code
@@ -93,4 +94,5 @@ Check other nice parameters by visiting the [Command Line Cypress page][ref-1].
 [tool-mochawesome]: https://www.npmjs.com/package/mochawesome
 [tool-serverest]: https://serverest.dev/
 [tool-envConfig]: https://glebbahmutov.com/blog/load-cypress-env-settings/
+[tool-retry]: https://docs.cypress.io/guides/guides/test-retries#Configure-Test-Retries
 [tool-parallelization]: https://docs.cypress.io/guides/cloud/smart-orchestration/parallelization
