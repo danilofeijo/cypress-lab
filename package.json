@@ -19,7 +19,6 @@
     "cypress": "^13.6.4",
     "cypress-file-upload": "^5.0.8",
     "cypress-multi-reporters": "^1.5.0",
-    "cypress-split": "^1.19.1",
     "cypress-xpath": "^1.4.0",
     "eslint": "^7.3.0",
     "eslint-config-prettier": "^6.11.0",

@@ -1,5 +1,4 @@
 const { defineConfig } = require('cypress');
-const cypressSplit = require('cypress-split');
 
 module.exports = defineConfig({
   reporter: 'mochawesome',
@@ -14,8 +13,6 @@ module.exports = defineConfig({
   // the e2e or component configuration
   e2e: {
     setupNodeEvents(on, config) {
-      cypressSplit(on, config);
-
       // Set default config
       config.baseUrl = 'https://front.serverest.dev';
       config.viewportWidth = 1366;
@@ -26,6 +23,7 @@ module.exports = defineConfig({
       // config.reporterOptions = { configFile: 'reporter-config.json' };
 
       const environmentName = config.env.environmentName || 'qa';
+      // const environmentFilename = `./cypress/config/${environmentName}.json`;
       const environmentFilename = `./config/${environmentName}.json`;
       console.log('LOG: [CLI] Loading %s', environmentFilename);
       const settings = require(environmentFilename);
