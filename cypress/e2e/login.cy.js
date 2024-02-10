@@ -26,7 +26,7 @@ describe('On login page', () => {
     ActionLogin.UI.visitLogin();
   });
 
-  it.only('Should log in with valid credentials', () => {
+  it('Should log in with valid credentials', () => {
     // Arrange
     const LOGIN = {
       EMAIL: USER.email,
