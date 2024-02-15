@@ -9,6 +9,8 @@ const ActionProduct = require('../page/product');
 
 const pageProduct = require('../page/product/elements').ELEMENTS_PRODUCT;
 
+// TODO - Review uppercase usage
+// Reference - https://github.com/airbnb/javascript/#naming--uppercase
 let USER;
 let USER_CREDENTIALS;
 let PRODUCT;
