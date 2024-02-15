@@ -12,13 +12,9 @@ const pageProduct = require('../page/product/elements').ELEMENTS_PRODUCT;
 // TODO - Review uppercase usage
 // Reference - https://github.com/airbnb/javascript/#naming--uppercase
 let USER;
-let USER_CREDENTIALS;
 let PRODUCT;
 
-// TODO - Create test file - user (create and list pages)
-
-// TODO - split in describes. One for Create, another one for List
-describe('On product page', () => {
+describe('As Admin user', () => {
   before(() => {
     const randomName = Utils.setRandomName();
     const randomEmail = Utils.setRandomEmail(randomName);
@@ -34,12 +30,7 @@ describe('On product page', () => {
   });
 
   beforeEach(() => {
-    USER_CREDENTIALS = {
-      email: USER.email,
-      password: USER.password,
-    };
-
-    ActionLogin.API.submitLogin(USER_CREDENTIALS.email, USER_CREDENTIALS.password);
+    ActionLogin.API.submitLogin(USER.email, USER.password);
 
     PRODUCT = {
       nome: faker.commerce.productName(),
@@ -49,40 +40,48 @@ describe('On product page', () => {
     };
   });
 
-  it('Should create a new product', () => {
-    // Arrange
-    cy.visit('/admin/cadastrarprodutos');
+  describe('On create product page', () => {
+    it('Should create a new product', () => {
+      // Arrange
+      cy.visit('/admin/cadastrarprodutos');
 
-    // Act
-    cy.get(pageProduct.create.inputName).type(PRODUCT.nome);
-    cy.get(pageProduct.create.inputPrice).type(PRODUCT.preco);
-    cy.get(pageProduct.create.inputDescription).type(PRODUCT.descricao);
-    cy.get(pageProduct.create.inputQuantity).type(PRODUCT.quantidade);
-    // Image upload is barely working. Cypress command do so. Kept to have an use case.
-    cy.get(pageProduct.create.inputImageUpload).selectFile('cypress/fixtures/miamiGuardHouse.png');
-    cy.get(pageProduct.create.buttonSave).click();
+      // Act
+      cy.get(pageProduct.create.inputName).type(PRODUCT.nome);
+      cy.get(pageProduct.create.inputPrice).type(PRODUCT.preco);
+      cy.get(pageProduct.create.inputDescription).type(PRODUCT.descricao);
+      cy.get(pageProduct.create.inputQuantity).type(PRODUCT.quantidade);
+      // Image upload is barely working. Cypress command do so. Kept to have an use case.
+      cy.get(pageProduct.create.inputImageUpload).selectFile('cypress/fixtures/miamiGuardHouse.png');
+      cy.get(pageProduct.create.buttonSave).click();
 
-    // Assert
-    cy.get(pageProduct.list.listProducts).should('contain.text', PRODUCT.nome);
+      // Assert
+      cy.get(pageProduct.list.listProducts).should('contain.text', PRODUCT.nome);
 
-    // TODO - Clean up - delete created product
+      // TODO - Clean up - delete created product
+    });
   });
 
-  it('Should delete a product', () => {
-    // Arrange
-    ActionProduct.API.createProduct(USER_CREDENTIALS, PRODUCT);
+  describe('On list product page', () => {
+    it('Should delete a product', () => {
+      // Arrange
+      const adminCredentials = {
+        email: USER.email,
+        password: USER.password,
+      };
 
-    cy.visit('/admin/listarprodutos');
-    cy.intercept('/produtos/*').as('deleteProduct');
+      ActionProduct.API.createProduct(adminCredentials, PRODUCT);
 
-    // Act
-    cy.contains(pageProduct.list.listProducts, PRODUCT.nome).within(() => {
-      cy.get(pageProduct.list.buttonDelete).click();
+      cy.visit('/admin/listarprodutos');
+      cy.intercept('/produtos/*').as('deleteProduct');
+
+      // Act
+      cy.contains(pageProduct.list.listProducts, PRODUCT.nome).within(() => {
+        cy.get(pageProduct.list.buttonDelete).click();
+      });
+      cy.wait('@deleteProduct');
+
+      // Assert
+      cy.get(pageProduct.list.listProducts).should('not.contain.text', PRODUCT.nome);
     });
-
-    cy.wait('@deleteProduct');
-
-    // Assert
-    cy.get(pageProduct.list.listProducts).should('not.contain.text', PRODUCT.nome);
   });
 });
