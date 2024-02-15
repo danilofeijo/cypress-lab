@@ -1,10 +1,10 @@
 // Actions to interact with Global area
 
-const pageElements = require('./elements').ELEMENTS;
+const pageGlobal = require('./elements').ELEMENTS_GLOBAL;
 
 class GlobalUI {
   accessProfilePage(profileName) {
-    cy.get(pageElements.fnMenuOptionProfile(profileName)).click();
+    cy.get(pageGlobal.fnMenuOptionProfile(profileName)).click();
   }
 }
 

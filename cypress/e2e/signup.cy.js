@@ -2,8 +2,8 @@
 
 const Utils = require('../utils');
 
-const elementsGlobal = require('../page/global/elements').ELEMENTS;
-const elementsSignup = require('../page/signup/elements').ELEMENTS;
+const pageGlobal = require('../page/global/elements').ELEMENTS_GLOBAL;
+const pageSignup = require('../page/signup/elements').ELEMENTS_SIGNUP;
 
 let randomName;
 let randomEmail;
@@ -25,13 +25,13 @@ describe('On Sign up page', () => {
     };
 
     // Act
-    cy.get(elementsSignup.inputName).type(USER.NAME);
-    cy.get(elementsSignup.inputEmail).type(USER.EMAIL);
-    cy.get(elementsSignup.inputPass).type(USER.PASS);
-    cy.get(elementsSignup.checkboxAdmin).click();
-    cy.get(elementsSignup.buttonSubmit).click();
+    cy.get(pageSignup.inputName).type(USER.NAME);
+    cy.get(pageSignup.inputEmail).type(USER.EMAIL);
+    cy.get(pageSignup.inputPass).type(USER.PASS);
+    cy.get(pageSignup.checkboxAdmin).click();
+    cy.get(pageSignup.buttonSubmit).click();
 
     // Assert
-    cy.get(elementsGlobal.buttonLogout).should('exist');
+    cy.get(pageGlobal.buttonLogout).should('exist');
   });
 });

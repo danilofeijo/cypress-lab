@@ -5,8 +5,8 @@ const Utils = require('../utils');
 const ActionSignup = require('../page/signup');
 const ActionLogin = require('../page/login');
 
-const elementsGlobal = require('../page/global/elements').ELEMENTS;
-const elementsLogin = require('../page/login/elements').ELEMENTS;
+const pageGlobal = require('../page/global/elements').ELEMENTS_GLOBAL;
+const pageLogin = require('../page/login/elements').ELEMENTS_LOGIN;
 
 let USER;
 
@@ -34,13 +34,13 @@ describe('On login page', () => {
     };
 
     // Act
-    cy.get(elementsLogin.inputEmail).type(LOGIN.EMAIL);
-    cy.get(elementsLogin.inputPass).type(LOGIN.PASS);
-    cy.get(elementsLogin.buttonEnter).click();
+    cy.get(pageLogin.inputEmail).type(LOGIN.EMAIL);
+    cy.get(pageLogin.inputPass).type(LOGIN.PASS);
+    cy.get(pageLogin.buttonEnter).click();
 
     // Assert
     cy.get('h1').should('contain.text', USER.nome);
-    cy.get(elementsGlobal.buttonLogout).should('exist');
+    cy.get(pageGlobal.buttonLogout).should('exist');
   });
 
   it('Should not log in with invalid credentials', () => {
@@ -51,11 +51,11 @@ describe('On login page', () => {
     };
 
     // Act
-    cy.get(elementsLogin.inputEmail).type(LOGIN.EMAIL);
-    cy.get(elementsLogin.inputPass).type(LOGIN.WRONG_PASS);
-    cy.get(elementsLogin.buttonEnter).click();
+    cy.get(pageLogin.inputEmail).type(LOGIN.EMAIL);
+    cy.get(pageLogin.inputPass).type(LOGIN.WRONG_PASS);
+    cy.get(pageLogin.buttonEnter).click();
 
     // Assert
-    cy.get(elementsLogin.toastAlert).should('exist').and('contain.text', 'Email e/ou senha inválidos');
+    cy.get(pageLogin.toastAlert).should('exist').and('contain.text', 'Email e/ou senha inválidos');
   });
 });

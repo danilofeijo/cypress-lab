@@ -7,13 +7,14 @@ const ActionSignup = require('../page/signup');
 const ActionLogin = require('../page/login');
 const ActionProduct = require('../page/product');
 
-const elProduct = require('../page/product/elements').ELEMENTS_PRODUCT;
+const pageProduct = require('../page/product/elements').ELEMENTS_PRODUCT;
 
 let USER;
 let USER_CREDENTIALS;
 let PRODUCT;
 
-describe('On new product page', () => {
+// TODO - split in describes. One for Create, another one for List
+describe('On product page', () => {
   before(() => {
     const randomName = Utils.setRandomName();
     const randomEmail = Utils.setRandomEmail(randomName);
@@ -49,16 +50,16 @@ describe('On new product page', () => {
     cy.visit('/admin/cadastrarprodutos');
 
     // Act
-    cy.get(elProduct.create.inputName).type(PRODUCT.nome);
-    cy.get(elProduct.create.inputPrice).type(PRODUCT.preco);
-    cy.get(elProduct.create.inputDescription).type(PRODUCT.descricao);
-    cy.get(elProduct.create.inputQuantity).type(PRODUCT.quantidade);
+    cy.get(pageProduct.create.inputName).type(PRODUCT.nome);
+    cy.get(pageProduct.create.inputPrice).type(PRODUCT.preco);
+    cy.get(pageProduct.create.inputDescription).type(PRODUCT.descricao);
+    cy.get(pageProduct.create.inputQuantity).type(PRODUCT.quantidade);
     // Image upload is barely working. Cypress command do so. Kept to have an use case.
-    cy.get(elProduct.create.inputImageUpload).selectFile('cypress/fixtures/miamiGuardHouse.png');
-    cy.get(elProduct.create.buttonSave).click();
+    cy.get(pageProduct.create.inputImageUpload).selectFile('cypress/fixtures/miamiGuardHouse.png');
+    cy.get(pageProduct.create.buttonSave).click();
 
     // Assert
-    cy.get(elProduct.list.listProducts).should('contain.text', PRODUCT.nome);
+    cy.get(pageProduct.list.listProducts).should('contain.text', PRODUCT.nome);
   });
 
   it('Should delete a product', () => {
@@ -69,13 +70,13 @@ describe('On new product page', () => {
     cy.intercept('/produtos/*').as('deleteProduct');
 
     // Act
-    cy.contains(elProduct.list.listProducts, PRODUCT.nome).within(() => {
-      cy.get(elProduct.list.buttonDelete).click();
+    cy.contains(pageProduct.list.listProducts, PRODUCT.nome).within(() => {
+      cy.get(pageProduct.list.buttonDelete).click();
     });
 
     cy.wait('@deleteProduct');
 
     // Assert
-    cy.get(elProduct.list.listProducts).should('not.contain.text', PRODUCT.nome);
+    cy.get(pageProduct.list.listProducts).should('not.contain.text', PRODUCT.nome);
   });
 });
