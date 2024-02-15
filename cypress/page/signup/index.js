@@ -8,6 +8,14 @@ class SignupUI {
 }
 
 class SignupAPI {
+  /**
+   *
+   * @param {Object} userData
+   * @param {string} userData.nome
+   * @param {string} userData.email
+   * @param {string} userData.password
+   * @param {string} userData.administrador - "true" or "false"
+   */
   createUser(userData) {
     cy.request({
       method: 'POST',

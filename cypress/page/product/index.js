@@ -9,6 +9,7 @@ class ProductAPI {
    * @param {Object} userCredentials
    * @param {string} userCredentials.email
    * @param {string} userCredentials.password
+   *
    * @param {Object} productData
    * @param {string} productData.nome
    * @param {number} productData.preco

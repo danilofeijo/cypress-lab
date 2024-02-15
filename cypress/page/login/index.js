@@ -13,7 +13,12 @@ class LoginUI {
 }
 
 class LoginAPI {
-  submitLogin(email, password) {
+  /**
+   *
+   * @param {string} email
+   * @param {string} password
+   */
+  login(email, password) {
     const body = {
       email,
       password,

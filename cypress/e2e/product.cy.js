@@ -30,7 +30,7 @@ describe('As Admin user', () => {
   });
 
   beforeEach(() => {
-    ActionLogin.API.submitLogin(USER.email, USER.password);
+    ActionLogin.API.login(USER.email, USER.password);
 
     PRODUCT = {
       nome: faker.commerce.productName(),
