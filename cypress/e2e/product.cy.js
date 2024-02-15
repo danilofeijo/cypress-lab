@@ -5,6 +5,7 @@ const faker = require('faker');
 
 const ActionSignup = require('../page/signup');
 const ActionLogin = require('../page/login');
+const ActionProduct = require('../page/product');
 
 const elementsProductCreate = require('../page/product/elements').ELEMENTS;
 
@@ -56,18 +57,36 @@ describe('On new product page', () => {
     cy.get('table').contains(PRODUCT.NAME).should('have.text', PRODUCT.NAME);
   });
 
-  it('Should edit a created product', () => {
-    // TODO - Develop test scenario
-    /**
-     *  Steps Reference
-     *
-     *  - Set product data
-     *  - Create product through - API
-     *  - Log in through - API (done at beforeEach)
-     *  - Visit product page - WEB
-     */
+  it('Should delete a created product', () => {
+    // TODO - Apply testing best practices
+
     // Arrange
+    const USER_CREDENTIALS = {
+      email: USER.email,
+      password: USER.password,
+    };
+
+    const PRODUCT_ORIGINAL = {
+      nome: faker.commerce.productName(),
+      preco: faker.commerce.price(99, 999, 0),
+      descricao: faker.commerce.productDescription(),
+      quantidade: '1',
+    };
+
+    ActionProduct.API.createProduct(USER_CREDENTIALS, PRODUCT_ORIGINAL);
+
+    cy.visit('/admin/listarprodutos');
+    cy.get('table.table-striped tr').should('contain.text', PRODUCT_ORIGINAL.nome);
+    cy.intercept('/produtos/*').as('deleteProduct');
+
     // Act
+    cy.contains('table.table-striped tr', PRODUCT_ORIGINAL.nome).within(() => {
+      cy.get('button.btn-danger').click();
+    });
+
+    cy.wait('@deleteProduct');
+
     // Assert
+    cy.get('table.table-striped tr').should('not.contain.text', PRODUCT_ORIGINAL.nome);
   });
 });
