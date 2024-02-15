@@ -15,6 +15,8 @@ let USER;
 let USER_CREDENTIALS;
 let PRODUCT;
 
+// TODO - Create test file - user (create and list pages)
+
 // TODO - split in describes. One for Create, another one for List
 describe('On product page', () => {
   before(() => {

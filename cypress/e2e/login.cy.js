@@ -27,7 +27,7 @@ describe('On login page', () => {
     ActionLogin.UI.visitLogin();
   });
 
-  it('Should log in with Common user credentials', () => {
+  it.skip('Should log in with Common user credentials', () => {
     // TODO - Develop test
     // Arrange
     // Act

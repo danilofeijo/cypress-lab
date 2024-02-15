@@ -17,10 +17,6 @@ describe('On Sign up page', () => {
     randomEmail = Utils.setRandomEmail(randomName);
   });
 
-  // TODO - Create test - Should create a new commom user
-  // TODO - Create test - Should not create user that already exists
-  // TODO - Create test file - On user page (create and list)
-
   it('Should create a new admin user', () => {
     // Arrange
     const USER = {
@@ -43,5 +39,19 @@ describe('On Sign up page', () => {
     cy.get(pageGlobal.admin.menuCadastrarProdutos).should('have.text', 'Cadastrar Produtos');
     cy.get(pageGlobal.admin.menuListarProdutos).should('have.text', 'Listar Produtos');
     cy.get(pageGlobal.admin.menuRelatorios).should('have.text', 'Relatórios');
+  });
+
+  it.skip('Should create a new common user', () => {
+    // TODO - Develop test
+    // Arrange
+    // Act
+    // Assert
+  });
+
+  it.skip('Should not create user that already exists', () => {
+    // TODO - Develop test
+    // Arrange
+    // Act
+    // Assert
   });
 });
