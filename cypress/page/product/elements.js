@@ -1,5 +1,6 @@
 // Elements to interact with Product page
 
+// TODO - Make it extends from Global Elements
 export const ELEMENTS_PRODUCT = {
   create: {
     inputName: '[data-testid="nome"]',

@@ -26,6 +26,9 @@ describe('On login page', () => {
     ActionLogin.UI.visitLogin();
   });
 
+  // TODO - Create test - Should log in with common credentials
+
+  // TODO - Adjust name - Should log in with admin credentials
   it('Should log in with valid credentials', () => {
     // Arrange
     const LOGIN = {
@@ -39,6 +42,7 @@ describe('On login page', () => {
     cy.get(pageLogin.buttonEnter).click();
 
     // Assert
+    // TODO - Move element to its place
     cy.get('h1').should('contain.text', USER.nome);
     cy.get(pageGlobal.buttonLogout).should('exist');
   });

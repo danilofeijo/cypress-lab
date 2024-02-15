@@ -60,6 +60,8 @@ describe('On product page', () => {
 
     // Assert
     cy.get(pageProduct.list.listProducts).should('contain.text', PRODUCT.nome);
+
+    // TODO - Clean up - delete created product
   });
 
   it('Should delete a product', () => {

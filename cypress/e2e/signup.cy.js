@@ -16,6 +16,10 @@ describe('On Sign up page', () => {
     randomEmail = Utils.setRandomEmail(randomName);
   });
 
+  // TODO - Create test - Should create a new commom user
+  // TODO - Create test - Should not create user that already exists
+  // TODO - Create test file - On user page (create and list)
+
   it('Should create a new admin user', () => {
     // Arrange
     const USER = {
@@ -32,6 +36,7 @@ describe('On Sign up page', () => {
     cy.get(pageSignup.buttonSubmit).click();
 
     // Assert
+    // TODO - Henace Assertion
     cy.get(pageGlobal.buttonLogout).should('exist');
   });
 });
