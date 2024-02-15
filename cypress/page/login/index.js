@@ -30,6 +30,8 @@ class LoginAPI {
       expect(res.body).to.have.property('message', 'Login realizado com sucesso');
 
       window.localStorage.setItem('serverest/userToken', res.body.authorization);
+
+      cy.log('LOG: User logged in = ', email);
     });
   }
 }
