@@ -11,7 +11,7 @@ module.exports = defineConfig({
       config.viewportHeight = 788;
       config.video = true;
       config.defaultCommandTimeout = 10000;
-      config.retries = { openMode: 1, runMode: 2 };
+      config.retries = { openMode: 0, runMode: 2 };
 
       config.reporter = 'cypress-multi-reporters';
       config.reporterOptions = { configFile: 'reporter-config.json' };
