@@ -7,6 +7,7 @@ const ActionLogin = require('../page/login');
 
 const pageGlobal = require('../page/global/elements').ELEMENTS_GLOBAL;
 const pageLogin = require('../page/login/elements').ELEMENTS_LOGIN;
+const pageHome = require('../page/home/elements').ELEMENTS_HOME;
 
 let USER;
 
@@ -26,10 +27,14 @@ describe('On login page', () => {
     ActionLogin.UI.visitLogin();
   });
 
-  // TODO - Create test - Should log in with common credentials
+  it('Should log in with Common user credentials', () => {
+    // TODO - Develop test
+    // Arrange
+    // Act
+    // Assert
+  });
 
-  // TODO - Adjust name - Should log in with admin credentials
-  it('Should log in with valid credentials', () => {
+  it('Should log in with Admin user credentials', () => {
     // Arrange
     const LOGIN = {
       EMAIL: USER.email,
@@ -42,12 +47,11 @@ describe('On login page', () => {
     cy.get(pageLogin.buttonEnter).click();
 
     // Assert
-    // TODO - Move element to its place
-    cy.get('h1').should('contain.text', USER.nome);
+    cy.get(pageHome.headerWelcome).should('contain.text', USER.nome);
     cy.get(pageGlobal.buttonLogout).should('exist');
   });
 
-  it('Should not log in with invalid credentials', () => {
+  it('Should not log in with wrong credentials', () => {
     // Arrange
     const LOGIN = {
       EMAIL: USER.email,
