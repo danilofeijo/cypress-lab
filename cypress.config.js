@@ -18,7 +18,7 @@ module.exports = defineConfig({
 
       const environmentName = config.env.environmentName || 'qa';
       const environmentFilename = `./config/${environmentName}.json`;
-      console.log('LOG: [CLI] Loading %s', environmentFilename);
+      console.info('[LOG CLI] Loading %s', environmentFilename);
       const settings = require(environmentFilename);
 
       if (settings.baseUrl) {

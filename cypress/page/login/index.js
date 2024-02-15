@@ -19,8 +19,6 @@ class LoginAPI {
       password,
     };
 
-    console.log('baseUrlApi => ', Cypress.env('baseUrlApi'));
-
     cy.request({
       method: 'POST',
       url: `${Cypress.env('baseUrlApi')}/login`,
@@ -31,7 +29,7 @@ class LoginAPI {
 
       window.localStorage.setItem('serverest/userToken', res.body.authorization);
 
-      cy.log('LOG: User logged in = ', email);
+      cy.log('[LOG] User logged in: ' + email);
     });
   }
 }

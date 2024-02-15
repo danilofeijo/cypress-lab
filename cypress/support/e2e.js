@@ -1,4 +1,3 @@
 beforeEach(() => {
-  cy.log('LOG: Environment = ' + Cypress.env('envName'));
-  cy.log('LOG: Running test scenario');
+  cy.log('[LOG] Running on Env: ' + Cypress.env('envName'));
 });

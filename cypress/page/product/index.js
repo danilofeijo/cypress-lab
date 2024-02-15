@@ -33,7 +33,7 @@ class ProductAPI {
       }).then(resProduct => {
         expect(resProduct.status).to.be.eql(201);
         expect(resProduct.body).to.have.property('message', 'Cadastro realizado com sucesso');
-        cy.log('LOG: Product created = ', productData.nome);
+        cy.log('[LOG] Product created: ' + productData.nome);
       });
     });
   }
