@@ -2,6 +2,7 @@
 
 const Utils = require('../utils');
 
+// TODO - Explore better ways to import different files with elements
 const pageGlobal = require('../page/global/elements').ELEMENTS_GLOBAL;
 const pageSignup = require('../page/signup/elements').ELEMENTS_SIGNUP;
 const pageHome = require('../page/home/elements').ELEMENTS_HOME;
