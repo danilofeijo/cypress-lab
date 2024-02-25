@@ -3,11 +3,11 @@
 const Utils = require('../utils');
 const faker = require('faker');
 
-const ActionSignup = require('../page/signup');
-const ActionLogin = require('../page/login');
-const ActionProduct = require('../page/product');
+const ActionSignup = require('../page/actions/signup');
+const ActionLogin = require('../page/actions/login');
+const ActionProduct = require('../page/actions/product');
 
-const pageProduct = require('../page/product/elements').ELEMENTS_PRODUCT;
+const pageProduct = require('../page/elements/product').ELEMENTS_PRODUCT;
 
 // TODO - Review uppercase usage
 // Reference - https://github.com/airbnb/javascript/#naming--uppercase
