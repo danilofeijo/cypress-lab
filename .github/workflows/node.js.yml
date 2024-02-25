@@ -23,6 +23,8 @@ jobs:
     steps:
       - run: echo 'Should run ESlint check...'
       - uses: actions/checkout@v4
+        with:
+          show-progress: 'false'
       - uses: stefanoeb/eslint-action@1.0.2
         with:
           files: cypress/
