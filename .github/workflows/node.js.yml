@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          npm
+          npm ci
           eslint . --ext .js,.jsx,.ts,.tsx
 
       # - name: Checkout
