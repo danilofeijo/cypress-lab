@@ -5,7 +5,8 @@
 #         Should have less steps;
 #         Should have steps with clearer name;
 
-name: E2E Tests
+# Workflow name
+name: E2E Workflow
 
 on:
   schedule:
@@ -17,7 +18,7 @@ on:
 jobs:
   # ESLint check
   eslint:
-    name: ESLint checkpoint
+    name: ESLint verification
     runs-on: ubuntu-latest
     steps:
       - run: echo 'Should run ESlint check...'
@@ -28,34 +29,41 @@ jobs:
 
   # Cy run with repport - v2
   cypress-run:
-    name: Cypress E2E checkpoint
+    name: Test execution
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
+      # Setup
       - uses: actions/checkout@v2
 
-      - name: Install a project with a clean slate
+      # - name: Install a project with a clean slate
+      - name: Install project
         run: |
           npm ci
           $(npm bin)/cypress cache path
           $(npm bin)/cypress cache list
           $(npm bin)/cypress verify
 
-      - name: Run Cypress tests
+      # Run tests
+      - name: Run E2E tests
         run: npm run test:chrome
         continue-on-error: false
 
-      - name: Copy test execution videos
+      # Prepare report
+      - name: Prepare report
+
+        # 1st - Copy test execution videos
+        # 2nd - Merge test results into one
+        # 3rd - Generate HTML report
         run: |
           mkdir public
           cp -r cypress/videos public/videos
 
-      - name: Merge test results into one
-        run: npm run report:merge
+          npm run report:merge
 
-      - name: Generate HTML report
-        run: npm run report:generate
+          npm run report:generate
 
+      # Deploy report
       - name: Deploy report page
         uses: peaceiris/actions-gh-pages@v3
         with:
