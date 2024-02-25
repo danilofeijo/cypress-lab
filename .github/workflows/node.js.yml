@@ -21,8 +21,10 @@ jobs:
     name: ESLint verification
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: |
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: ESLint check
+        run: |
           npm ci
           npm run eslint
 
