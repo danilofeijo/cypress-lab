@@ -2,12 +2,12 @@
 
 const Utils = require('../utils');
 
-const ActionSignup = require('../page/signup');
-const ActionLogin = require('../page/login');
+const ActionSignup = require('../page/actions/signup');
+const ActionLogin = require('../page/actions/login');
 
-const pageGlobal = require('../page/global/elements').ELEMENTS_GLOBAL;
-const pageLogin = require('../page/login/elements').ELEMENTS_LOGIN;
-const pageHome = require('../page/home/elements').ELEMENTS_HOME;
+const pageGlobal = require('../page/elements/global').ELEMENTS_GLOBAL;
+const pageLogin = require('../page/elements/login').ELEMENTS_LOGIN;
+const pageHome = require('../page/elements/home').ELEMENTS_HOME;
 
 let USER;
 
