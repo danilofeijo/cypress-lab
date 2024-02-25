@@ -21,11 +21,10 @@ jobs:
     name: ESLint verification
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'Should run ESlint check...'
-      - uses: actions/checkout@v4
-        with:
-          show-progress: 'false'
-      - uses: stefanoeb/eslint-action@1.0.2
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: ESLint check
+        uses: stefanoeb/eslint-action@1.0.2
         with:
           files: cypress/
 
