@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo 'Should run ESlint check...'
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - uses: stefanoeb/eslint-action@1.0.2
         with:
           files: cypress/
@@ -34,7 +34,7 @@ jobs:
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
       # Setup
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # - name: Install a project with a clean slate
       - name: Install project
@@ -64,7 +64,7 @@ jobs:
           npm run report:generate
 
       # Deploy report
-      - name: Deploy report page
+      - name: Deploy report
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
