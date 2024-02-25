@@ -21,12 +21,17 @@ jobs:
     name: ESLint verification
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: ESLint check
-        uses: stefanoeb/eslint-action@1.0.2
-        with:
-          files: cypress/
+      - uses: actions/checkout@v4
+      - run: |
+          npm
+          eslint . --ext .js,.jsx,.ts,.tsx
+
+      # - name: Checkout
+      #   uses: actions/checkout@v4
+      # - name: ESLint check
+      #   uses: stefanoeb/eslint-action@1.0.2
+      #   with:
+      #     files: cypress/
 
   # Cy run with repport - v2
   cypress-run:
