@@ -1,6 +1,6 @@
 // Actions to interact with Global area
 
-const pageGlobal = require('./elements').ELEMENTS_GLOBAL;
+const pageGlobal = require('../elements/global').ELEMENTS_GLOBAL;
 
 class GlobalUI {
   accessProfilePage(profileName) {

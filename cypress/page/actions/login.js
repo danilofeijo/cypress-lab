@@ -1,6 +1,6 @@
 // Actions to interact with Login page
 
-const pageLogin = require('./elements').ELEMENTS_LOGIN;
+const pageLogin = require('../elements/login').ELEMENTS_LOGIN;
 
 class LoginUI {
   visitLogin() {
