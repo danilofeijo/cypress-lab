@@ -28,13 +28,6 @@ jobs:
           npm ci
           npm run eslint
 
-      # - name: Checkout
-      #   uses: actions/checkout@v4
-      # - name: ESLint check
-      #   uses: stefanoeb/eslint-action@1.0.2
-      #   with:
-      #     files: cypress/
-
   # Cy run with repport - v2
   cypress-run:
     name: Test execution
@@ -42,7 +35,8 @@ jobs:
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
       # Setup
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       # - name: Install a project with a clean slate
       - name: Install project
