@@ -34,11 +34,9 @@ jobs:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
-      # Setup
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - name: Install a project with a clean slate
       - name: Install project
         run: |
           npm ci
@@ -46,26 +44,21 @@ jobs:
           $(npm bin)/cypress cache list
           $(npm bin)/cypress verify
 
-      # Run tests
       - name: Run E2E tests
         run: npm run test:chrome
         continue-on-error: false
 
-      # Prepare report
+  report-deploy:
+    name: Report deploy
+    runs-on: ubuntu-latest
+    steps:
       - name: Prepare report
-
-        # 1st - Copy test execution videos
-        # 2nd - Merge test results into one
-        # 3rd - Generate HTML report
         run: |
           mkdir public
           cp -r cypress/videos public/videos
-
           npm run report:merge
-
           npm run report:generate
 
-      # Deploy report
       - name: Deploy report
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -73,3 +66,23 @@ jobs:
           publish_dir: ./public
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
+
+      # - name: Prepare report
+
+      #   # 1st - Copy test execution videos
+      #   # 2nd - Merge test results into one
+      #   # 3rd - Generate HTML report
+      #   run: |
+      #     mkdir public
+      #     cp -r cypress/videos public/videos
+      #     npm run report:merge
+      #     npm run report:generate
+
+      # # Deploy report
+      # - name: Deploy report
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./public
+      #     user_name: 'github-actions[bot]'
+      #     user_email: 'github-actions[bot]@users.noreply.github.com'
