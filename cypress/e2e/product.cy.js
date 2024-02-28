@@ -41,7 +41,7 @@ describe('As Admin user', () => {
   });
 
   describe('On create product page', () => {
-    it('lorem Should create a new product', () => {
+    it('Should create a new product', () => {
       // Arrange
       cy.visit('/admin/cadastrarprodutos');
 

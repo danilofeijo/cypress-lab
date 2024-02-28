@@ -11,7 +11,7 @@ const pageHome = require('../page/elements/home').ELEMENTS_HOME;
 
 let USER;
 
-describe('lorem On login page', () => {
+describe('On login page', () => {
   beforeEach(() => {
     const randomName = Utils.setRandomName();
     const randomEmail = Utils.setRandomEmail(randomName);
