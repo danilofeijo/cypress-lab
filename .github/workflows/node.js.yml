@@ -1,7 +1,8 @@
-# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# This workflow will
+# - Check code syntax
+# - Run E2E tests and publish its results
 
-name: E2E Tests
+name: E2E Workflow
 
 on:
   schedule:
@@ -11,49 +12,44 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ESLint check
   eslint:
-    name: ESLint checkpoint
+    name: ESLint verification
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'Should run ESlint check...'
-      - uses: actions/checkout@v1
-      - uses: stefanoeb/eslint-action@1.0.2
-        with:
-          files: cypress/
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: ESLint check
+        run: |
+          npm ci
+          npm run eslint
 
-  # Cy run with repport - v2
   cypress-run:
-    name: Cypress E2E checkpoint
+    name: Test execution
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Install a project with a clean slate
+      - name: Install project
         run: |
           npm ci
           $(npm bin)/cypress cache path
           $(npm bin)/cypress cache list
           $(npm bin)/cypress verify
 
-      - name: Run Cypress tests
-        run: npm run test:chrome
-        continue-on-error: false
-
-      - name: Copy test execution videos
+      - name: Run E2E tests
         run: |
+          npm run test:chrome
+
           mkdir public
           cp -r cypress/videos public/videos
+          npm run report:merge
+          npm run report:generate
+        continue-on-error: false
 
-      - name: Merge test results into one
-        run: npm run report:merge
-
-      - name: Generate HTML report
-        run: npm run report:generate
-
-      - name: Deploy report page
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy report
+        uses: peaceiris/actions-gh-pages@v3.9.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
