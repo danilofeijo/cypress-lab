@@ -1,11 +1,7 @@
-# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# This workflow will
+# - Check code syntax
+# - Run E2E tests and publish its results
 
-# TODO - Review the workflow. Make it leaner.
-#         Should have less steps;
-#         Should have steps with clearer name;
-
-# Workflow name
 name: E2E Workflow
 
 on:
@@ -16,7 +12,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ESLint check
   eslint:
     name: ESLint verification
     runs-on: ubuntu-latest
@@ -28,7 +23,6 @@ jobs:
           npm ci
           npm run eslint
 
-  # Cy run with repport - v2
   cypress-run:
     name: Test execution
     runs-on: ubuntu-latest
@@ -47,56 +41,17 @@ jobs:
       - name: Run E2E tests
         run: |
           npm run test:chrome
+
           mkdir public
           cp -r cypress/videos public/videos
           npm run report:merge
           npm run report:generate
         continue-on-error: false
 
-      - name: Save report
-        uses: actions/upload-artifact@v4
-        with:
-          path: public/videos/
-
-      # - name: Save report data
-      #   run: |
-      #     mkdir public
-      #     cp -r cypress/videos public/videos
-      #     npm run report:merge
-      #     npm run report:generate
-
-  report-deploy:
-    name: Report deploy
-    runs-on: ubuntu-latest
-    needs: cypress-run
-    steps:
-      - name: Download report
-        uses: actions/download-artifact@v4
-
       - name: Deploy report
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v3.9.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
-
-      # - name: Prepare report
-
-      #   # 1st - Copy test execution videos
-      #   # 2nd - Merge test results into one
-      #   # 3rd - Generate HTML report
-      #   run: |
-      #     mkdir public
-      #     cp -r cypress/videos public/videos
-      #     npm run report:merge
-      #     npm run report:generate
-
-      # # Deploy report
-      # - name: Deploy report
-      #   uses: peaceiris/actions-gh-pages@v3
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: ./public
-      #     user_name: 'github-actions[bot]'
-      #     user_email: 'github-actions[bot]@users.noreply.github.com'
