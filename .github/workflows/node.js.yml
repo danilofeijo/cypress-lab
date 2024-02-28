@@ -51,6 +51,7 @@ jobs:
   report-deploy:
     name: Report deploy
     runs-on: ubuntu-latest
+    needs: cypress-run
     steps:
       - name: Prepare report
         run: |
