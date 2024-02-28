@@ -52,25 +52,51 @@ jobs:
           npm run report:merge
           npm run report:generate
         continue-on-error: false
-        # 1st - Run tests
-        # 2nd - Create public folder
-        # 3rd - Copy test execution videos
-        # 4th - Merge test results into one
-        # 5th - Generate HTML report
 
-      # - name: Prepare report
+      - name: Save report
+        uses: actions/upload-artifact@v4
+        with:
+          path: public/videos/
 
+      # - name: Save report data
       #   run: |
       #     mkdir public
       #     cp -r cypress/videos public/videos
       #     npm run report:merge
       #     npm run report:generate
 
-      # Deploy report
+  report-deploy:
+    name: Report deploy
+    runs-on: ubuntu-latest
+    needs: cypress-run
+    steps:
+      - name: Download report
+        uses: actions/download-artifact@v4
+
       - name: Deploy report
-        uses: peaceiris/actions-gh-pages@v3.9.3
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
+
+      # - name: Prepare report
+
+      #   # 1st - Copy test execution videos
+      #   # 2nd - Merge test results into one
+      #   # 3rd - Generate HTML report
+      #   run: |
+      #     mkdir public
+      #     cp -r cypress/videos public/videos
+      #     npm run report:merge
+      #     npm run report:generate
+
+      # # Deploy report
+      # - name: Deploy report
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./public
+      #     user_name: 'github-actions[bot]'
+      #     user_email: 'github-actions[bot]@users.noreply.github.com'
