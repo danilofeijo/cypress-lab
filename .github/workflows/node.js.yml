@@ -45,15 +45,20 @@ jobs:
           $(npm bin)/cypress verify
 
       - name: Run E2E tests
-        run: npm run test:chrome
-        continue-on-error: false
-
-      - name: Prepare report
         run: |
+          npm run test:chrome
           mkdir public
           cp -r cypress/videos public/videos
           npm run report:merge
           npm run report:generate
+        continue-on-error: false
+
+      # - name: Save report data
+      #   run: |
+      #     mkdir public
+      #     cp -r cypress/videos public/videos
+      #     npm run report:merge
+      #     npm run report:generate
 
   report-deploy:
     name: Report deploy
