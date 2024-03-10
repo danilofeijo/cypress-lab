@@ -9,9 +9,7 @@ const ActionProduct = require('../page/actions/product');
 
 import { elProduct } from '../page/elements/product';
 
-// TODO - Review uppercase usage
-// Reference - https://github.com/airbnb/javascript/#naming--uppercase
-let USER;
+let ADMIN_USER;
 let PRODUCT;
 
 describe('As Admin user', () => {
@@ -19,18 +17,18 @@ describe('As Admin user', () => {
     const randomName = Utils.setRandomName();
     const randomEmail = Utils.setRandomEmail(randomName);
 
-    USER = {
+    ADMIN_USER = {
       nome: randomName,
       email: randomEmail,
       password: `Test;123`,
       administrador: 'true',
     };
 
-    ActionSignup.API.createUser(USER);
+    ActionSignup.API.createUser(ADMIN_USER);
   });
 
   beforeEach(() => {
-    ActionLogin.API.login(USER.email, USER.password);
+    ActionLogin.API.login(ADMIN_USER.email, ADMIN_USER.password);
 
     PRODUCT = {
       nome: faker.commerce.productName(),
@@ -65,8 +63,8 @@ describe('As Admin user', () => {
     it('Should delete a product', () => {
       // Arrange
       const adminCredentials = {
-        email: USER.email,
-        password: USER.password,
+        email: ADMIN_USER.email,
+        password: ADMIN_USER.password,
       };
 
       ActionProduct.API.createProduct(adminCredentials, PRODUCT);

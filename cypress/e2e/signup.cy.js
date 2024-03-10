@@ -2,7 +2,6 @@
 
 const Utils = require('../utils');
 
-// TODO - Explore better ways to import different files with elements
 import { elGlobal } from '../page/elements/global';
 import { elSignup } from '../page/elements/signup';
 import { elHome } from '../page/elements/home';
@@ -12,29 +11,29 @@ let randomEmail;
 
 describe('On Sign up page', () => {
   beforeEach(() => {
-    cy.visit('/cadastrarusuarios');
-
     randomName = Utils.setRandomName();
     randomEmail = Utils.setRandomEmail(randomName);
+
+    cy.visit('/cadastrarusuarios');
   });
 
   it('Should create a new admin user', () => {
     // Arrange
-    const USER = {
+    const ADMIN_USER = {
       nome: randomName,
       email: randomEmail,
       pass: `Test;123`,
     };
 
     // Act
-    cy.get(elSignup.inputName).type(USER.nome);
-    cy.get(elSignup.inputEmail).type(USER.email);
-    cy.get(elSignup.inputPass).type(USER.pass);
+    cy.get(elSignup.inputName).type(ADMIN_USER.nome);
+    cy.get(elSignup.inputEmail).type(ADMIN_USER.email);
+    cy.get(elSignup.inputPass).type(ADMIN_USER.pass);
     cy.get(elSignup.checkboxAdmin).click();
     cy.get(elSignup.buttonSubmit).click();
 
     // Assert
-    cy.get(elHome.headerWelcome).should('contain.text', USER.nome);
+    cy.get(elHome.headerWelcome).should('contain.text', ADMIN_USER.nome);
     cy.get(elGlobal.admin.menuCadastrarUsuarios).should('have.text', 'Cadastrar Usuários');
     cy.get(elGlobal.admin.menuListarUsuarios).should('have.text', 'Listar Usuários');
     cy.get(elGlobal.admin.menuCadastrarProdutos).should('have.text', 'Cadastrar Produtos');

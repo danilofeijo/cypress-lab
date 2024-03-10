@@ -9,21 +9,21 @@ import { elGlobal } from '../page/elements/global';
 import { elLogin } from '../page/elements/login';
 import { elHome } from '../page/elements/home';
 
-let USER;
+let ADMIN_USER;
 
 describe('On login page', () => {
   beforeEach(() => {
     const randomName = Utils.setRandomName();
     const randomEmail = Utils.setRandomEmail(randomName);
 
-    USER = {
+    ADMIN_USER = {
       nome: randomName,
       email: randomEmail,
-      password: `Test;123`,
+      password: 'Test;123',
       administrador: 'true',
     };
 
-    ActionSignup.API.createUser(USER);
+    ActionSignup.API.createUser(ADMIN_USER);
     ActionLogin.UI.visitLogin();
   });
 
@@ -35,32 +35,20 @@ describe('On login page', () => {
   });
 
   it('Should log in with Admin user credentials', () => {
-    // Arrange
-    const LOGIN = {
-      EMAIL: USER.email,
-      PASS: USER.password,
-    };
-
     // Act
-    cy.get(elLogin.inputEmail).type(LOGIN.EMAIL);
-    cy.get(elLogin.inputPass).type(LOGIN.PASS);
+    cy.get(elLogin.inputEmail).type(ADMIN_USER.email);
+    cy.get(elLogin.inputPass).type(ADMIN_USER.password);
     cy.get(elLogin.buttonEnter).click();
 
     // Assert
-    cy.get(elHome.headerWelcome).should('contain.text', USER.nome);
+    cy.get(elHome.headerWelcome).should('contain.text', ADMIN_USER.nome);
     cy.get(elGlobal.buttonLogout).should('exist');
   });
 
   it('Should not log in with wrong credentials', () => {
-    // Arrange
-    const LOGIN = {
-      EMAIL: USER.email,
-      WRONG_PASS: 'wrongPass',
-    };
-
     // Act
-    cy.get(elLogin.inputEmail).type(LOGIN.EMAIL);
-    cy.get(elLogin.inputPass).type(LOGIN.WRONG_PASS);
+    cy.get(elLogin.inputEmail).type(ADMIN_USER.email);
+    cy.get(elLogin.inputPass).type('WRONG_PASS');
     cy.get(elLogin.buttonEnter).click();
 
     // Assert
