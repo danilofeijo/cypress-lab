@@ -38,13 +38,37 @@ describe('On Sign up page', () => {
     cy.get(elHome.admin.menuCadastrarProdutos).should('have.text', 'Cadastrar Produtos');
     cy.get(elHome.admin.menuListarProdutos).should('have.text', 'Listar Produtos');
     cy.get(elHome.admin.menuRelatorios).should('have.text', 'Relatórios');
+    cy.get(elHome.buttonLogout).should('exist');
+
+    cy.get(elHome.common.menuListaCompras).should('not.exist');
+    cy.get(elHome.common.menuCarrinho).should('not.exist');
   });
 
-  it.skip('Should create a new common user', () => {
-    // TODO - Develop test
+  it('Should create a new common user', () => {
     // Arrange
+    const COMMON_USER = {
+      nome: randomName,
+      email: randomEmail,
+      pass: `Test;123`,
+    };
+
     // Act
+    cy.get(elSignup.inputName).type(COMMON_USER.nome);
+    cy.get(elSignup.inputEmail).type(COMMON_USER.email);
+    cy.get(elSignup.inputPass).type(COMMON_USER.pass);
+    cy.get(elSignup.buttonSubmit).click();
+
     // Assert
+    cy.get(elHome.common.menuListaCompras).should('exist');
+    cy.get(elHome.common.menuCarrinho).should('exist');
+    cy.get(elHome.buttonLogout).should('exist');
+    cy.get(elHome.headerWelcome).should('contain.text', 'Serverest Store');
+
+    cy.get(elHome.admin.menuCadastrarUsuarios).should('not.exist');
+    cy.get(elHome.admin.menuListarUsuarios).should('not.exist');
+    cy.get(elHome.admin.menuCadastrarProdutos).should('not.exist');
+    cy.get(elHome.admin.menuListarProdutos).should('not.exist');
+    cy.get(elHome.admin.menuRelatorios).should('not.exist');
   });
 
   it.skip('Should not create user that already exists', () => {
