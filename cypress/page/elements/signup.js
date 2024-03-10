@@ -6,4 +6,5 @@ export const elSignup = {
   inputPass: '[data-testid="password"]',
   checkboxAdmin: '[data-testid="checkbox"]',
   buttonSubmit: '[data-testid="cadastrar"]',
+  toastAlert: '[role="alert"]',
 };

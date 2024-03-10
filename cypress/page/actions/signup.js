@@ -25,6 +25,8 @@ class SignupAPI {
       expect(res.status).to.be.eql(201);
       expect(res.body).to.have.property('message');
       expect(res.body.message).to.be.eql('Cadastro realizado com sucesso');
+
+      cy.log('[LOG] User created: ' + userData.email);
     });
   }
 }

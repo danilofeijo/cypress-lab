@@ -2,37 +2,37 @@
 
 const Utils = require('../utils');
 
+const ActionSignup = require('../page/actions/signup');
+
 import { elSignup } from '../page/elements/signup';
 import { elHome } from '../page/elements/home';
 
-let randomName;
-let randomEmail;
+let USER;
 
 describe('On Sign up page', () => {
   beforeEach(() => {
-    randomName = Utils.setRandomName();
-    randomEmail = Utils.setRandomEmail(randomName);
+    const nome = Utils.setRandomName();
+    const email = Utils.setRandomEmail(nome);
+
+    USER = {
+      nome,
+      email,
+      pass: `Test;123`,
+    };
 
     cy.visit('/cadastrarusuarios');
   });
 
   it('Should create a new admin user', () => {
-    // Arrange
-    const ADMIN_USER = {
-      nome: randomName,
-      email: randomEmail,
-      pass: `Test;123`,
-    };
-
     // Act
-    cy.get(elSignup.inputName).type(ADMIN_USER.nome);
-    cy.get(elSignup.inputEmail).type(ADMIN_USER.email);
-    cy.get(elSignup.inputPass).type(ADMIN_USER.pass);
+    cy.get(elSignup.inputName).type(USER.nome);
+    cy.get(elSignup.inputEmail).type(USER.email);
+    cy.get(elSignup.inputPass).type(USER.pass);
     cy.get(elSignup.checkboxAdmin).click();
     cy.get(elSignup.buttonSubmit).click();
 
     // Assert
-    cy.get(elHome.headerWelcome).should('contain.text', ADMIN_USER.nome);
+    cy.get(elHome.headerWelcome).should('contain.text', USER.nome);
     cy.get(elHome.admin.menuCadastrarUsuarios).should('have.text', 'Cadastrar Usuários');
     cy.get(elHome.admin.menuListarUsuarios).should('have.text', 'Listar Usuários');
     cy.get(elHome.admin.menuCadastrarProdutos).should('have.text', 'Cadastrar Produtos');
@@ -45,17 +45,10 @@ describe('On Sign up page', () => {
   });
 
   it('Should create a new common user', () => {
-    // Arrange
-    const COMMON_USER = {
-      nome: randomName,
-      email: randomEmail,
-      pass: `Test;123`,
-    };
-
     // Act
-    cy.get(elSignup.inputName).type(COMMON_USER.nome);
-    cy.get(elSignup.inputEmail).type(COMMON_USER.email);
-    cy.get(elSignup.inputPass).type(COMMON_USER.pass);
+    cy.get(elSignup.inputName).type(USER.nome);
+    cy.get(elSignup.inputEmail).type(USER.email);
+    cy.get(elSignup.inputPass).type(USER.pass);
     cy.get(elSignup.buttonSubmit).click();
 
     // Assert
@@ -71,10 +64,26 @@ describe('On Sign up page', () => {
     cy.get(elHome.admin.menuRelatorios).should('not.exist');
   });
 
-  it.skip('Should not create user that already exists', () => {
-    // TODO - Develop test
+  it('Should not create user that already exists', () => {
     // Arrange
+    const DOUBLE_USER = {
+      nome: Utils.setRandomName(),
+      email: USER.email,
+      password: USER.pass,
+      administrador: 'true',
+    };
+
+    ActionSignup.API.createUser(DOUBLE_USER);
+
     // Act
+    cy.get(elSignup.inputName).type(USER.nome);
+    cy.get(elSignup.inputEmail).type(USER.email);
+    cy.get(elSignup.inputPass).type(USER.pass);
+    cy.get(elSignup.checkboxAdmin).click();
+    cy.get(elSignup.buttonSubmit).click();
+
     // Assert
+    cy.get(elHome.headerWelcome).should('not.exist');
+    cy.get(elSignup.toastAlert).should('exist').and('contain.text', 'Este email já está sendo usado');
   });
 });
