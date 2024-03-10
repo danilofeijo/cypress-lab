@@ -5,7 +5,6 @@ const Utils = require('../utils');
 const ActionSignup = require('../page/actions/signup');
 const ActionLogin = require('../page/actions/login');
 
-import { elGlobal } from '../page/elements/global';
 import { elLogin } from '../page/elements/login';
 import { elHome } from '../page/elements/home';
 
@@ -42,7 +41,7 @@ describe('On login page', () => {
 
     // Assert
     cy.get(elHome.headerWelcome).should('contain.text', ADMIN_USER.nome);
-    cy.get(elGlobal.buttonLogout).should('exist');
+    cy.get(elHome.buttonLogout).should('exist');
   });
 
   it('Should not log in with wrong credentials', () => {

@@ -2,7 +2,6 @@
 
 const Utils = require('../utils');
 
-import { elGlobal } from '../page/elements/global';
 import { elSignup } from '../page/elements/signup';
 import { elHome } from '../page/elements/home';
 
@@ -34,11 +33,11 @@ describe('On Sign up page', () => {
 
     // Assert
     cy.get(elHome.headerWelcome).should('contain.text', ADMIN_USER.nome);
-    cy.get(elGlobal.admin.menuCadastrarUsuarios).should('have.text', 'Cadastrar Usuários');
-    cy.get(elGlobal.admin.menuListarUsuarios).should('have.text', 'Listar Usuários');
-    cy.get(elGlobal.admin.menuCadastrarProdutos).should('have.text', 'Cadastrar Produtos');
-    cy.get(elGlobal.admin.menuListarProdutos).should('have.text', 'Listar Produtos');
-    cy.get(elGlobal.admin.menuRelatorios).should('have.text', 'Relatórios');
+    cy.get(elHome.admin.menuCadastrarUsuarios).should('have.text', 'Cadastrar Usuários');
+    cy.get(elHome.admin.menuListarUsuarios).should('have.text', 'Listar Usuários');
+    cy.get(elHome.admin.menuCadastrarProdutos).should('have.text', 'Cadastrar Produtos');
+    cy.get(elHome.admin.menuListarProdutos).should('have.text', 'Listar Produtos');
+    cy.get(elHome.admin.menuRelatorios).should('have.text', 'Relatórios');
   });
 
   it.skip('Should create a new common user', () => {
