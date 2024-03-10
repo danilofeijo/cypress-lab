@@ -3,9 +3,9 @@
 const Utils = require('../utils');
 
 // TODO - Explore better ways to import different files with elements
-const pageGlobal = require('../page/elements/global').ELEMENTS_GLOBAL;
-const pageSignup = require('../page/elements/signup').ELEMENTS_SIGNUP;
-const pageHome = require('../page/elements/home').ELEMENTS_HOME;
+import { elGlobal } from '../page/elements/global';
+import { elSignup } from '../page/elements/signup';
+import { elHome } from '../page/elements/home';
 
 let randomName;
 let randomEmail;
@@ -27,19 +27,19 @@ describe('On Sign up page', () => {
     };
 
     // Act
-    cy.get(pageSignup.inputName).type(USER.nome);
-    cy.get(pageSignup.inputEmail).type(USER.email);
-    cy.get(pageSignup.inputPass).type(USER.pass);
-    cy.get(pageSignup.checkboxAdmin).click();
-    cy.get(pageSignup.buttonSubmit).click();
+    cy.get(elSignup.inputName).type(USER.nome);
+    cy.get(elSignup.inputEmail).type(USER.email);
+    cy.get(elSignup.inputPass).type(USER.pass);
+    cy.get(elSignup.checkboxAdmin).click();
+    cy.get(elSignup.buttonSubmit).click();
 
     // Assert
-    cy.get(pageHome.headerWelcome).should('contain.text', USER.nome);
-    cy.get(pageGlobal.admin.menuCadastrarUsuarios).should('have.text', 'Cadastrar Usuários');
-    cy.get(pageGlobal.admin.menuListarUsuarios).should('have.text', 'Listar Usuários');
-    cy.get(pageGlobal.admin.menuCadastrarProdutos).should('have.text', 'Cadastrar Produtos');
-    cy.get(pageGlobal.admin.menuListarProdutos).should('have.text', 'Listar Produtos');
-    cy.get(pageGlobal.admin.menuRelatorios).should('have.text', 'Relatórios');
+    cy.get(elHome.headerWelcome).should('contain.text', USER.nome);
+    cy.get(elGlobal.admin.menuCadastrarUsuarios).should('have.text', 'Cadastrar Usuários');
+    cy.get(elGlobal.admin.menuListarUsuarios).should('have.text', 'Listar Usuários');
+    cy.get(elGlobal.admin.menuCadastrarProdutos).should('have.text', 'Cadastrar Produtos');
+    cy.get(elGlobal.admin.menuListarProdutos).should('have.text', 'Listar Produtos');
+    cy.get(elGlobal.admin.menuRelatorios).should('have.text', 'Relatórios');
   });
 
   it.skip('Should create a new common user', () => {

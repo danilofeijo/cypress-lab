@@ -1,6 +1,6 @@
 // Global elements to interact with any page
 
-export const ELEMENTS_GLOBAL = {
+export const elGlobal = {
   navbar: '#navbarTogglerDemo01',
   buttonLogout: '[data-testid="logout"]',
   menuHome: '[data-testid="home"]',

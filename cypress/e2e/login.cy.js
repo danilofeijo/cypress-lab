@@ -5,9 +5,9 @@ const Utils = require('../utils');
 const ActionSignup = require('../page/actions/signup');
 const ActionLogin = require('../page/actions/login');
 
-const pageGlobal = require('../page/elements/global').ELEMENTS_GLOBAL;
-const pageLogin = require('../page/elements/login').ELEMENTS_LOGIN;
-const pageHome = require('../page/elements/home').ELEMENTS_HOME;
+import { elGlobal } from '../page/elements/global';
+import { elLogin } from '../page/elements/login';
+import { elHome } from '../page/elements/home';
 
 let USER;
 
@@ -42,13 +42,13 @@ describe('On login page', () => {
     };
 
     // Act
-    cy.get(pageLogin.inputEmail).type(LOGIN.EMAIL);
-    cy.get(pageLogin.inputPass).type(LOGIN.PASS);
-    cy.get(pageLogin.buttonEnter).click();
+    cy.get(elLogin.inputEmail).type(LOGIN.EMAIL);
+    cy.get(elLogin.inputPass).type(LOGIN.PASS);
+    cy.get(elLogin.buttonEnter).click();
 
     // Assert
-    cy.get(pageHome.headerWelcome).should('contain.text', USER.nome);
-    cy.get(pageGlobal.buttonLogout).should('exist');
+    cy.get(elHome.headerWelcome).should('contain.text', USER.nome);
+    cy.get(elGlobal.buttonLogout).should('exist');
   });
 
   it('Should not log in with wrong credentials', () => {
@@ -59,11 +59,11 @@ describe('On login page', () => {
     };
 
     // Act
-    cy.get(pageLogin.inputEmail).type(LOGIN.EMAIL);
-    cy.get(pageLogin.inputPass).type(LOGIN.WRONG_PASS);
-    cy.get(pageLogin.buttonEnter).click();
+    cy.get(elLogin.inputEmail).type(LOGIN.EMAIL);
+    cy.get(elLogin.inputPass).type(LOGIN.WRONG_PASS);
+    cy.get(elLogin.buttonEnter).click();
 
     // Assert
-    cy.get(pageLogin.toastAlert).should('exist').and('contain.text', 'Email e/ou senha inválidos');
+    cy.get(elLogin.toastAlert).should('exist').and('contain.text', 'Email e/ou senha inválidos');
   });
 });

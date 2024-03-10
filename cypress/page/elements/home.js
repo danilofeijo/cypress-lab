@@ -1,5 +1,5 @@
 // Elements to interact with Home page
 
-export const ELEMENTS_HOME = {
+export const elHome = {
   headerWelcome: 'h1',
 };

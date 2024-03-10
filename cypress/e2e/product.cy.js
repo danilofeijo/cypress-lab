@@ -7,7 +7,7 @@ const ActionSignup = require('../page/actions/signup');
 const ActionLogin = require('../page/actions/login');
 const ActionProduct = require('../page/actions/product');
 
-const pageProduct = require('../page/elements/product').ELEMENTS_PRODUCT;
+import { elProduct } from '../page/elements/product';
 
 // TODO - Review uppercase usage
 // Reference - https://github.com/airbnb/javascript/#naming--uppercase
@@ -46,16 +46,16 @@ describe('As Admin user', () => {
       cy.visit('/admin/cadastrarprodutos');
 
       // Act
-      cy.get(pageProduct.create.inputName).type(PRODUCT.nome);
-      cy.get(pageProduct.create.inputPrice).type(PRODUCT.preco);
-      cy.get(pageProduct.create.inputDescription).type(PRODUCT.descricao);
-      cy.get(pageProduct.create.inputQuantity).type(PRODUCT.quantidade);
+      cy.get(elProduct.create.inputName).type(PRODUCT.nome);
+      cy.get(elProduct.create.inputPrice).type(PRODUCT.preco);
+      cy.get(elProduct.create.inputDescription).type(PRODUCT.descricao);
+      cy.get(elProduct.create.inputQuantity).type(PRODUCT.quantidade);
       // Image upload is barely working. Cypress command do so. Kept to have an use case.
-      cy.get(pageProduct.create.inputImageUpload).selectFile('cypress/fixtures/miamiGuardHouse.png');
-      cy.get(pageProduct.create.buttonSave).click();
+      cy.get(elProduct.create.inputImageUpload).selectFile('cypress/fixtures/miamiGuardHouse.png');
+      cy.get(elProduct.create.buttonSave).click();
 
       // Assert
-      cy.get(pageProduct.list.listProducts).should('contain.text', PRODUCT.nome);
+      cy.get(elProduct.list.listProducts).should('contain.text', PRODUCT.nome);
 
       // TODO - Clean up - delete created product
     });
@@ -75,13 +75,13 @@ describe('As Admin user', () => {
       cy.intercept('/produtos/*').as('deleteProduct');
 
       // Act
-      cy.contains(pageProduct.list.listProducts, PRODUCT.nome).within(() => {
-        cy.get(pageProduct.list.buttonDelete).click();
+      cy.contains(elProduct.list.listProducts, PRODUCT.nome).within(() => {
+        cy.get(elProduct.list.buttonDelete).click();
       });
       cy.wait('@deleteProduct');
 
       // Assert
-      cy.get(pageProduct.list.listProducts).should('not.contain.text', PRODUCT.nome);
+      cy.get(elProduct.list.listProducts).should('not.contain.text', PRODUCT.nome);
     });
   });
 });
