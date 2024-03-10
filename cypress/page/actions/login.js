@@ -1,14 +1,14 @@
 // Actions to interact with Login page
 
-const pageLogin = require('../elements/login').ELEMENTS_LOGIN;
+import { elLogin } from '../elements/login';
 
 class LoginUI {
   visitLogin() {
     cy.visit('/login');
 
-    cy.get(pageLogin.inputEmail).should('exist');
-    cy.get(pageLogin.inputPass).should('exist');
-    cy.get(pageLogin.buttonEnter).should('exist');
+    cy.get(elLogin.inputEmail).should('exist');
+    cy.get(elLogin.inputPass).should('exist');
+    cy.get(elLogin.buttonEnter).should('exist');
   }
 }
 
