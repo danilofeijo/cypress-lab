@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+// TODO - change require to import
 const Utils = require('../utils');
 
 const ActionSignup = require('../page/actions/signup');
