@@ -9,48 +9,77 @@ import { elLogin } from '../page/elements/login';
 import { elHome } from '../page/elements/home';
 
 let ADMIN_USER;
+let COMMON_USER;
 
 describe('On login page', () => {
   beforeEach(() => {
-    const randomName = Utils.setRandomName();
-    const randomEmail = Utils.setRandomEmail(randomName);
-
-    ADMIN_USER = {
-      nome: randomName,
-      email: randomEmail,
-      password: 'Test;123',
-      administrador: 'true',
-    };
-
-    ActionSignup.API.createUser(ADMIN_USER);
-    ActionLogin.UI.visitLogin();
+    // TODO - Bring step to promote DRY
   });
 
-  it.skip('Should log in with Common user credentials', () => {
-    // TODO - Develop test
-    // Arrange
-    // Act
-    // Assert
+  describe('as Common user', () => {
+    beforeEach(() => {
+      const randomName = Utils.setRandomName();
+      const randomEmail = Utils.setRandomEmail(randomName);
+
+      COMMON_USER = {
+        nome: randomName,
+        email: randomEmail,
+        password: 'Test;123',
+        administrador: 'false',
+      };
+
+      ActionSignup.API.createUser(COMMON_USER);
+      ActionLogin.UI.visitLogin();
+    });
+
+    it('Should log in with Common user credentials', () => {
+      // TODO - Develop test
+      // Act
+      cy.get(elLogin.inputEmail).type(COMMON_USER.email);
+      cy.get(elLogin.inputPass).type(COMMON_USER.password);
+      cy.get(elLogin.buttonEnter).click();
+
+      // Assert
+      cy.get(elHome.headerWelcome).should('contain.text', 'Serverest Store');
+      cy.get(elHome.buttonLogout).should('exist');
+    });
   });
 
-  it('Should log in with Admin user credentials', () => {
-    // Act
-    cy.get(elLogin.inputEmail).type(ADMIN_USER.email);
-    cy.get(elLogin.inputPass).type(ADMIN_USER.password);
-    cy.get(elLogin.buttonEnter).click();
+  describe('as Admin user', () => {
+    beforeEach(() => {
+      const randomName = Utils.setRandomName();
+      const randomEmail = Utils.setRandomEmail(randomName);
 
-    // Assert
-    cy.get(elHome.headerWelcome).should('contain.text', ADMIN_USER.nome);
-    cy.get(elHome.buttonLogout).should('exist');
-  });
+      ADMIN_USER = {
+        nome: randomName,
+        email: randomEmail,
+        password: 'Test;123',
+        administrador: 'true',
+      };
 
-  it('Should not log in with wrong credentials', () => {
-    // Act
-    cy.get(elLogin.inputEmail).type(ADMIN_USER.email);
-    cy.get(elLogin.inputPass).type('WRONG_PASS');
-    cy.get(elLogin.buttonEnter).click();
+      ActionSignup.API.createUser(ADMIN_USER);
+      ActionLogin.UI.visitLogin();
+    });
 
-    // Assert
-    cy.get(elLogin.toastAlert).should('exist').and('contain.text', 'Email e/ou senha inválidos');
+    it('Should log in with Admin user credentials', () => {
+      // Act
+      cy.get(elLogin.inputEmail).type(ADMIN_USER.email);
+      cy.get(elLogin.inputPass).type(ADMIN_USER.password);
+      cy.get(elLogin.buttonEnter).click();
+
+      // Assert
+      cy.get(elHome.headerWelcome).should('contain.text', ADMIN_USER.nome);
+      cy.get(elHome.buttonLogout).should('exist');
+    });
+
+    it('Should not log in with wrong credentials', () => {
+      // Act
+      cy.get(elLogin.inputEmail).type(ADMIN_USER.email);
+      cy.get(elLogin.inputPass).type('WRONG_PASS');
+      cy.get(elLogin.buttonEnter).click();
+
+      // Assert
+      cy.get(elLogin.toastAlert).should('exist').and('contain.text', 'Email e/ou senha inválidos');
+    });
   });
 });
