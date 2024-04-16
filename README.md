@@ -3,8 +3,7 @@
 ![GitHub](https://img.shields.io/github/license/danilofeijo/cypress-lab)
 
 # cypress-lab
-![Icon laboratory][flask-icon]
-<a href="https://www.flaticon.com/free-icons/flask" title="flask icons">Icon provided by Freepik - Flaticon</a>
+![Icon laboratori][cy-logo] ![Icon laboratory][flask-icon]
 
 A E2E test automation setup that you can apply in the real world.
 
@@ -69,8 +68,8 @@ Check other nice parameters by visiting the [Command Line Cypress page][ref-1].
 * [Como escolher uma licença para seu projeto][ref-10]
 
 <!-- Links list -->
-<!-- [flask-icon]: https://image.flaticon.com/icons/png/128/1157/1157001.png -->
 [flask-icon]: img/icon-lab-128.png "Flask icon"
+[cy-logo]: img/cy-logo.png "Cypress logo"
 
 [ref-1]: https://docs.cypress.io/guides/guides/command-line#Commands
 [ref-2]: https://medium.com/testbean/utilizando-cypress-na-vida-real-a93eec549128
