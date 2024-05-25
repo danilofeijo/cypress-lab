@@ -25,7 +25,7 @@ A E2E test automation setup that you can apply in the real world.
 ### CI/CD
 * ✅ [GitHub Actions][tool-ghactions], to automatically trigger test execution in CI/CD
 * ✅ [mochawesome][tool-mochawesome], to provide feedback about test execution
-* ⏭️ [Testing Parallelization][tool-parallelization], to accelerate test execution
+* ❌ [Testing Parallelization][tool-parallelization], to accelerate test execution
 
 ## Setup
 
