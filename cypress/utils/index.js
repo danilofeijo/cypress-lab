@@ -2,7 +2,7 @@
 
 const faker = require('faker');
 
-class Utils {
+module.exports = new (class Utils {
   setRandomName() {
     return faker.name.findName();
   }
@@ -14,6 +14,4 @@ class Utils {
 
     return `${alias.toLowerCase().replace(/\s+/g, '')}@test.com`;
   }
-}
-
-module.exports = new Utils();
+})();

@@ -1,13 +1,11 @@
 /// <reference types="cypress" />
 
-// TODO - change require to import
-const Utils = require('../utils');
+import Utils from '../utils';
 
-const ActionSignup = require('../page/actions/signup');
-const ActionLogin = require('../page/actions/login');
+import Signup from '../page/actions/signup';
 
-import { elLogin } from '../page/elements/login';
-import { elHome } from '../page/elements/home';
+import { elmLogin } from '../page/elements/login';
+import { elmHome } from '../page/elements/home';
 
 let USER;
 
@@ -23,33 +21,33 @@ describe('On login page', () => {
       administrador: 'true',
     };
 
-    ActionLogin.UI.visitLogin();
+    cy.visit('/login');
   });
 
   describe('as Admin user', () => {
     beforeEach(() => {
-      ActionSignup.API.createUser(USER);
+      Signup.createUser(USER);
     });
 
     it('Should log in with Admin user credentials', () => {
       // Act
-      cy.get(elLogin.inputEmail).type(USER.email);
-      cy.get(elLogin.inputPass).type(USER.password);
-      cy.get(elLogin.buttonEnter).click();
+      cy.get(elmLogin.inputEmail).type(USER.email);
+      cy.get(elmLogin.inputPass).type(USER.password);
+      cy.get(elmLogin.buttonEnter).click();
 
       // Assert
-      cy.get(elHome.headerWelcome).should('contain.text', USER.nome);
-      cy.get(elHome.buttonLogout).should('exist');
+      cy.get(elmHome.headerWelcome).should('contain.text', USER.nome);
+      cy.get(elmHome.buttonLogout).should('exist');
     });
 
     it('Should not log in with wrong credentials', () => {
       // Act
-      cy.get(elLogin.inputEmail).type(USER.email);
-      cy.get(elLogin.inputPass).type('WRONG_PASS');
-      cy.get(elLogin.buttonEnter).click();
+      cy.get(elmLogin.inputEmail).type(USER.email);
+      cy.get(elmLogin.inputPass).type('WRONG_PASS');
+      cy.get(elmLogin.buttonEnter).click();
 
       // Assert
-      cy.get(elLogin.toastAlert).should('exist').and('contain.text', 'Email e/ou senha inválidos');
+      cy.get(elmLogin.toastAlert).should('exist').and('contain.text', 'Email e/ou senha inválidos');
     });
   });
 
@@ -58,16 +56,16 @@ describe('On login page', () => {
       // Arrange
       USER.administrador = 'false';
 
-      ActionSignup.API.createUser(USER);
+      Signup.createUser(USER);
 
       // Act
-      cy.get(elLogin.inputEmail).type(USER.email);
-      cy.get(elLogin.inputPass).type(USER.password);
-      cy.get(elLogin.buttonEnter).click();
+      cy.get(elmLogin.inputEmail).type(USER.email);
+      cy.get(elmLogin.inputPass).type(USER.password);
+      cy.get(elmLogin.buttonEnter).click();
 
       // Assert
-      cy.get(elHome.headerWelcome).should('contain.text', 'Serverest Store');
-      cy.get(elHome.buttonLogout).should('exist');
+      cy.get(elmHome.headerWelcome).should('contain.text', 'Serverest Store');
+      cy.get(elmHome.buttonLogout).should('exist');
     });
   });
 });

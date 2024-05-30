@@ -1,12 +1,11 @@
 /// <reference types="cypress" />
 
-// TODO - change require to import
-const Utils = require('../utils');
+import Utils from '../utils';
 
-const ActionSignup = require('../page/actions/signup');
+import Signup from '../page/actions/signup';
 
-import { elSignup } from '../page/elements/signup';
-import { elHome } from '../page/elements/home';
+import { elmSignup } from '../page/elements/signup';
+import { elmHome } from '../page/elements/home';
 
 let USER;
 
@@ -26,43 +25,43 @@ describe('On Sign up page', () => {
 
   it('Should create a new admin user', () => {
     // Act
-    cy.get(elSignup.inputName).type(USER.nome);
-    cy.get(elSignup.inputEmail).type(USER.email);
-    cy.get(elSignup.inputPass).type(USER.pass);
-    cy.get(elSignup.checkboxAdmin).click();
-    cy.get(elSignup.buttonSubmit).click();
+    cy.get(elmSignup.inputName).type(USER.nome);
+    cy.get(elmSignup.inputEmail).type(USER.email);
+    cy.get(elmSignup.inputPass).type(USER.pass);
+    cy.get(elmSignup.checkboxAdmin).click();
+    cy.get(elmSignup.buttonSubmit).click();
 
     // Assert
-    cy.get(elHome.headerWelcome).should('contain.text', USER.nome);
-    cy.get(elHome.admin.menuCadastrarUsuarios).should('have.text', 'Cadastrar Usuários');
-    cy.get(elHome.admin.menuListarUsuarios).should('have.text', 'Listar Usuários');
-    cy.get(elHome.admin.menuCadastrarProdutos).should('have.text', 'Cadastrar Produtos');
-    cy.get(elHome.admin.menuListarProdutos).should('have.text', 'Listar Produtos');
-    cy.get(elHome.admin.menuRelatorios).should('have.text', 'Relatórios');
-    cy.get(elHome.buttonLogout).should('exist');
+    cy.get(elmHome.headerWelcome).should('contain.text', USER.nome);
+    cy.get(elmHome.admin.menuCadastrarUsuarios).should('have.text', 'Cadastrar Usuários');
+    cy.get(elmHome.admin.menuListarUsuarios).should('have.text', 'Listar Usuários');
+    cy.get(elmHome.admin.menuCadastrarProdutos).should('have.text', 'Cadastrar Produtos');
+    cy.get(elmHome.admin.menuListarProdutos).should('have.text', 'Listar Produtos');
+    cy.get(elmHome.admin.menuRelatorios).should('have.text', 'Relatórios');
+    cy.get(elmHome.buttonLogout).should('exist');
 
-    cy.get(elHome.common.menuListaCompras).should('not.exist');
-    cy.get(elHome.common.menuCarrinho).should('not.exist');
+    cy.get(elmHome.common.menuListaCompras).should('not.exist');
+    cy.get(elmHome.common.menuCarrinho).should('not.exist');
   });
 
   it('Should create a new common user', () => {
     // Act
-    cy.get(elSignup.inputName).type(USER.nome);
-    cy.get(elSignup.inputEmail).type(USER.email);
-    cy.get(elSignup.inputPass).type(USER.pass);
-    cy.get(elSignup.buttonSubmit).click();
+    cy.get(elmSignup.inputName).type(USER.nome);
+    cy.get(elmSignup.inputEmail).type(USER.email);
+    cy.get(elmSignup.inputPass).type(USER.pass);
+    cy.get(elmSignup.buttonSubmit).click();
 
     // Assert
-    cy.get(elHome.common.menuListaCompras).should('exist');
-    cy.get(elHome.common.menuCarrinho).should('exist');
-    cy.get(elHome.buttonLogout).should('exist');
-    cy.get(elHome.headerWelcome).should('contain.text', 'Serverest Store');
+    cy.get(elmHome.common.menuListaCompras).should('exist');
+    cy.get(elmHome.common.menuCarrinho).should('exist');
+    cy.get(elmHome.buttonLogout).should('exist');
+    cy.get(elmHome.headerWelcome).should('contain.text', 'Serverest Store');
 
-    cy.get(elHome.admin.menuCadastrarUsuarios).should('not.exist');
-    cy.get(elHome.admin.menuListarUsuarios).should('not.exist');
-    cy.get(elHome.admin.menuCadastrarProdutos).should('not.exist');
-    cy.get(elHome.admin.menuListarProdutos).should('not.exist');
-    cy.get(elHome.admin.menuRelatorios).should('not.exist');
+    cy.get(elmHome.admin.menuCadastrarUsuarios).should('not.exist');
+    cy.get(elmHome.admin.menuListarUsuarios).should('not.exist');
+    cy.get(elmHome.admin.menuCadastrarProdutos).should('not.exist');
+    cy.get(elmHome.admin.menuListarProdutos).should('not.exist');
+    cy.get(elmHome.admin.menuRelatorios).should('not.exist');
   });
 
   it('Should not create user that already exists', () => {
@@ -74,17 +73,17 @@ describe('On Sign up page', () => {
       administrador: 'true',
     };
 
-    ActionSignup.API.createUser(DOUBLE_USER);
+    Signup.createUser(DOUBLE_USER);
 
     // Act
-    cy.get(elSignup.inputName).type(USER.nome);
-    cy.get(elSignup.inputEmail).type(USER.email);
-    cy.get(elSignup.inputPass).type(USER.pass);
-    cy.get(elSignup.checkboxAdmin).click();
-    cy.get(elSignup.buttonSubmit).click();
+    cy.get(elmSignup.inputName).type(USER.nome);
+    cy.get(elmSignup.inputEmail).type(USER.email);
+    cy.get(elmSignup.inputPass).type(USER.pass);
+    cy.get(elmSignup.checkboxAdmin).click();
+    cy.get(elmSignup.buttonSubmit).click();
 
     // Assert
-    cy.get(elHome.headerWelcome).should('not.exist');
-    cy.get(elSignup.toastAlert).should('exist').and('contain.text', 'Este email já está sendo usado');
+    cy.get(elmHome.headerWelcome).should('not.exist');
+    cy.get(elmSignup.toastAlert).should('exist').and('contain.text', 'Este email já está sendo usado');
   });
 });

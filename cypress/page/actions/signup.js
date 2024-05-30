@@ -1,13 +1,6 @@
 // Actions to interact with Signup page
 
-// Will be needed when create the first UI action
-// const elementsSignup = require('./elements').ELEMENTS;
-
-class SignupUI {
-  // Space to create UI actions when needed
-}
-
-class SignupAPI {
+module.exports = new (class SignupActions {
   /**
    *
    * @param {Object} userData
@@ -29,9 +22,4 @@ class SignupAPI {
       cy.log('[LOG] User created: ' + userData.email);
     });
   }
-}
-
-module.exports = {
-  UI: new SignupUI(),
-  API: new SignupAPI(),
-};
+})();
