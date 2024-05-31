@@ -1,9 +1,6 @@
 // Actions to interact with Product page
 
-// Will be needed when create the first UI action
-// const elementsProductCreate = require('./elements').ELEMENTS;
-
-class ProductAPI {
+module.exports = new (class ProductActions {
   /**
    *
    * @param {Object} userCredentials
@@ -38,8 +35,4 @@ class ProductAPI {
       });
     });
   }
-}
-
-module.exports = {
-  API: new ProductAPI(),
-};
+})();

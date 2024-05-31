@@ -2,7 +2,7 @@
 
 import { elGlobal } from './global';
 
-export const elHome = {
+export const elmHome = {
   ...elGlobal,
   headerWelcome: 'h1',
 };

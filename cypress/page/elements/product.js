@@ -1,6 +1,6 @@
 // Elements to interact with Product page
 
-export const elProduct = {
+export const elmProduct = {
   create: {
     inputName: '[data-testid="nome"]',
     inputPrice: '[data-testid="preco"]',

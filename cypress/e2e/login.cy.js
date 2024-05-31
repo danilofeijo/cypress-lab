@@ -1,56 +1,71 @@
 /// <reference types="cypress" />
 
-const Utils = require('../utils');
+import Utils from '../utils';
 
-const ActionSignup = require('../page/actions/signup');
-const ActionLogin = require('../page/actions/login');
+import Signup from '../page/actions/signup';
 
-import { elLogin } from '../page/elements/login';
-import { elHome } from '../page/elements/home';
+import { elmLogin } from '../page/elements/login';
+import { elmHome } from '../page/elements/home';
 
-let ADMIN_USER;
+let USER;
 
 describe('On login page', () => {
   beforeEach(() => {
     const randomName = Utils.setRandomName();
     const randomEmail = Utils.setRandomEmail(randomName);
 
-    ADMIN_USER = {
+    USER = {
       nome: randomName,
       email: randomEmail,
       password: 'Test;123',
       administrador: 'true',
     };
 
-    ActionSignup.API.createUser(ADMIN_USER);
-    ActionLogin.UI.visitLogin();
+    cy.visit('/login');
   });
 
-  it.skip('Should log in with Common user credentials', () => {
-    // TODO - Develop test
-    // Arrange
-    // Act
-    // Assert
+  describe('as Admin user', () => {
+    beforeEach(() => {
+      Signup.createUser(USER);
+    });
+
+    it('Should log in with Admin user credentials', () => {
+      // Act
+      cy.get(elmLogin.inputEmail).type(USER.email);
+      cy.get(elmLogin.inputPass).type(USER.password);
+      cy.get(elmLogin.buttonEnter).click();
+
+      // Assert
+      cy.get(elmHome.headerWelcome).should('contain.text', USER.nome);
+      cy.get(elmHome.buttonLogout).should('exist');
+    });
+
+    it('Should not log in with wrong credentials', () => {
+      // Act
+      cy.get(elmLogin.inputEmail).type(USER.email);
+      cy.get(elmLogin.inputPass).type('WRONG_PASS');
+      cy.get(elmLogin.buttonEnter).click();
+
+      // Assert
+      cy.get(elmLogin.toastAlert).should('exist').and('contain.text', 'Email e/ou senha inválidos');
+    });
   });
 
-  it('Should log in with Admin user credentials', () => {
-    // Act
-    cy.get(elLogin.inputEmail).type(ADMIN_USER.email);
-    cy.get(elLogin.inputPass).type(ADMIN_USER.password);
-    cy.get(elLogin.buttonEnter).click();
+  describe('as Common user', () => {
+    it('Should log in with Common user credentials', () => {
+      // Arrange
+      USER.administrador = 'false';
 
-    // Assert
-    cy.get(elHome.headerWelcome).should('contain.text', ADMIN_USER.nome);
-    cy.get(elHome.buttonLogout).should('exist');
-  });
+      Signup.createUser(USER);
 
-  it('Should not log in with wrong credentials', () => {
-    // Act
-    cy.get(elLogin.inputEmail).type(ADMIN_USER.email);
-    cy.get(elLogin.inputPass).type('WRONG_PASS');
-    cy.get(elLogin.buttonEnter).click();
+      // Act
+      cy.get(elmLogin.inputEmail).type(USER.email);
+      cy.get(elmLogin.inputPass).type(USER.password);
+      cy.get(elmLogin.buttonEnter).click();
 
-    // Assert
-    cy.get(elLogin.toastAlert).should('exist').and('contain.text', 'Email e/ou senha inválidos');
+      // Assert
+      cy.get(elmHome.headerWelcome).should('contain.text', 'Serverest Store');
+      cy.get(elmHome.buttonLogout).should('exist');
+    });
   });
 });

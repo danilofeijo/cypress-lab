@@ -1,13 +1,13 @@
 /// <reference types="cypress" />
 
-const Utils = require('../utils');
-const faker = require('faker');
+import Utils from '../utils';
+import faker from 'faker';
 
-const ActionSignup = require('../page/actions/signup');
-const ActionLogin = require('../page/actions/login');
-const ActionProduct = require('../page/actions/product');
+import Signup from '../page/actions/signup';
+import Login from '../page/actions/login';
+import Product from '../page/actions/product';
 
-import { elProduct } from '../page/elements/product';
+import { elmProduct } from '../page/elements/product';
 
 let ADMIN_USER;
 let PRODUCT;
@@ -24,11 +24,11 @@ describe('As Admin user', () => {
       administrador: 'true',
     };
 
-    ActionSignup.API.createUser(ADMIN_USER);
+    Signup.createUser(ADMIN_USER);
   });
 
   beforeEach(() => {
-    ActionLogin.API.login(ADMIN_USER.email, ADMIN_USER.password);
+    Login.login(ADMIN_USER.email, ADMIN_USER.password);
 
     PRODUCT = {
       nome: faker.commerce.productName(),
@@ -44,16 +44,16 @@ describe('As Admin user', () => {
       cy.visit('/admin/cadastrarprodutos');
 
       // Act
-      cy.get(elProduct.create.inputName).type(PRODUCT.nome);
-      cy.get(elProduct.create.inputPrice).type(PRODUCT.preco);
-      cy.get(elProduct.create.inputDescription).type(PRODUCT.descricao);
-      cy.get(elProduct.create.inputQuantity).type(PRODUCT.quantidade);
+      cy.get(elmProduct.create.inputName).type(PRODUCT.nome);
+      cy.get(elmProduct.create.inputPrice).type(PRODUCT.preco);
+      cy.get(elmProduct.create.inputDescription).type(PRODUCT.descricao);
+      cy.get(elmProduct.create.inputQuantity).type(PRODUCT.quantidade);
       // Image upload is barely working. Cypress command do so. Kept to have an use case.
-      cy.get(elProduct.create.inputImageUpload).selectFile('cypress/fixtures/miamiGuardHouse.png');
-      cy.get(elProduct.create.buttonSave).click();
+      cy.get(elmProduct.create.inputImageUpload).selectFile('cypress/fixtures/miamiGuardHouse.png');
+      cy.get(elmProduct.create.buttonSave).click();
 
       // Assert
-      cy.get(elProduct.list.listProducts).should('contain.text', PRODUCT.nome);
+      cy.get(elmProduct.list.listProducts).should('contain.text', PRODUCT.nome);
 
       // TODO - Clean up - delete created product
     });
@@ -67,19 +67,19 @@ describe('As Admin user', () => {
         password: ADMIN_USER.password,
       };
 
-      ActionProduct.API.createProduct(adminCredentials, PRODUCT);
+      Product.createProduct(adminCredentials, PRODUCT);
 
       cy.visit('/admin/listarprodutos');
       cy.intercept('/produtos/*').as('deleteProduct');
 
       // Act
-      cy.contains(elProduct.list.listProducts, PRODUCT.nome).within(() => {
-        cy.get(elProduct.list.buttonDelete).click();
+      cy.contains(elmProduct.list.listProducts, PRODUCT.nome).within(() => {
+        cy.get(elmProduct.list.buttonDelete).click();
       });
       cy.wait('@deleteProduct');
 
       // Assert
-      cy.get(elProduct.list.listProducts).should('not.contain.text', PRODUCT.nome);
+      cy.get(elmProduct.list.listProducts).should('not.contain.text', PRODUCT.nome);
     });
   });
 });

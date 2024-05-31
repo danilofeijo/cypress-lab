@@ -1,18 +1,18 @@
 // Actions to interact with Login page
 
-import { elLogin } from '../elements/login';
+// import { elLogin } from '../elements/login';
 
-class LoginUI {
-  visitLogin() {
-    cy.visit('/login');
+// class LoginUI {
+//   visitLogin() {
+//     cy.visit('/login');
 
-    cy.get(elLogin.inputEmail).should('exist');
-    cy.get(elLogin.inputPass).should('exist');
-    cy.get(elLogin.buttonEnter).should('exist');
-  }
-}
+//     cy.get(elLogin.inputEmail).should('exist');
+//     cy.get(elLogin.inputPass).should('exist');
+//     cy.get(elLogin.buttonEnter).should('exist');
+//   }
+// }
 
-class LoginAPI {
+module.exports = new (class LoginActions {
   /**
    *
    * @param {string} email
@@ -37,9 +37,9 @@ class LoginAPI {
       cy.log('[LOG] User logged in: ' + email);
     });
   }
-}
+})();
 
-module.exports = {
-  UI: new LoginUI(),
-  API: new LoginAPI(),
-};
+// module.exports = {
+//   UI: new LoginUI(),
+//   LoginAction: new LoginAction(),
+// };

@@ -1,13 +1,6 @@
 // Actions to interact with Signup page
 
-// Will be needed when create the first UI action
-// const elementsSignup = require('./elements').ELEMENTS;
-
-class SignupUI {
-  // Space to create UI actions when needed
-}
-
-class SignupAPI {
+module.exports = new (class SignupActions {
   /**
    *
    * @param {Object} userData
@@ -25,11 +18,8 @@ class SignupAPI {
       expect(res.status).to.be.eql(201);
       expect(res.body).to.have.property('message');
       expect(res.body.message).to.be.eql('Cadastro realizado com sucesso');
+
+      cy.log('[LOG] User created: ' + userData.email);
     });
   }
-}
-
-module.exports = {
-  UI: new SignupUI(),
-  API: new SignupAPI(),
-};
+})();
